@@ -122,9 +122,20 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
-    <Compile Include="Data\Contracts\IRepository.cs" />
-    <Compile Include="Data\Contracts\IUow.cs" />
-    <Compile Include="Data\DbContext.cs" />
+    <Compile Include="Data\Contracts\IRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Contracts\IRepositoryProvider.cs" />
+    <Compile Include="Data\Contracts\IUow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\DbContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\EFRepository.cs" />
+    <Compile Include="Data\RepositoryFactories.cs" />
+    <Compile Include="Data\RepositoryProvider.cs" />
+    <Compile Include="Data\Uow.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

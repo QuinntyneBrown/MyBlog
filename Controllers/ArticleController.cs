@@ -11,17 +11,17 @@ namespace MyBlog.Controllers
 {
     public class ArticleController : ApiController
     {
-        protected readonly IRepository<Article> articleRepository;
+        protected readonly IRepository<Article> repository;
 
         public ArticleController(IUow uow)
         {
-            this.articleRepository = uow.Articles;
+            this.repository = uow.Articles;
         }
 
         [HttpGet]
         public IHttpActionResult GetAll()
         {
-            return Ok();
+            return Ok(repository.GetAll());
         }
     }
 }

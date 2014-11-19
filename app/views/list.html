@@ -1,0 +1,13 @@
+﻿<div ng-controller="blogController as vm">
+
+    <h1>List</h1>
+
+    <div ng-repeat="post in vm.posts">
+        
+        <h1>{{post.name}}</h1>
+
+        <p>{{ post.body}}</p>
+
+    </div>
+
+</div>

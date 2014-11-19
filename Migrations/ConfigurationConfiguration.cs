@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace MyBlog.Migrations
+{
+    public class ConfigurationConfiguration
+    {
+        public static void Seed(MyBlog.Data.DbContext context)
+        {
+            if (context.Configurations.Count() < 1)
+            {
+                context.Configurations.Add(new MyBlog.Models.Configuration() { Name = "My Blog", TenantId = 1, Theme = "Winter" });
+
+                context.SaveChanges();
+            }
+        }
+    }
+}

@@ -2,7 +2,13 @@
 
     "use strict";
 
-    var app = angular.module("app", ["ngRoute", "blog", "core", "session"]);
+    var app = angular.module("app", [
+        "ngRoute",
+        "blog",
+        "configuration",
+        "core",
+        "session"
+    ]);
 
 
     app.config(["$routeProvider", function ($routeProvider) {
@@ -30,7 +36,7 @@
 
     "use strict";
 
-    var app = angular.module("blog", ["core","session","ngRoute"]);
+    var app = angular.module("blog", ["configuration","core","session","ngRoute"]);
 
 
     app.config(["$routeProvider", function ($routeProvider) {
@@ -71,6 +77,31 @@
         };
 
         return self;
+    };
+
+})();
+(function () {
+
+    "use strict";
+
+    var app = angular.module("configuration", []);
+
+})();
+(function () {
+
+    "use strict";
+
+    var serviceId = "configurationService";
+
+    angular.module("configuration").service(serviceId, [service]);
+
+    function service() {
+
+        var self = this;
+
+
+        return self;
+
     };
 
 })();

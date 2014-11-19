@@ -14,6 +14,10 @@ namespace MyBlog.Migrations
 
         protected override void Seed(MyBlog.Data.DbContext context)
         {
+            // Configuration the Configuration Entities. 
+            //A little confusing but consistent
+            ConfigurationConfiguration.Seed(context);
+
             ArticleConfiguration.Seed(context);
         }
     }

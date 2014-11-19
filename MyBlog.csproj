@@ -95,9 +95,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app.css" />
+    <Content Include="app.js" />
+    <Content Include="app\blog\components\articleView\articleView.css" />
     <Content Include="app\blog\module.js" />
     <Content Include="app\blog\services\articleService.js" />
     <Content Include="app\blog\views\article.html" />
+    <Content Include="app\configuration\services\configurationService.js" />
     <Content Include="app\core\components\coreHeader\coreHeader.css" />
     <Content Include="app\core\components\coreHeader\coreHeader.html" />
     <Content Include="app\core\components\coreHeader\coreHeader.js" />
@@ -119,9 +123,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\configuration\module.js" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Data\Contracts\IRepository.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -141,7 +147,9 @@
     </Compile>
     <Compile Include="Migrations\ArticleConfiguration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\ConfigurationConfiguration.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\blog\components\articleBriefView\" />
-    <Folder Include="app\blog\components\articleView\" />
     <Folder Include="app\core\styles\" />
     <Folder Include="app\home\components\homeListView\" />
     <Folder Include="Services\" />

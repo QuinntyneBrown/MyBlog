@@ -5,11 +5,11 @@ using System.Web;
 
 namespace MyBlog.Models
 {
-    public class Article
+    public class Configuration
     {
         public int Id { get; set; }
-        public int? TenantId { get; set; }
-        public string Title { get; set; }
-        public string HtmlBody { get; set; }
+        public string Name { get; set; }
+        public string Theme { get; set; }
+        public int TenantId { get; set; }
     }
 }

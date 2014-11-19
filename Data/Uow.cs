@@ -30,7 +30,8 @@ namespace MyBlog.Data
             DbContext.Configuration.ValidateOnSaveEnabled = false;
         }
 
-        public IRepository<Article> Articles { get { return GetStandardRepo<Article>(); } } 
+        public IRepository<Article> Articles { get { return GetStandardRepo<Article>(); } }
+        public IRepository<Configuration> Configurations { get { return GetStandardRepo<Configuration>(); } }
 
         public void SaveChanges()
         {

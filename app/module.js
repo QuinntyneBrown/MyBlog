@@ -2,7 +2,13 @@
 
     "use strict";
 
-    var app = angular.module("app", ["ngRoute", "blog", "core", "session"]);
+    var app = angular.module("app", [
+        "ngRoute",
+        "blog",
+        "configuration",
+        "core",
+        "session"
+    ]);
 
 
     app.config(["$routeProvider", function ($routeProvider) {

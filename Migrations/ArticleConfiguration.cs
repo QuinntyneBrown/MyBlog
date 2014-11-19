@@ -11,15 +11,19 @@ namespace MyBlog.Migrations
         {
             if (context.Articles.Count() < 1)
             {
+                var configuration = context.Configurations.First();
+
                 context.Articles.Add(new Models.Article() { 
                     Title = "Rememberance Day!", 
-                    HtmlBody = "A Great Day To Remember!"
+                    HtmlBody = "A Great Day To Remember!",
+                    TenantId = configuration.TenantId
                 });
 
                 context.Articles.Add(new Models.Article()
                 {
                     Title = "Chistmas Day!",
-                    HtmlBody = "Holiday after Rememberance Day!"
+                    HtmlBody = "Holiday after Rememberance Day!",
+                    TenantId = configuration.TenantId
                 });
 
                 context.SaveChanges();

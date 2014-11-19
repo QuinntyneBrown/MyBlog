@@ -18,6 +18,7 @@ namespace MyBlog.Data
         }
 
         public DbSet<Article> Articles { get; set; }
+        public DbSet<Configuration> Configurations { get; set; }
 
         public int SaveChanges()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyBlog.Services.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,5 +10,11 @@ namespace MyBlog.Controllers
 {
     public class BaseApiController : ApiController
     {
+        protected readonly ISessionService sessionService;
+
+        public BaseApiController(ISessionService sessionService)
+        {
+            this.sessionService = sessionService;
+        }
     }
 }

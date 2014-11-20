@@ -21,7 +21,8 @@ namespace MyBlog.Data
         public DbSet<ArticleTranslation> ArticleTranslations { get; set; }
         public DbSet<Configuration> Configurations { get; set; }
         public DbSet<CultureCode> CultureCodes { get; set; }
-
+        public DbSet<Session> Sessions { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public int SaveChanges()
         {

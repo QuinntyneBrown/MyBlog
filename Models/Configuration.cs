@@ -5,9 +5,8 @@ using System.Web;
 
 namespace MyBlog.Models
 {
-    public class Configuration
+    public class Configuration : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Theme { get; set; }
         public int TenantId { get; set; }

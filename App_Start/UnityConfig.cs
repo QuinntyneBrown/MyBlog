@@ -1,6 +1,8 @@
 using Microsoft.Practices.Unity;
 using MyBlog.Data;
 using MyBlog.Data.Contracts;
+using MyBlog.Services;
+using MyBlog.Services.Contracts;
 using System.Web.Http;
 using Unity.WebApi;
 
@@ -20,6 +22,8 @@ namespace MyBlog
             var container = new UnityContainer();
             container.RegisterType<IUow, Uow>();
             container.RegisterType<IRepositoryProvider, RepositoryProvider>();
+            container.RegisterType<ISessionService, SessionService>();
+            container.RegisterType<IIdentityService, IdentityService>();
             return container;
         }
     }

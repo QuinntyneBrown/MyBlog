@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MyBlog.Models
 {
-    public class CultureCode
+    public class CultureCode : BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -1,5 +1,6 @@
 ﻿using MyBlog.Data.Contracts;
 using MyBlog.Models;
+using MyBlog.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,8 @@ namespace MyBlog.Controllers
         private readonly IUow _uow;
         private readonly IRepository<Configuration> _repository;
 
-        public ConfigurationController(IUow uow)
+        public ConfigurationController(ISessionService sessionService, IUow uow) 
+            :base(sessionService)
         {
             this._uow = uow;
             this._repository = uow.Configurations;

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MyBlog.Models
 {
-    public class ArticleTranslation
+    public class ArticleTranslation: BaseEntity
     {
         public int Id { get; set; }
         public int? ArticleId { get; set; }

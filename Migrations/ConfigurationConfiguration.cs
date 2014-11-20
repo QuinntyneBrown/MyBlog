@@ -5,6 +5,8 @@ using System.Web;
 
 namespace MyBlog.Migrations
 {
+    // Entity Configuration Class for the Configuration Entities. 
+    // A little confusing but consistent
     public class ConfigurationConfiguration
     {
         public static void Seed(MyBlog.Data.DbContext context)

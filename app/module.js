@@ -7,7 +7,8 @@
         "blog",
         "configuration",
         "core",
-        "session"
+        "session",
+        "user"
     ]);
 
     app.config(["$routeProvider", function ($routeProvider) {

@@ -32,6 +32,8 @@ namespace MyBlog.Data
 
         public IRepository<Article> Articles { get { return GetStandardRepo<Article>(); } }
         public IRepository<Configuration> Configurations { get { return GetStandardRepo<Configuration>(); } }
+        public IRepository<Session> Sessions { get { return GetStandardRepo<Session>();  } }
+        public IRepository<User> Users { get { return GetStandardRepo<User>(); } }
 
         public void SaveChanges()
         {

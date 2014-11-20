@@ -140,6 +140,17 @@
     <Content Include="app\module.js" />
     <Content Include="app\session\models\session.js" />
     <Content Include="app\session\module.js" />
+    <Content Include="app\user\components\registrationForm\registrationForm.css" />
+    <Content Include="app\user\components\registrationForm\registrationForm.html" />
+    <Content Include="app\user\components\registrationForm\registrationForm.js" />
+    <Content Include="app\user\components\signInForm\signInForm.css" />
+    <Content Include="app\user\components\signInForm\signInForm.html" />
+    <Content Include="app\user\components\signInForm\signInForm.js" />
+    <Content Include="app\user\module.js" />
+    <Content Include="app\user\services\identityService.js" />
+    <Content Include="app\user\services\userRouteResolver.js" />
+    <Content Include="app\user\views\register.html" />
+    <Content Include="app\user\views\signin.html" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="scripts\angular-mocks.js" />
@@ -150,6 +161,17 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\IdentityController.cs" />
+    <Compile Include="Dtos\RegistrationRequestDto.cs" />
+    <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Services\Contracts\IIdentityService.cs" />
+    <Compile Include="Services\Contracts\ISessionService.cs" />
+    <Compile Include="Services\Contracts\ITokenService.cs" />
+    <Compile Include="Services\IdentityService.cs" />
+    <Compile Include="Services\SessionService.cs" />
+    <Compile Include="Services\TokenService.cs" />
     <Content Include="app\configuration\module.js" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -188,6 +210,8 @@
     </Content>
     <Content Include="scripts\angular.min.js.map" />
     <Content Include="scripts\angular-route.min.js.map" />
+    <None Include="Properties\PublishProfiles\ngblog - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\ngblog - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -197,7 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\core\styles\" />
-    <Folder Include="Services\" />
+    <Folder Include="uiTinyMCE\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

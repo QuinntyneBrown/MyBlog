@@ -1,5 +1,6 @@
 ﻿using MyBlog.Data.Contracts;
 using MyBlog.Models;
+using MyBlog.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace MyBlog.Controllers
 
         protected readonly IUow uow;
 
-        public ArticleController(IUow uow)
+        public ArticleController(ISessionService sessionService, IUow uow):
+            base(sessionService)
         {
             this.uow = uow;
 

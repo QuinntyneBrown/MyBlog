@@ -10,6 +10,8 @@ namespace MyBlog.Data.Contracts
     {
         IRepository<Article> Articles { get; }
         IRepository<Configuration> Configurations { get; }
+        IRepository<Session> Sessions { get; }
+        IRepository<User> Users { get; }
 
         void SaveChanges();
     }

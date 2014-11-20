@@ -2,6 +2,6 @@
 
     "use strict";
 
-    var app = angular.module("core", []);
+    var app = angular.module("core", ["configuration"]);
 
 })();

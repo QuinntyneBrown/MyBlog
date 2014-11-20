@@ -2,6 +2,6 @@
 
     "use strict";
 
-    var app = angular.module("session", ["core"]);
+    var app = angular.module("session", ["configuration", "core"]);
 
 })();

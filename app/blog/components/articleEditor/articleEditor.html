@@ -1,0 +1,29 @@
+﻿<div>
+
+    
+    <hgroup>
+        <h1 data-ng-show="model.id > 0">Edit Article</h1>
+        <h1 data-ng-show="model.id == 0">Create Article</h1>
+    </hgroup>
+
+
+    <form>
+        <div>
+
+            <label></label>
+
+            <input data-ng-model="model.Title" />
+
+        </div>
+
+        <div>
+            <label></label>
+
+            <textarea data-ng-model="model.HtmlBody" />
+        </div>
+
+        <div>
+            <input type="submit" value="Save" />
+        </div>
+    </form>
+</div>

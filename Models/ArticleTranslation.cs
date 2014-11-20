@@ -5,12 +5,12 @@ using System.Web;
 
 namespace MyBlog.Models
 {
-    public class Article
+    public class ArticleTranslation
     {
         public int Id { get; set; }
-        public int? TenantId { get; set; }
+        public int? ArticleId { get; set; }
         public string Title { get; set; }
         public string HtmlBody { get; set; }
-        public string Version { get; set; }
+        public int? CultureCodeId { get; set; }
     }
 }

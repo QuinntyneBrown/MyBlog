@@ -20,8 +20,6 @@ namespace MyBlog
             var container = new UnityContainer();
             container.RegisterType<IUow, Uow>();
             container.RegisterType<IRepositoryProvider, RepositoryProvider>();
-
-
             return container;
         }
     }

@@ -1,0 +1,22 @@
+﻿<div data-ng-hide="hide()">
+
+    <hgroup>
+        <h1>Articles</h1>
+    </hgroup>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="model in models">
+                <td> <a>{{ model.Id }}</a></td>
+                <td> <a>{{ model.Title }}</a></td>
+                <td> <a href="#/admin/article/edit/{{ model.Id }}">edit</a>&nbsp;|&nbsp;<a data-ng-click="remove(model)">delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

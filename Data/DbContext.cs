@@ -18,7 +18,10 @@ namespace MyBlog.Data
         }
 
         public DbSet<Article> Articles { get; set; }
+        public DbSet<ArticleTranslation> ArticleTranslations { get; set; }
         public DbSet<Configuration> Configurations { get; set; }
+        public DbSet<CultureCode> CultureCodes { get; set; }
+
 
         public int SaveChanges()
         {

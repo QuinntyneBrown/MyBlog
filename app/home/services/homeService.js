@@ -4,16 +4,15 @@
 
     var serviceId = "homeService";
     
-    angular.module("app").service(serviceId, ["blogService", service]);
+    angular.module("app").service(serviceId, ["articleService", service]);
 
-
-    function service() {
+    function service(articleService) {
 
         var self = this;
 
         self.getAllArticles = function getAllArticles() {
 
-            return blogService.getAllArticles();
+            return articleService.getAll();
 
         };
 

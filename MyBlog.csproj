@@ -55,6 +55,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt">
+      <HintPath>packages\System.IdentityModel.Tokens.Jwt.4.0.1\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -97,11 +100,28 @@
   <ItemGroup>
     <Content Include="app.css" />
     <Content Include="app.js" />
+    <Content Include="app\blog\components\articleBriefView\articleBriefView.css" />
+    <Content Include="app\blog\components\articleBriefView\articleBriefView.html" />
+    <Content Include="app\blog\components\articleBriefView\articleBriefView.js" />
+    <Content Include="app\blog\components\articleEditor\articleEditor.css" />
+    <Content Include="app\blog\components\articleEditor\articleEditor.html" />
+    <Content Include="app\blog\components\articleEditor\articleEditor.js" />
+    <Content Include="app\blog\components\articleListView\articleListView.css" />
+    <Content Include="app\blog\components\articleListView\articleListView.html" />
+    <Content Include="app\blog\components\articleListView\articleListView.js" />
     <Content Include="app\blog\components\articleView\articleView.css" />
+    <Content Include="app\blog\components\articleView\articleView.html" />
+    <Content Include="app\blog\components\articleView\articleView.js" />
     <Content Include="app\blog\module.js" />
     <Content Include="app\blog\services\articleService.js" />
+    <Content Include="app\blog\services\blogRouteResolver.js" />
+    <Content Include="app\blog\views\list.html" />
     <Content Include="app\blog\views\article.html" />
+    <Content Include="app\blog\views\edit.html" />
     <Content Include="app\configuration\services\configurationService.js" />
+    <Content Include="app\core\components\coreAuthenticationHeader\coreAuthenticationHeader.css" />
+    <Content Include="app\core\components\coreAuthenticationHeader\coreAuthenticationHeader.html" />
+    <Content Include="app\core\components\coreAuthenticationHeader\coreAuthenticationHeader.js" />
     <Content Include="app\core\components\coreHeader\coreHeader.css" />
     <Content Include="app\core\components\coreHeader\coreHeader.html" />
     <Content Include="app\core\components\coreHeader\coreHeader.js" />
@@ -109,9 +129,16 @@
     <Content Include="app\core\module.js" />
     <Content Include="app\core\services\authorizationService.js" />
     <Content Include="app\core\storage\storage.js" />
+    <Content Include="app\home\components\homeListView\homeListView.css" />
+    <Content Include="app\home\components\homeListView\homeListView.html" />
+    <Content Include="app\home\components\homeListView\homeListView.js" />
+    <Content Include="app\home\services\homeRouteResolver.js" />
     <Content Include="app\home\services\homeService.js" />
+    <Content Include="app\home\views\about.html" />
     <Content Include="app\home\views\default.html" />
+    <Content Include="app\home\views\settings.html" />
     <Content Include="app\module.js" />
+    <Content Include="app\session\models\session.js" />
     <Content Include="app\session\module.js" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
@@ -127,6 +154,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Data\Contracts\IRepository.cs">
       <SubType>Code</SubType>
@@ -149,11 +177,15 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\ConfigurationConfiguration.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ArticleTranslation.cs" />
     <Compile Include="Models\Configuration.cs" />
+    <Compile Include="Models\CultureCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="scripts\angular.min.js.map" />
     <Content Include="scripts\angular-route.min.js.map" />
     <None Include="Web.Debug.config">
@@ -164,9 +196,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\blog\components\articleBriefView\" />
     <Folder Include="app\core\styles\" />
-    <Folder Include="app\home\components\homeListView\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <PropertyGroup>

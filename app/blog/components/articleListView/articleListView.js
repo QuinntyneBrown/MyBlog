@@ -16,11 +16,11 @@
 
                 scope.remove = function (params) {
 
-                    return articleService.remove({ id: params.Id }).then(function () {
+                    return articleService.remove({ id: params.id }).then(function () {
 
                         for (var i = 0; i < scope.models.length; i++) {
 
-                            if (scope.models[i].Id == params.Id) {
+                            if (scope.models[i].id == params.id) {
 
                                 scope.models.splice(i, 1);
 

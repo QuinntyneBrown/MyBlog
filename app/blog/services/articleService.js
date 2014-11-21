@@ -39,8 +39,8 @@
 
         self.getById = function getById(params) {
 
-            if (self.cache.getById && self.cache.getById.id === params.id) {
-                var deferred = self.$q.defer();
+            if (self.cache.getById && self.cache.getById.id == params.id) {
+                var deferred = $q.defer();
 
                 deferred.resolve(self.cache.getById);
 

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace MyBlog
         {
             var jSettings = new JsonSerializerSettings();
             var config = GlobalConfiguration.Configuration;
+            jSettings.Formatting = Formatting.Indented;
+            jSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             config.Formatters.JsonFormatter.SerializerSettings = jSettings;
             UnityConfig.RegisterComponents();

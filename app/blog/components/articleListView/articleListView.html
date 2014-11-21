@@ -13,9 +13,9 @@
         </thead>
         <tbody>
             <tr data-ng-repeat="model in models">
-                <td> <a>{{ model.Id }}</a></td>
-                <td> <a>{{ model.Title }}</a></td>
-                <td> <a href="#/admin/article/edit/{{ model.Id }}">edit</a>&nbsp;|&nbsp;<a data-ng-click="remove(model)">delete</a></td>
+                <td> <a>{{ model.id }}</a></td>
+                <td> <a>{{ model.title }}</a></td>
+                <td> <a href="#/admin/article/edit/{{ model.id }}">edit</a>&nbsp;|&nbsp;<a data-ng-click="remove(model)">delete</a></td>
             </tr>
         </tbody>
     </table>

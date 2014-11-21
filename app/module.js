@@ -40,6 +40,42 @@
 
     }]);
 
+    app.run(["$location", "$rootScope", "$route", "currentUser", "token", function ($location, $rootScope, $route, currentUser, token) {
+
+        $rootScope.$on("$routeChangeStart", function routeChange(event, newUrl, oldUrl) {
+
+            if (newUrl.originalPath == "/signin") {
+                token.set({ data: null });
+            }
+
+            if (newUrl.$$route && newUrl.$$route.authorizationRequired) {
+
+                if (token.get() == null) {
+
+                    $rootScope.$evalAsync(function () {
+
+                        $location.path('/signin');
+
+                    });
+
+                }
+
+            };
+
+        });
+
+        $rootScope.$on("$viewContentLoaded", function routeChange(event, newUrl, oldUrl) {
+
+            if ($route.current.$$route.authorizationRequired && currentUser.get() == null) {
+
+                $location.path("/signin");
+
+            }
+
+        });
+
+    }]);
+
 })();
 
 

@@ -127,7 +127,6 @@
     <Content Include="app\core\components\coreHeader\coreHeader.js" />
     <Content Include="app\core\intreceptors\authorizationInterceptor.js" />
     <Content Include="app\core\module.js" />
-    <Content Include="app\core\services\authorizationService.js" />
     <Content Include="app\core\storage\storage.js" />
     <Content Include="app\home\components\homeListView\homeListView.css" />
     <Content Include="app\home\components\homeListView\homeListView.html" />
@@ -138,7 +137,9 @@
     <Content Include="app\home\views\default.html" />
     <Content Include="app\home\views\settings.html" />
     <Content Include="app\module.js" />
+    <Content Include="app\session\models\currentUser.js" />
     <Content Include="app\session\models\session.js" />
+    <Content Include="app\session\models\token.js" />
     <Content Include="app\session\module.js" />
     <Content Include="app\user\components\registrationForm\registrationForm.css" />
     <Content Include="app\user\components\registrationForm\registrationForm.html" />

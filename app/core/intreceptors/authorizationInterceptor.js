@@ -4,19 +4,18 @@
 
     var interceptorId = "authorizationInterceptor";
 
-    angular.module("core").factory(interceptorId, ["$q", "$rootScope", "authorizationService", interceptor]);
+    angular.module("core").factory(interceptorId, ["$q", "$rootScope", "token", interceptor]);
 
-    function interceptor($q, $rootScope, authorizationService) {
+    function interceptor($q, $rootScope, token) {
 
         var self = this;
 
         self.request = function (config) {
 
-            if (authorizationService.hasHeader()) {
+            if (token.get()) {
 
-                config.headers["Authorization"] = authorizationService.getHeader();
-
-            };
+                config.headers["Authorization"] = "basic " + token.get();
+            }
 
             return config;
         };

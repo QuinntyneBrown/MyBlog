@@ -17,7 +17,6 @@
                 identityService.getCurrentUser()
             ]).then(function (results) {
 
-
             });
 
         };

@@ -4,6 +4,7 @@ using MyBlog.Models;
 using MyBlog.Services.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -23,9 +24,10 @@ namespace MyBlog.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IHttpActionResult GetCurrentUser()
         {
-            return Ok(User.Identity.Name);
+            return Ok(repository.GetAll().Where(x=>x.Username == User.Identity.Name).Include(x=>x.Roles).Single());
         }
 
 

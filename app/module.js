@@ -7,11 +7,14 @@
         "blog",
         "configuration",
         "core",
+        "identity",
         "session",
         "user"
     ]);
 
-    app.config(["$routeProvider", function ($routeProvider) {
+    app.config(["$httpProvider","$routeProvider", function ($httpProvider, $routeProvider) {
+
+        $httpProvider.interceptors.push("authorizationInterceptor");
 
         $routeProvider
 
@@ -20,7 +23,9 @@
             templateUrl: 'app/home/views/default.html',
             resolve: ["homeRouteResolver", function (homeRouteResolver) {
                 return homeRouteResolver.resolveRoute();
-            }]
+            }],
+            authorizationRequired: true
+
         })
         .when("/about",
         {
@@ -54,7 +59,7 @@
 
                     $rootScope.$evalAsync(function () {
 
-                        $location.path('/signin');
+                        $location.path("/signin");
 
                     });
 
@@ -70,7 +75,7 @@
 
                 $location.path("/signin");
 
-            }
+            };
 
         });
 

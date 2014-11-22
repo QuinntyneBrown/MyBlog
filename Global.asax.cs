@@ -1,16 +1,48 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿using MyBlog.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
+using Microsoft.Practices.Unity;
+using MyBlog.Services.Contracts;
+using System.Security.Principal;
+using System.Threading;
+using Newtonsoft.Json.Serialization;
 
 namespace MyBlog
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
+        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+        {
+            if (HttpContext.Current.Request.Headers["Authorization"] != null && HttpContext.Current.Request.Headers["Authorization"] != "null")
+            {
+                var container = UnityConfig.GetContainer();
+                var encryptionService = container.Resolve<IEncryptionService>();
+                var session = container.Resolve<ISessionService>();
+
+                try
+                {
+                    var token = HttpContext.Current.Request.Headers["Authorization"].Substring(6);
+
+                    if (token != "null" && token != "undefined")
+                    {
+                        var sessionId = JsonConvert.DeserializeObject<int>(new EncryptionService().DecryptString(token));
+                        MyBlog.Models.User currentUser = session.GetCurrentUser(sessionId);
+                        HttpContext.Current.User = Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(currentUser.Username), currentUser.Roles.Select(x=>x.Name).ToArray());
+                    }
+                }
+                catch (Exception exception)
+                {
+
+                }
+            }
+
+        }
 
         protected void Application_Start()
         {

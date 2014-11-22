@@ -99,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.css" />
-    <Content Include="app.js" />
     <Content Include="app\blog\components\articleBriefView\articleBriefView.css" />
     <Content Include="app\blog\components\articleBriefView\articleBriefView.html" />
     <Content Include="app\blog\components\articleBriefView\articleBriefView.js" />
@@ -136,10 +135,12 @@
     <Content Include="app\home\views\about.html" />
     <Content Include="app\home\views\default.html" />
     <Content Include="app\home\views\settings.html" />
+    <Content Include="app\identity\module.js" />
+    <Content Include="app\identity\services\identityService.js" />
     <Content Include="app\module.js" />
-    <Content Include="app\session\models\currentUser.js" />
-    <Content Include="app\session\models\session.js" />
-    <Content Include="app\session\models\token.js" />
+    <Content Include="app\session\properties\currentUser.js" />
+    <Content Include="app\session\model\session.js" />
+    <Content Include="app\session\properties\token.js" />
     <Content Include="app\session\module.js" />
     <Content Include="app\user\components\registrationForm\registrationForm.css" />
     <Content Include="app\user\components\registrationForm\registrationForm.html" />
@@ -163,14 +164,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\IdentityController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Dtos\RegistrationRequestDto.cs" />
+    <Compile Include="Dtos\SignInDto.cs" />
+    <Compile Include="Dtos\TokenDto.cs" />
+    <Compile Include="Migrations\UserConfiguration.cs" />
     <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\Contracts\IIdentityService.cs" />
     <Compile Include="Services\Contracts\ISessionService.cs" />
     <Compile Include="Services\Contracts\ITokenService.cs" />
+    <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\IdentityService.cs" />
+    <Compile Include="Services\Contracts\IEncryptionService.cs" />
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="Services\TokenService.cs" />
     <Content Include="app\configuration\module.js" />

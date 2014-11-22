@@ -7,11 +7,14 @@
         "blog",
         "configuration",
         "core",
+        "identity",
         "session",
         "user"
     ]);
 
-    app.config(["$routeProvider", function ($routeProvider) {
+    app.config(["$httpProvider","$routeProvider", function ($httpProvider, $routeProvider) {
+
+        $httpProvider.interceptors.push("authorizationInterceptor");
 
         $routeProvider
 
@@ -20,7 +23,9 @@
             templateUrl: 'app/home/views/default.html',
             resolve: ["homeRouteResolver", function (homeRouteResolver) {
                 return homeRouteResolver.resolveRoute();
-            }]
+            }],
+            authorizationRequired: true
+
         })
         .when("/about",
         {
@@ -54,7 +59,7 @@
 
                     $rootScope.$evalAsync(function () {
 
-                        $location.path('/signin');
+                        $location.path("/signin");
 
                     });
 
@@ -70,7 +75,7 @@
 
                 $location.path("/signin");
 
-            }
+            };
 
         });
 
@@ -571,9 +576,9 @@
 
     var serviceId = "homeRouteResolver";
 
-    angular.module("core").service(serviceId, ["$q", "$route", "articleService", "configurationService", service]);
+    angular.module("app").service(serviceId, ["$q", "$route", "articleService", "configurationService", "identityService", service]);
 
-    function service($q, $route, articleService, configurationService) {
+    function service($q, $route, articleService, configurationService, identityService) {
 
         var self = this;
 
@@ -581,7 +586,8 @@
 
             return $q.all([
                 configurationService.get(),
-                articleService.getAll()
+                articleService.getAll(),
+                identityService.getCurrentUser()
             ]).then(function (results) {
 
 
@@ -621,7 +627,79 @@
 
     "use strict";
 
+    var app = angular.module("identity", ["configuration", "core"]);
+
+})();
+(function () {
+
+    "use strict";
+
+    var serviceId = "identityService";
+
+    angular.module("identity").service(serviceId, ["$http", service]);
+
+    function service($http) {
+
+        var self = this;
+
+        var baseUri = "api/identity";
+
+        self.signIn = function signIn(params) {
+
+            $http({ method: "POST", url: baseUri + "/signin", data: JSON.stringify(params) }).then(function (results) {
+
+                return results;
+
+            }).catch(function () {
+
+
+            });
+        };
+
+        self.register = function register(params) {
+
+            $http({ method: "POST", url: baseUri + "/register", data: JSON.stringify(params) }).then(function (results) {
+
+                return results;
+
+            }).catch(function () {
+
+
+            });
+        };
+
+        return self;
+    };
+
+})();
+(function () {
+
+    "use strict";
+
     var app = angular.module("session", ["configuration", "core"]);
+
+})();
+(function () {
+    
+    "use strict";
+
+    var serviceId = "session";
+
+    angular.module("session").service(serviceId, [service]);
+
+    function service() {
+
+        var self = this;
+
+        self.isLoggedIn = function isLoggedIn() {
+
+            return true;
+
+        };
+
+        return self;
+
+    };
 
 })();
 (function () {
@@ -670,29 +748,6 @@
         });
 
         return self;
-    };
-
-})();
-(function () {
-    
-    "use strict";
-
-    var serviceId = "session";
-
-    angular.module("session").service(serviceId, [service]);
-
-    function service() {
-
-        var self = this;
-
-        self.isLoggedIn = function isLoggedIn() {
-
-            return true;
-
-        };
-
-        return self;
-
     };
 
 })();
@@ -801,9 +856,9 @@
 
     var componentId = "signInForm";
 
-    angular.module("user").directive(componentId, [component]);
-
-    function component() {
+    angular.module("user").directive(componentId, ["$location", "identityService", "token", component]);
+     
+    function component($location, identityService, token) {
 
         return {
             templateUrl: "/app/user/components/signInForm/signInForm.html",
@@ -812,7 +867,25 @@
             scope: {},
             link: function (scope, elem, attrs) {
 
+                scope.model = {
+                    username: "Demo",
+                    password: "password"
+                };
 
+                scope.tryToSignIn = function tryToSignIn() {
+
+                    return identityService.signIn({ model: scope.model }).then(function (results) {
+
+                        token.set({ data: results });
+
+                        $location.path("/");
+
+                    }).catch(function (error) {
+
+
+                    });
+
+                };
             }
         };
     }
@@ -823,18 +896,35 @@
 
     var serviceId = "identityService";
 
-    angular.module("user").service(serviceId, ["$http",service]);
+    angular.module("user").service(serviceId, ["$http","currentUser",service]);
 
-    function service($http) {
+    function service($http, currentUser) {
 
         var self = this;
 
         self.signIn = function signIn(params) {
 
+            return $http({ method: "POST", url: "api/identity/signin", data: JSON.stringify(params.model) }).then(function (results) {
+
+                return results.data.token;
+
+            }).catch(function (error) {
+
+            });
         };
 
         self.register = function register(params) {
 
+        };
+
+        self.getCurrentUser = function getCurrentUser() {
+
+            return $http({ method: "GET", url: "api/user/getCurrentUser" }).then(function (results) {
+
+                currentUser.set({ data: results.data });
+
+                return currentUser.get();
+            });
         };
 
         return self;

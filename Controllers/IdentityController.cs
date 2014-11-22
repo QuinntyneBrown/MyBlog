@@ -12,16 +12,18 @@ namespace MyBlog.Controllers
 {
     public class IdentityController : BaseApiController
     {
-        public IdentityController(ISessionService sessionService, IUow uow)
+        protected readonly IIdentityService identityService;
+
+        public IdentityController(ISessionService sessionService, IUow uow, IIdentityService identityService)
             :base(sessionService) 
         {
-
+            this.identityService = identityService;
         }
 
         [HttpPost]
-        public IHttpActionResult SignIn(string username, string password)
+        public IHttpActionResult SignIn(SignInDto signInDto)
         {
-            return Ok();
+            return Ok(identityService.SignIn(signInDto));
         }
 
         [HttpPost]
@@ -29,5 +31,7 @@ namespace MyBlog.Controllers
         {
             return Ok();
         }
+
+
     }
 }

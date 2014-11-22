@@ -24,6 +24,7 @@ namespace MyBlog
             container.RegisterType<IRepositoryProvider, RepositoryProvider>();
             container.RegisterType<ISessionService, SessionService>();
             container.RegisterType<IIdentityService, IdentityService>();
+            container.RegisterType<IEncryptionService, EncryptionService>();
             return container;
         }
     }

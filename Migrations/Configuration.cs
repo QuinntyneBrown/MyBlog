@@ -17,6 +17,8 @@ namespace MyBlog.Migrations
             ConfigurationConfiguration.Seed(context);
 
             ArticleConfiguration.Seed(context);
+
+            UserConfiguration.Seed(context);
         }
     }
 }

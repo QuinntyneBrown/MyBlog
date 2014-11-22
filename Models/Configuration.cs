@@ -9,6 +9,5 @@ namespace MyBlog.Models
     {
         public string Name { get; set; }
         public string Theme { get; set; }
-        public int TenantId { get; set; }
     }
 }

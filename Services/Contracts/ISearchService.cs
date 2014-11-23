@@ -6,8 +6,8 @@ using System.Web;
 
 namespace MyBlog.Services.Contracts
 {
-    public interface IIdentityService
+    public interface ISearchService
     {
-        TokenDto SignIn(SignInDto signInDto);
+        SearchResultsDto SimpleSearch(string term);
     }
 }

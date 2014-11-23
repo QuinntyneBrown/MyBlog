@@ -80,6 +80,11 @@ body {
 #search {
     padding:0px 15px;
 }
+
+#suggestion-list {
+    position:absolute;
+    background-color:#666;
+}
 body {
 }
 body {

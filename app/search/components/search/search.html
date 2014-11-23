@@ -1,4 +1,9 @@
 ﻿<div id="search">
     <input type="text" data-ng-model="term" />
     <a class="link" data-ng-click="search()">search</a>
+    <div id="suggestion-list" data-ng-if="results.length > 0">
+        <ul>
+            <li data-ng-repeat="article in results"><a href="#/article/{{ article.id }}">{{ article.title }}</a></li>
+        </ul>
+    </div>
 </div>

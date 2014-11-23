@@ -25,6 +25,7 @@ namespace MyBlog
             container.RegisterType<ISessionService, SessionService>();
             container.RegisterType<IIdentityService, IdentityService>();
             container.RegisterType<IEncryptionService, EncryptionService>();
+            container.RegisterType<ISearchService, SearchService>();
             return container;
         }
     }

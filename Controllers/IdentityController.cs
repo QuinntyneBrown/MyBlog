@@ -1,5 +1,5 @@
 ﻿using MyBlog.Data.Contracts;
-using MyBlog.Dtos;
+using MyBlog.Dto;
 using MyBlog.Services.Contracts;
 using System;
 using System.Collections.Generic;

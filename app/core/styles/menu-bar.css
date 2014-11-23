@@ -1,0 +1,20 @@
+﻿.menu-bar ul {
+    list-style: outside none none;
+    border: 0 none;
+    position: relative;
+}
+
+.menu-bar li {
+    margin-right: 20px;
+    position: relative;
+    display: inline;
+    list-style: outside none none;
+}
+
+.menu-bar::after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}

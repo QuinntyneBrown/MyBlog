@@ -8,6 +8,7 @@
         "configuration",
         "core",
         "identity",
+        "search",
         "session",
         "user"
     ]);
@@ -23,8 +24,7 @@
             templateUrl: 'app/home/views/default.html',
             resolve: ["homeRouteResolver", function (homeRouteResolver) {
                 return homeRouteResolver.resolveRoute();
-            }],
-            authorizationRequired: true
+            }]
 
         })
         .when("/about",
@@ -71,7 +71,7 @@
 
         $rootScope.$on("$viewContentLoaded", function routeChange(event, newUrl, oldUrl) {
 
-            if ($route.current.$$route.authorizationRequired && currentUser.get() == null) {
+            if ($route.current.$$route.authorizationRequired && (currentUser.get() == null || currentUser.get() == "")) {
 
                 $location.path("/signin");
 

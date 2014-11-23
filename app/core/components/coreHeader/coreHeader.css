@@ -1,2 +1,12 @@
-﻿body {
+﻿#core-header {
+    height: 48px;
+    width: 100%;
+    background: linear-gradient(#3f3f3f, #535151); /* Standard syntax */
+    box-shadow: 0 0 .5em #161616;
+    
 }
+
+#core-header a {
+    color:#fff;
+}
+

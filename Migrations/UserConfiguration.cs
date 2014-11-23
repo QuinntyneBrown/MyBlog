@@ -17,7 +17,11 @@ namespace MyBlog.Migrations
 
                 var password = encryptionService.TransformPassword("password");
 
-                User user = new User() { Firstname = "Demo", Lastname = "User", Username = "Demo", Password = password, IsActive = true };
+                Role role = new Role() { Name = "Admin" };
+
+                var roles = new List<Role>() { role };
+
+                User user = new User() { Firstname = "Demo", Lastname = "User", Username = "Demo", Password = password, IsActive = true, Roles = roles };
 
                 context.Users.Add(user);
 

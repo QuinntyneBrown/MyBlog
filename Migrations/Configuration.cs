@@ -14,6 +14,10 @@ namespace MyBlog.Migrations
 
         protected override void Seed(MyBlog.Data.DbContext context)
         {
+            context.Database.Delete();
+
+            context.Database.Create();
+
             ConfigurationConfiguration.Seed(context);
 
             ArticleConfiguration.Seed(context);

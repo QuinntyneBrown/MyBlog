@@ -24,10 +24,12 @@ namespace MyBlog.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IHttpActionResult GetCurrentUser()
         {
-            return Ok(repository.GetAll().Where(x=>x.Username == User.Identity.Name).Include(x=>x.Roles).Single());
+            if (!string.IsNullOrEmpty(User.Identity.Name))
+                return Ok(repository.GetAll().Where(x=>x.Username == User.Identity.Name).Include(x=>x.Roles).Single());
+
+            return Ok();
         }
 
 

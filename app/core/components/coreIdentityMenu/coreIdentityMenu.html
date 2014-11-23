@@ -1,0 +1,19 @@
+﻿<div id="core-identity-menu">
+
+    <ul class="menu-bar" data-ng-if="!session.isLoggedIn()">
+
+        <li><a href="#/signin">Sign In</a></li>
+
+        <li><a href="#/register">Register</a></li>
+
+    </ul>
+
+    <ul class="menu-bar" data-ng-if="session.isLoggedIn()">
+
+        <li><a>{{ session.getCurrentUser().username }}</a></li>
+
+        <li><a class="link" data-ng-click="session.signOut()">Sign Out</a></li>
+
+    </ul>
+
+</div>

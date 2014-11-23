@@ -1,12 +1,12 @@
 ﻿<div id="core-header">
 
-    <div class="left">
+    <div style="position:relative; float:left;">
     
-        <core-logo></core-logo>
+    <h1>NgBlog</h1>
     
     </div>
     
-    <div class="left">
+    <div style="position:relative; float:left;">
         
         <ul class="menu-bar">
 
@@ -20,11 +20,7 @@
 
     </div>
 
-    <div class="left">
-        <search></search>
-    </div>
-
-    <div class="left">
+    <div style="position:relative; float:left;">
 
         <core-identity-menu></core-identity-menu>
 

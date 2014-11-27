@@ -15,6 +15,13 @@
             getById: null
         };
 
+        self.clearCache = function clearCache() {
+            self.cache = {
+                getAll: null,
+                getById: null
+            };
+        };
+
         self.getAll = function getAll() {
 
             if (self.cache.getAll) {
@@ -62,6 +69,34 @@
         self.remove = function remove(params) {
 
             return $http({ method: "GET", url: baseUri + "delete?id=" + params.id }).then(function (results) {
+
+                self.clearCache();
+
+                return results;
+
+            }).catch(function (error) {
+
+            });
+        };
+
+        self.add = function add(params) {
+
+            return $http({ method: "POST", url: baseUri + "add", data: JSON.stringify(params.model) }).then(function (results) {
+
+                self.clearCache();
+
+                return results;
+
+            }).catch(function (error) {
+
+            });
+        };
+
+        self.update = function update(params) {
+
+            return $http({ method: "POST", url: baseUri + "update", data: JSON.stringify(params.model) }).then(function (results) {
+
+                self.clearCache();
 
                 return results;
 

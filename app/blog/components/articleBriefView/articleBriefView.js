@@ -4,9 +4,9 @@
 
     var componentId = "articleBriefView";
 
-    angular.module("blog").directive(componentId, ["$location",component]);
+    angular.module("blog").directive(componentId, ["$location", "$sce", component]);
 
-    function component($location) {
+    function component($location, $sce) {
         return {
             templateUrl: "/app/blog/components/articleBriefView/articleBriefView.html",
             restrict: "EA",
@@ -15,6 +15,8 @@
                 model:"="
             },
             link: function (scope, elem, attr) {
+
+                $sce.trustAsHtml(scope.model.htmlBody);
 
                 scope.goToFullView = function (model) {
 

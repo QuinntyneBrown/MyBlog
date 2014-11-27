@@ -43,5 +43,21 @@ namespace MyBlog.Controllers
             this.uow.SaveChanges();
             return Ok();
         }
+
+        [HttpPost]
+        public IHttpActionResult Add(Article entity)
+        {
+            this.repository.Add(entity);
+            this.uow.SaveChanges();
+            return Ok();
+        }
+
+        [HttpPost]
+        public IHttpActionResult Update(Article entity)
+        {
+            this.repository.Update(entity);
+            this.uow.SaveChanges();
+            return Ok();
+        }
     }
 }

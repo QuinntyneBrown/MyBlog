@@ -3,23 +3,23 @@
     
     <hgroup>
         <h1 data-ng-show="model.id > 0">Edit Article</h1>
-        <h1 data-ng-show="model.id == 0">Create Article</h1>
+        <h1 data-ng-hide="model.id">Create Article</h1>
     </hgroup>
 
 
-    <form>
+    <form data-ng-submit="save()" novalidate>
         <div>
 
-            <label></label>
+            <label>Title</label>
 
-            <input data-ng-model="model.Title" />
+            <input data-ng-model="model.title" />
 
         </div>
 
         <div>
-            <label></label>
+            <label>Body</label>
 
-            <textarea data-ng-model="model.HtmlBody" />
+            <textarea ui-tinymce data-ng-model="model.htmlBody" />
         </div>
 
         <div>

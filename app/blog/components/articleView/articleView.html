@@ -1,5 +1,5 @@
 ﻿<div>
-    <a href="#">< Back</a>
+    <a data-ng-href="#/">< Back</a>
     <hgroup>
 
         <h1>
@@ -10,9 +10,8 @@
 
     </hgroup>
 
-    <div>
+    <div data-ng-bind-html="model.htmlBody">
 
-        {{ model.htmlBody }}
 
     </div>
 

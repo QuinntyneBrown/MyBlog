@@ -3,7 +3,9 @@
     "use strict";
 
     var app = angular.module("app", [
-        "ngRoute",
+        "ngRoute",      
+        "ui.tinymce",
+        "admin",
         "blog",
         "configuration",
         "core",
@@ -94,7 +96,56 @@
 
     "use strict";
 
-    var app = angular.module("blog", ["configuration","core","session","ngRoute"]);
+    var app = angular.module("admin", ["blog", "configuration", "core", "session", "ngRoute", "ngSanitize"]);
+
+
+    app.config(["$routeProvider", function ($routeProvider) {
+
+        $routeProvider
+
+        .when("/admin", {
+            templateUrl: "/app/admin/views/admin.html",
+            resolve: ["blogRouteResolver", function (blogRouteResolver) {
+                return blogRouteResolver.resolveRoute();
+            }],
+            authorizationRequired: true
+        });
+    }
+
+
+    ]);
+
+})();
+(function () {
+
+    "use strict";
+
+    var componentId = "adminMenu";
+
+    angular.module("admin").directive(componentId, ["$location", "$routeParams", "articleService", component]);
+
+    function component($location, $routeParams, articleService) {
+        return {
+            templateUrl: "/app/admin/components/adminMenu/adminMenu.html",
+            restrict: "EA",
+            replace: true,
+            scope: {
+
+            },
+            link: function (scope, elem, attr) {
+
+
+
+            }
+        };
+    }
+
+})();
+(function () {
+
+    "use strict";
+
+    var app = angular.module("blog", ["configuration", "core", "session", "ngRoute", "ngSanitize"]);
 
 
     app.config(["$routeProvider", function ($routeProvider) {
@@ -108,6 +159,14 @@
             }],
             authorizationRequired: false
         })
+        .when("/admin/article/create", {
+            templateUrl: "/app/blog/views/edit.html",
+            resolve: ["blogRouteResolver", function (blogRouteResolver) {
+                return blogRouteResolver.resolveRoute();
+            }],
+            authorizationRequired: true,
+            adminRoute: true
+        })
         .when("/admin/article/edit/:id", {
             templateUrl: "/app/blog/views/edit.html",
             resolve: ["blogRouteResolver", function (blogRouteResolver) {
@@ -116,7 +175,7 @@
             authorizationRequired: true,
             adminRoute: true
         })
-        .when("/admin/article", {
+        .when("/admin/articles", {
             templateUrl: "/app/blog/views/list.html",
             resolve: ["blogRouteResolver", function (blogRouteResolver) {
                 return blogRouteResolver.resolveRoute();
@@ -136,9 +195,9 @@
 
     var componentId = "articleBriefView";
 
-    angular.module("blog").directive(componentId, ["$location",component]);
+    angular.module("blog").directive(componentId, ["$location", "$sce", component]);
 
-    function component($location) {
+    function component($location, $sce) {
         return {
             templateUrl: "/app/blog/components/articleBriefView/articleBriefView.html",
             restrict: "EA",
@@ -147,6 +206,8 @@
                 model:"="
             },
             link: function (scope, elem, attr) {
+
+                $sce.trustAsHtml(scope.model.htmlBody);
 
                 scope.goToFullView = function (model) {
 
@@ -178,13 +239,35 @@
 
                 scope.model = {};
 
-                articleService.getById({ id: $routeParams.id }).then(function (results) {
+                scope.save = function save() {
+
+                    if (scope.model.id) {
+
+                        return articleService.update({ model: scope.model }).then(function (results) {
+
+                            $location.path("/admin/articles");
+                        });
+                    }
+                    else {
+
+                        return articleService.add({ model: scope.model }).then(function (results) {
+                            $location.path("/admin/articles");
+                        });
+                    }
+
+
+
+                };
+
+                return articleService.getById({ id: $routeParams.id }).then(function (results) {
 
                     if (results) {
                         scope.model = results;
                     }
 
                 });
+
+
 
             }
         };
@@ -243,9 +326,9 @@
 
     var componentId = "articleView";
 
-    angular.module("blog").directive(componentId, ["$route", "articleService", component]);
+    angular.module("blog").directive(componentId, ["$route", "$sce", "articleService", component]);
 
-    function component($route, articleService) {
+    function component($route, $sce, articleService) {
         return {
             templateUrl: "/app/blog/components/articleView/articleView.html",
             restrict: "EA",
@@ -254,9 +337,11 @@
             },
             link: function (scope, elem, attr) {
 
-                articleService.getById({ id: $route.current.params.id }).then(function (results) {
+                return articleService.getById({ id: $route.current.params.id }).then(function (results) {
 
                     scope.model = results;
+
+                    $sce.trustAsHtml(scope.model.htmlBody);
 
                 })
 
@@ -280,6 +365,13 @@
         self.cache = {
             getAll: null,
             getById: null
+        };
+
+        self.clearCache = function clearCache() {
+            self.cache = {
+                getAll: null,
+                getById: null
+            };
         };
 
         self.getAll = function getAll() {
@@ -329,6 +421,34 @@
         self.remove = function remove(params) {
 
             return $http({ method: "GET", url: baseUri + "delete?id=" + params.id }).then(function (results) {
+
+                self.clearCache();
+
+                return results;
+
+            }).catch(function (error) {
+
+            });
+        };
+
+        self.add = function add(params) {
+
+            return $http({ method: "POST", url: baseUri + "add", data: JSON.stringify(params.model) }).then(function (results) {
+
+                self.clearCache();
+
+                return results;
+
+            }).catch(function (error) {
+
+            });
+        };
+
+        self.update = function update(params) {
+
+            return $http({ method: "POST", url: baseUri + "update", data: JSON.stringify(params.model) }).then(function (results) {
+
+                self.clearCache();
 
                 return results;
 

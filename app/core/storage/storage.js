@@ -7,7 +7,7 @@
 
     function factory() {
 
-        var STORAGE_ID = 'myBlogStorage';
+        var STORAGE_ID = 'ngBlogStorage';
 
         return {
             get: function () {

@@ -25,12 +25,15 @@
                         return articleService.update({ model: scope.model }).then(function (results) {
 
                             $location.path("/admin/articles");
+
                         });
                     }
                     else {
 
                         return articleService.add({ model: scope.model }).then(function (results) {
+
                             $location.path("/admin/articles");
+
                         });
                     }
 

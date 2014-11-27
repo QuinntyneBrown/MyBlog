@@ -21,9 +21,8 @@ namespace MyBlog
         {
             if (HttpContext.Current.Request.Headers["Authorization"] != null && HttpContext.Current.Request.Headers["Authorization"] != "null")
             {
-                var container = UnityConfig.GetContainer();
-                var encryptionService = container.Resolve<IEncryptionService>();
-                var session = container.Resolve<ISessionService>();
+                var encryptionService = UnityConfig.GetContainer().Resolve<IEncryptionService>();
+                var sessionService = UnityConfig.GetContainer().Resolve<ISessionService>();
 
                 try
                 {
@@ -31,8 +30,8 @@ namespace MyBlog
 
                     if (token != "null" && token != "undefined")
                     {
-                        var sessionId = JsonConvert.DeserializeObject<int>(new EncryptionService().DecryptString(token));
-                        MyBlog.Models.User currentUser = session.GetCurrentUser(sessionId);
+                        var sessionId = JsonConvert.DeserializeObject<int>(encryptionService.DecryptString(token));
+                        MyBlog.Models.User currentUser = sessionService.GetCurrentUser(sessionId);
                         HttpContext.Current.User = Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(currentUser.Username), currentUser.Roles.Select(x=>x.Name).ToArray());
                     }
                 }

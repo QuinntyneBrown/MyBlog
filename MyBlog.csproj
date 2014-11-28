@@ -101,10 +101,14 @@
   <ItemGroup>
     <Content Include="app.css" />
     <Content Include="app.js" />
+    <Content Include="app\admin\components\adminFooter\adminFooter.css" />
+    <Content Include="app\admin\components\adminFooter\adminFooter.html" />
+    <Content Include="app\admin\components\adminFooter\adminFooter.js" />
     <Content Include="app\admin\components\adminMenu\adminMenu.css" />
     <Content Include="app\admin\components\adminMenu\adminMenu.html" />
     <Content Include="app\admin\components\adminMenu\adminMenu.js" />
     <Content Include="app\admin\module.js" />
+    <Content Include="app\admin\styles\admin.css" />
     <Content Include="app\admin\views\admin.html" />
     <Content Include="app\blog\components\articleBriefView\articleBriefView.css" />
     <Content Include="app\blog\components\articleBriefView\articleBriefView.html" />
@@ -142,6 +146,7 @@
     <Content Include="app\core\styles\left.css" />
     <Content Include="app\core\styles\link.css" />
     <Content Include="app\core\styles\menu-bar.css" />
+    <Content Include="app\core\styles\view-container.css" />
     <Content Include="app\core\styles\_reset.css" />
     <Content Include="app\home\components\homeListView\homeListView.css" />
     <Content Include="app\home\components\homeListView\homeListView.html" />

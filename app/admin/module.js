@@ -21,4 +21,17 @@
 
     ]);
 
+
+    app.run(["$rootScope", "$location", function ($rootScope, $location) {
+
+        
+        $rootScope.$on("$viewContentLoaded", function routeChange(event, newUrl, oldUrl) {
+
+            $rootScope.isAdmin = $location.path().substring(0, 6) == '/admin';
+
+        });
+
+    }]);
+
+
 })();

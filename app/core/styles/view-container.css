@@ -1,0 +1,9 @@
+﻿
+#view-container {
+    min-height:500px;
+}
+
+.admin #view {
+    position:relative;
+    float: left;
+}

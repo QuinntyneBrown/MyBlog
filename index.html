@@ -3,13 +3,23 @@
 <head>
     <title>ngBlog</title>
 </head>
-<body ng-app="app">
-    
-    <div>
+<body data-ng-app="app" data-ng-class="{admin: isAdmin }">
 
+    <div>
+               
         <core-header></core-header>
 
-        <div ng-view=""></div>
+        <div id="view-container">
+
+            <admin-menu data-ng-if="isAdmin"></admin-menu>
+
+            <div id="view" ng-view=""></div>
+
+            <div style="clear:both;"></div>
+
+        </div>
+
+        <admin-footer data-ng-if="isAdmin"></admin-footer>
     </div>
     <script src="scripts/tinymce/tinymce.min.js"></script>
     <script src="scripts/angular.js"></script>

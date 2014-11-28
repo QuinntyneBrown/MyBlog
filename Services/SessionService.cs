@@ -10,12 +10,14 @@ using System.Web;
 
 namespace MyBlog.Services
 {
-    public class SessionService: ISessionService
+    public class SessionService : BaseService, ISessionService
     {
         protected readonly IUow uow;
-        public readonly IEncryptionService encryptionService;
+        protected readonly IEncryptionService encryptionService;
+        protected readonly ICache cache;
 
-        public SessionService(IEncryptionService encryptionService, IUow uow)
+        public SessionService(IEncryptionService encryptionService, IUow uow, ICacheProvider cacheProvider)
+            :base(cacheProvider)
         {
             this.uow = uow;
             this.encryptionService = encryptionService;
@@ -54,7 +56,7 @@ namespace MyBlog.Services
 
         public Session GetSession(int sessionId)
         {
-            return uow.Sessions.GetById(sessionId);
+            return FromCacheOrService<Session>(() => uow.Sessions.GetById(sessionId), string.Format("Session Id: {0}", sessionId));
         }
 
         public Session GetSession(User user)
@@ -64,11 +66,18 @@ namespace MyBlog.Services
 
         public User GetCurrentUser(int sessionId)
         {
-            var session = uow.Sessions.GetById(sessionId);
+            var session = GetSession(sessionId);
 
             var userId = (int)session.UserId;
 
-            return uow.Users.GetAll().Where(x => x.Id == userId).Include(x => x.Roles).FirstOrDefault();
+            return FromCacheOrService<User>(() => uow.Users.GetAll().Where(x => x.Id == userId).Include(x => x.Roles).FirstOrDefault(), string.Format("User By Id: {0}", userId));
+        }
+
+        public User GetCurrentUser(string username)
+        {
+            
+            return FromCacheOrService<User>(() => uow.Users.GetAll().Where(x => x.Username == username).Include(x => x.Roles).FirstOrDefault(), string.Format("User: {0}", username));
+
         }
 
         public void UpdateSession(Session session)

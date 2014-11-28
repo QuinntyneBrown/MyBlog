@@ -27,7 +27,7 @@ namespace MyBlog.Controllers
         public IHttpActionResult GetCurrentUser()
         {
             if (!string.IsNullOrEmpty(User.Identity.Name))
-                return Ok(repository.GetAll().Where(x=>x.Username == User.Identity.Name).Include(x=>x.Roles).Single());
+                return Ok(sessionService.GetCurrentUser(User.Identity.Name));
 
             return Ok();
         }

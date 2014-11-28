@@ -22,5 +22,7 @@ namespace MyBlog.Services.Contracts
         void UpdateSession(Session session);
 
         User GetCurrentUser(int sessionId);
+
+        User GetCurrentUser(string username);
     }
 }

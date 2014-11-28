@@ -63,6 +63,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web.Cors">
       <HintPath>packages\Microsoft.AspNet.Cors.5.2.2\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -341,7 +342,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArticleStatus.cs" />
+    <Compile Include="Models\ArticleStatus.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -354,14 +355,19 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Services\CacheProvider.cs" />
+    <Compile Include="Services\Contracts\ICache.cs" />
+    <Compile Include="Services\Contracts\ICacheProvider.cs" />
     <Compile Include="Services\Contracts\IIdentityService.cs" />
     <Compile Include="Services\Contracts\ISearchService.cs" />
     <Compile Include="Services\Contracts\ISessionService.cs" />
     <Compile Include="Services\Contracts\ITokenService.cs" />
+    <Compile Include="Services\MemoryCache.cs" />
     <Compile Include="Services\SearchService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\IdentityService.cs" />
     <Compile Include="Services\Contracts\IEncryptionService.cs" />
+    <Compile Include="Services\ServiceCache.cs" />
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="Services\TokenService.cs" />
     <Content Include="app\configuration\module.js" />
@@ -415,6 +421,7 @@
     <Content Include="scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="scripts\tinymce\langs\readme.md" />
     <Content Include="scripts\angular-sanitize.min.js.map" />
+    <None Include="Properties\PublishProfiles\ngblog.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

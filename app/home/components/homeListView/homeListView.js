@@ -4,9 +4,9 @@
 
     var componentId = "homeListView";
 
-    angular.module("app").directive(componentId, ["articleService", component]);
+    angular.module("app").directive(componentId, [component]);
 
-    function component(articleService) {
+    function component() {
 
         return {
             templateUrl: "/app/home/components/homeListView/homeListView.html",

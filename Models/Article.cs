@@ -13,6 +13,8 @@ namespace MyBlog.Models
         }
 
         public string Title { get; set; }
+        public string Slug { get; set; }
+        public DateTime? PubDate { get; set; }
         public string HtmlBody { get; set; }
         public string Version { get; set; }
         public ArticleStatus Status { get; set; } 

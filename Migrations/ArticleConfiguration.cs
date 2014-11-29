@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyBlog.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,17 +14,21 @@ namespace MyBlog.Migrations
             {
                 var configuration = context.Configurations.First();
 
-                context.Articles.Add(new Models.Article() { 
+                context.Articles.Add(new Article() { 
                     Title = "Rememberance Day!", 
                     HtmlBody = "A Great Day To Remember!",
-                    TenantId = configuration.TenantId
+                    TenantId = configuration.TenantId,
+                    PubDate = DateTime.Now,
+                    Status = ArticleStatus.Published
                 });
 
                 context.Articles.Add(new Models.Article()
                 {
                     Title = "Chistmas Day!",
                     HtmlBody = "Holiday after Rememberance Day!",
-                    TenantId = configuration.TenantId
+                    TenantId = configuration.TenantId,
+                    PubDate = DateTime.Now,
+                    Status = ArticleStatus.Published
                 });
 
                 context.SaveChanges();

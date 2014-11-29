@@ -27,7 +27,17 @@ namespace MyBlog.Controllers
         [HttpGet]
         public IHttpActionResult GetAll()
         {
-            return Ok(repository.GetAll());
+            return Ok(repository.GetAll().Where(x=>x.IsDeleted ==false).ToList());
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetPage(int offset = 0, int setSize = 5)
+        {
+            return Ok(repository.GetAll()
+                .Where(x => x.IsDeleted == false && x.Status == ArticleStatus.Published)
+                .Skip(offset * setSize)
+                .Take(setSize)
+                .ToList());
         }
 
         [HttpGet]
@@ -39,7 +49,8 @@ namespace MyBlog.Controllers
         [HttpGet]
         public IHttpActionResult Delete(int id)
         {
-            this.repository.Delete(id);
+            var article = this.repository.GetById(id);
+            article.IsDeleted = true;
             this.uow.SaveChanges();
             return Ok();
         }

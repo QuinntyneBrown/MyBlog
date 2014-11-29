@@ -51,8 +51,7 @@ namespace MyBlog.Controllers
         {
             var article = this.repository.GetById(id);
             article.IsDeleted = true;
-            this.uow.SaveChanges();
-            return Ok();
+            return Update(article);
         }
 
         [HttpPost]

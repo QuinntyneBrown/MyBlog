@@ -100,7 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.css" />
-    <Content Include="app.js" />
     <Content Include="app\admin\components\adminMenu\adminMenu.css" />
     <Content Include="app\admin\components\adminMenu\adminMenu.html" />
     <Content Include="app\admin\components\adminMenu\adminMenu.js" />
@@ -189,6 +188,11 @@
     <Content Include="scripts\angular-sanitize.min.js" />
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />
+    <None Include="scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="scripts\jquery-2.1.1.js" />
+    <Content Include="scripts\jquery-2.1.1.min.js" />
+    <Content Include="scripts\ng-infinite-scroll.min.js" />
+    <Content Include="scripts\prefixfree.js" />
     <Content Include="scripts\tinymce\license.txt" />
     <Content Include="scripts\tinymce\plugins\advlist\plugin.js" />
     <Content Include="scripts\tinymce\plugins\advlist\plugin.min.js" />
@@ -427,6 +431,7 @@
     <Content Include="scripts\tinymce\langs\readme.md" />
     <Content Include="scripts\angular-sanitize.min.js.map" />
     <None Include="Properties\PublishProfiles\ngblog.pubxml" />
+    <Content Include="scripts\jquery-2.1.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

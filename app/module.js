@@ -5,6 +5,7 @@
     var app = angular.module("app", [
         "ngRoute",      
         "ui.tinymce",
+        "infinite-scroll",
         "admin",
         "blog",
         "configuration",

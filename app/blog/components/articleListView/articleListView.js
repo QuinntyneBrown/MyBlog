@@ -4,42 +4,69 @@
 
     var componentId = "articleListView";
 
-    angular.module("blog").directive(componentId, ["$location", "$route", "articleService", component]);
+    angular.module("blog").directive(componentId, [component]);
 
-    function component($location, $route, articleService) {
+    function component() {
         return {
             templateUrl: "/app/blog/components/articleListView/articleListView.html",
-            restrict: "EA",
+            restrict: "E",
             replace: true,
-            scope: {},
-            link: function (scope, elem, attr) {
+            controllerAs: "viewModel",
+            controller: ["articleService", function (articleService) {
 
-                scope.remove = function (params) {
+                var self = this;
+
+                self.displayStatus = function (status) {
+
+                    switch (status) {
+                        case 0:
+                            return "Draft";
+                            break;
+
+                        case 1:
+                            return "Ready To Be Published";
+                            break;
+
+                        case 2:
+                            return "Published";
+                            break;
+
+                    }
+                    
+                };
+
+                self.remove = function (params) {
 
                     return articleService.remove({ id: params.id }).then(function () {
 
-                        for (var i = 0; i < scope.models.length; i++) {
-
-                            if (scope.models[i].id == params.id) {
-
-                                scope.models.splice(i, 1);
-
-                            }
-                        }
+                        for (var i = 0; i < self.entities.length; i++) {
+                            if (self.entities[i].id == params.id) {
+                                self.entities.splice(i, 1);
+                            };
+                        };
 
                     }).catch(function (error) {
 
                     });
                 };
 
-                return articleService.getAll().then(function (results) {
+                function initialize() {
+                    return articleService.getAll().then(function (results) {
+                        return self.entities = results;
+                    });
+                };
 
-                    scope.models = results;
 
-                });
-               
+                initialize();
                 
-            }
+
+                return self;
+
+
+            }],
+            link: function (scope, elem, attr) {
+ 
+            }         
         };
     }
 

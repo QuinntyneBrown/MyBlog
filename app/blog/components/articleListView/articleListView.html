@@ -1,5 +1,5 @@
-﻿<div data-ng-hide="hide()">
-
+﻿<div>
+    
     <hgroup>
         <h1>Articles</h1>
         <a href="#/admin/article/create">Create</a>
@@ -9,14 +9,16 @@
             <tr>
                 <th>Id</th>
                 <th>Title</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr data-ng-repeat="model in models">
-                <td> <a>{{ model.id }}</a></td>
-                <td> <a>{{ model.title }}</a></td>
-                <td> <a href="#/admin/article/edit/{{ model.id }}">edit</a>&nbsp;|&nbsp;<a data-ng-click="remove(model)">delete</a></td>
+            <tr data-ng-repeat="entity in viewModel.entities">
+                <td><a>{{ entity.id }}</a></td>
+                <td><a>{{ entity.title }}</a></td>
+                <td><a>  {{ viewModel.displayStatus(entity.status) }}</a></td>
+                <td><a href="#/admin/article/edit/{{ model.id }}">edit</a>&nbsp;|&nbsp;<a data-ng-click="viewModel.remove(entity)">delete</a></td>
             </tr>
         </tbody>
     </table>

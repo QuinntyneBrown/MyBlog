@@ -31,7 +31,7 @@ namespace MyBlog
                     if (token != "null" && token != "undefined")
                     {
                         var sessionId = JsonConvert.DeserializeObject<int>(encryptionService.DecryptString(token));
-                        MyBlog.Models.User currentUser = sessionService.GetCurrentUser(sessionId);
+                        var currentUser = sessionService.GetCurrentUser(sessionId);
                         HttpContext.Current.User = Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(currentUser.Username), currentUser.Roles.Select(x=>x.Name).ToArray());
                     }
                 }

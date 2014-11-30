@@ -156,8 +156,6 @@
     <Content Include="app\home\views\about.html" />
     <Content Include="app\home\views\default.html" />
     <Content Include="app\home\views\settings.html" />
-    <Content Include="app\identity\module.js" />
-    <Content Include="app\identity\services\identityService.js" />
     <Content Include="app\module.js" />
     <Content Include="app\search\components\search\search.css" />
     <Content Include="app\search\components\search\search.html" />
@@ -352,6 +350,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Models\ArticleStatus.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -362,8 +361,13 @@
     <Compile Include="Dto\TokenDto.cs" />
     <Compile Include="Migrations\UserConfiguration.cs" />
     <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CategoryTranslation.cs" />
+    <Compile Include="Models\ILoggable.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\TagTranslation.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\CacheProvider.cs" />
     <Compile Include="Services\Contracts\ICache.cs" />
@@ -380,6 +384,7 @@
     <Compile Include="Services\ServiceCache.cs" />
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="Services\TokenService.cs" />
+    <Compile Include="Models\Tag.cs" />
     <Content Include="app\configuration\module.js" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -409,7 +414,7 @@
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\ArticleTranslation.cs" />
     <Compile Include="Models\Configuration.cs" />
-    <Compile Include="Models\CultureCode.cs" />
+    <Compile Include="Models\Culture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

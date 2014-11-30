@@ -27,7 +27,11 @@ namespace MyBlog.Controllers
         public IHttpActionResult GetCurrentUser()
         {
             if (!string.IsNullOrEmpty(User.Identity.Name))
-                return Ok(sessionService.GetCurrentUser(User.Identity.Name));
+            {
+                var user = sessionService.GetCurrentUser(User.Identity.Name);
+
+                return Ok(user);
+            }
 
             return Ok();
         }

@@ -18,7 +18,7 @@ namespace MyBlog.Migrations
                     Title = "Rememberance Day!", 
                     HtmlBody = "A Great Day To Remember!",
                     TenantId = configuration.TenantId,
-                    PubDate = DateTime.Now,
+                    PubDate = DateTime.UtcNow,
                     Status = ArticleStatus.Published
                 });
 
@@ -27,7 +27,7 @@ namespace MyBlog.Migrations
                     Title = "Chistmas Day!",
                     HtmlBody = "Holiday after Rememberance Day!",
                     TenantId = configuration.TenantId,
-                    PubDate = DateTime.Now,
+                    PubDate = DateTime.UtcNow,
                     Status = ArticleStatus.Published
                 });
 

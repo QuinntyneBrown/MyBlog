@@ -10,7 +10,6 @@
         "blog",
         "configuration",
         "core",
-        "identity",
         "search",
         "session",
         "user"

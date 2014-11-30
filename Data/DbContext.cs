@@ -20,12 +20,51 @@ namespace MyBlog.Data
         public DbSet<Article> Articles { get; set; }
         public DbSet<ArticleTranslation> ArticleTranslations { get; set; }
         public DbSet<Configuration> Configurations { get; set; }
-        public DbSet<CultureCode> CultureCodes { get; set; }
+        public DbSet<Culture> CultureCodes { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public int SaveChanges()
+        public override int SaveChanges()
         {
+            foreach (var entry in this.ChangeTracker.Entries()
+            .Where(e => e.Entity is ILoggable &&
+                ((e.State == EntityState.Added || (e.State == EntityState.Modified)))))
+            {
+
+                if (((ILoggable)entry.Entity).CreatedDate == null)
+                {
+                    ((ILoggable)entry.Entity).CreatedDate = DateTime.UtcNow;
+                }
+
+                ((ILoggable)entry.Entity).LastModifiedDate = DateTime.UtcNow;
+
+            }
+
+            return base.SaveChanges();
+        }
+
+        public int SaveChanges(User user)
+        {
+            foreach (var entry in this.ChangeTracker.Entries()
+                        .Where(e => e.Entity is ILoggable &&
+                            ((e.State == EntityState.Added || (e.State == EntityState.Modified)))))
+            {
+
+                if (((ILoggable)entry.Entity).CreatedDate == null)
+                {
+                    ((ILoggable)entry.Entity).CreatedDate = DateTime.UtcNow;
+                }
+                
+                ((ILoggable)entry.Entity).LastModifiedDate = DateTime.UtcNow;
+
+                if (user != null)
+                {
+                    ((ILoggable)entry.Entity).LastModifiedByUserId = user.Id;
+                    ((ILoggable)entry.Entity).LastModifiedByUserName = user.Username;
+                }
+            }
+
+
             return base.SaveChanges();
         }
 

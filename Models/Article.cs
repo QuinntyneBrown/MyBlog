@@ -10,6 +10,8 @@ namespace MyBlog.Models
         public Article()
         {
             this.Translations = new HashSet<ArticleTranslation>();
+            this.Categories = new HashSet<Category>();
+            this.Tags = new HashSet<Tag>();
         }
 
         public string Title { get; set; }
@@ -19,5 +21,7 @@ namespace MyBlog.Models
         public string Version { get; set; }
         public ArticleStatus Status { get; set; } 
         public ICollection<ArticleTranslation> Translations { get; set; }
+        public ICollection<Category> Categories { get; set; }
+        public ICollection<Tag> Tags { get; set; }
     }
 }

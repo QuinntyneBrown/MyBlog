@@ -64,19 +64,19 @@ namespace MyBlog.Services
             return uow.Sessions.GetAll().Where(x => x.UserId == user.Id).FirstOrDefault();
         }
 
-        public User GetCurrentUser(int sessionId)
+        public UserDto GetCurrentUser(int sessionId)
         {
             var session = GetSession(sessionId);
 
             var userId = (int)session.UserId;
 
-            return FromCacheOrService<User>(() => uow.Users.GetAll().Where(x => x.Id == userId).Include(x => x.Roles).FirstOrDefault(), string.Format("User By Id: {0}", userId));
+            return new UserDto(FromCacheOrService<User>(() => uow.Users.GetAll().Where(x => x.Id == userId).Include(x => x.Roles).FirstOrDefault(), string.Format("User By Id: {0}", userId)));
         }
 
-        public User GetCurrentUser(string username)
+        public UserDto GetCurrentUser(string username)
         {
             
-            return FromCacheOrService<User>(() => uow.Users.GetAll().Where(x => x.Username == username).Include(x => x.Roles).FirstOrDefault(), string.Format("User: {0}", username));
+            return new UserDto(FromCacheOrService<User>(() => uow.Users.GetAll().Where(x => x.Username == username).Include(x => x.Roles).FirstOrDefault(), string.Format("User: {0}", username)));
 
         }
 

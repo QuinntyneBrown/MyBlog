@@ -1,17 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace MyBlog.Models
 {
-    public class BaseEntity
+    public class BaseEntity: ILoggable
     {
         public int Id { get; set; }
+        
         public int? TenantId { get; set; }
+        
         public DateTime? CreatedDate { get; set; }
+        
         public DateTime? LastModifiedDate { get; set; }
+        
+        public string LastModifiedByUserName { get; set; }
+
+        [ForeignKey("LastModifiedByUser")]
+        public int? LastModifiedByUserId { get; set; }
+
+        public User LastModifiedByUser { get; set; }
+        
         public bool IsDeleted { get; set; }
+        
         public bool IsActive { get; set; }
     }
 }

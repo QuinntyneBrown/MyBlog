@@ -18,7 +18,7 @@
                 <td><a>{{ entity.id }}</a></td>
                 <td><a>{{ entity.title }}</a></td>
                 <td><a>  {{ viewModel.displayStatus(entity.status) }}</a></td>
-                <td><a href="#/admin/article/edit/{{ model.id }}">edit</a>&nbsp;|&nbsp;<a data-ng-click="viewModel.remove(entity)">delete</a></td>
+                <td><a href="#/admin/article/edit/{{ entity.id }}">edit</a>&nbsp;|&nbsp;<a data-ng-click="viewModel.remove(entity)">delete</a></td>
             </tr>
         </tbody>
     </table>

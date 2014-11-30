@@ -21,8 +21,8 @@ namespace MyBlog.Services.Contracts
 
         void UpdateSession(Session session);
 
-        User GetCurrentUser(int sessionId);
+        UserDto GetCurrentUser(int sessionId);
 
-        User GetCurrentUser(string username);
+        UserDto GetCurrentUser(string username);
     }
 }

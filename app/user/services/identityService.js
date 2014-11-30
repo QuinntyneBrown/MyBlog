@@ -32,6 +32,10 @@
                 currentUser.set({ data: results.data });
 
                 return currentUser.get();
+
+            }).catch(function (error) {
+
+
             });
         };
 

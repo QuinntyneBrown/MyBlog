@@ -238,25 +238,25 @@
 
     var componentId = "articleEditor";
 
-    angular.module("blog").directive(componentId, ["$location", "$routeParams", "articleService", component]);
+    angular.module("blog").directive(componentId, [component]);
 
-    function component($location, $routeParams, articleService) {
+    function component() {
         return {
             templateUrl: "/app/blog/components/articleEditor/articleEditor.html",
-            restrict: "EA",
+            restrict: "E",
             replace: true,
-            scope: {
+            controllerAs:"viewModel",
+            controller: ["$location", "$routeParams", "articleService", function ($location, $routeParams, articleService) {
 
-            },
-            link: function (scope, elem, attr) {
+                var self = this;
 
-                scope.model = {};
+                self.entity = {};
 
-                scope.save = function save() {
+                self.save = function save() {
 
-                    if (scope.model.id) {
+                    if (self.entity.id) {
 
-                        return articleService.update({ model: scope.model }).then(function (results) {
+                        return articleService.update({ model: self.entity }).then(function (results) {
 
                             $location.path("/admin/articles");
 
@@ -264,7 +264,7 @@
                     }
                     else {
 
-                        return articleService.add({ model: scope.model }).then(function (results) {
+                        return articleService.add({ model: self.entity }).then(function (results) {
 
                             $location.path("/admin/articles");
 
@@ -274,16 +274,22 @@
 
 
                 };
+                function initialize() {
+                    return articleService.getById({ id: $routeParams.id }).then(function (results) {
 
-                return articleService.getById({ id: $routeParams.id }).then(function (results) {
+                        if (results) {
+                            return self.entity = results;
+                        }
 
-                    if (results) {
-                        scope.model = results;
-                    }
+                    });
+                };
 
-                });
+                initialize();
 
+                return self;
 
+            }],
+            link: function (scope, elem, attr) {
 
             }
         };
@@ -394,13 +400,29 @@
 
 })();
 (function () {
+    'use strict';
+
+    var typesId = "articleStatuses";
+
+    angular.module("blog").value(typesId, types);
+
+    function types() {
+        return {
+            draft: 0,
+            approved: 1,
+            published: 2
+        };
+    };
+
+})();
+(function () {
     "use strict";
 
     var dataServiceId = "articleService";
 
-    angular.module("blog").service(dataServiceId, ["$http", "$q", "$rootScope", dataService]);
+    angular.module("blog").service(dataServiceId, ["$http", "$q", "$rootScope","articleStatuses", dataService]);
 
-    function dataService($http, $q, $rootScope) {
+    function dataService($http, $q, $rootScope, articleStatuses) {
         var self = {};
         
         var baseUri = "api/article/";
@@ -485,6 +507,24 @@
             }).catch(function (error) {
 
             });
+        };
+
+        self.publish = function publish(params) {
+
+            params.model.pubDate = Date.now;
+
+            params.model.status = articleStatuses().published;
+
+            return self.update({ model: params.model });
+
+        };
+
+        self.approve = function approve(params) {
+
+            params.model.status = articleStatuses().approved;
+
+            return self.update({ model: params.model });
+
         };
 
         self.update = function update(params) {

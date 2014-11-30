@@ -4,25 +4,25 @@
 
     var componentId = "articleEditor";
 
-    angular.module("blog").directive(componentId, ["$location", "$routeParams", "articleService", component]);
+    angular.module("blog").directive(componentId, [component]);
 
-    function component($location, $routeParams, articleService) {
+    function component() {
         return {
             templateUrl: "/app/blog/components/articleEditor/articleEditor.html",
-            restrict: "EA",
+            restrict: "E",
             replace: true,
-            scope: {
+            controllerAs:"viewModel",
+            controller: ["$location", "$routeParams", "articleService", function ($location, $routeParams, articleService) {
 
-            },
-            link: function (scope, elem, attr) {
+                var self = this;
 
-                scope.model = {};
+                self.entity = {};
 
-                scope.save = function save() {
+                self.save = function save() {
 
-                    if (scope.model.id) {
+                    if (self.entity.id) {
 
-                        return articleService.update({ model: scope.model }).then(function (results) {
+                        return articleService.update({ model: self.entity }).then(function (results) {
 
                             $location.path("/admin/articles");
 
@@ -30,7 +30,7 @@
                     }
                     else {
 
-                        return articleService.add({ model: scope.model }).then(function (results) {
+                        return articleService.add({ model: self.entity }).then(function (results) {
 
                             $location.path("/admin/articles");
 
@@ -40,16 +40,22 @@
 
 
                 };
+                function initialize() {
+                    return articleService.getById({ id: $routeParams.id }).then(function (results) {
 
-                return articleService.getById({ id: $routeParams.id }).then(function (results) {
+                        if (results) {
+                            return self.entity = results;
+                        }
 
-                    if (results) {
-                        scope.model = results;
-                    }
+                    });
+                };
 
-                });
+                initialize();
 
+                return self;
 
+            }],
+            link: function (scope, elem, attr) {
 
             }
         };

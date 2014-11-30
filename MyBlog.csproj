@@ -135,6 +135,7 @@
     <Content Include="app\core\components\coreLogo\coreLogo.css" />
     <Content Include="app\core\components\coreLogo\coreLogo.html" />
     <Content Include="app\core\components\coreLogo\coreLogo.js" />
+    <Content Include="app\blog\enums\articleStatuses.js" />
     <Content Include="app\core\intreceptors\authorizationInterceptor.js" />
     <Content Include="app\core\module.js" />
     <Content Include="app\core\storage\storage.js" />

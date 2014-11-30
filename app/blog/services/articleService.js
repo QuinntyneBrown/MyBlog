@@ -3,9 +3,9 @@
 
     var dataServiceId = "articleService";
 
-    angular.module("blog").service(dataServiceId, ["$http", "$q", "$rootScope", dataService]);
+    angular.module("blog").service(dataServiceId, ["$http", "$q", "$rootScope","articleStatuses", dataService]);
 
-    function dataService($http, $q, $rootScope) {
+    function dataService($http, $q, $rootScope, articleStatuses) {
         var self = {};
         
         var baseUri = "api/article/";
@@ -90,6 +90,24 @@
             }).catch(function (error) {
 
             });
+        };
+
+        self.publish = function publish(params) {
+
+            params.model.pubDate = Date.now;
+
+            params.model.status = articleStatuses().published;
+
+            return self.update({ model: params.model });
+
+        };
+
+        self.approve = function approve(params) {
+
+            params.model.status = articleStatuses().approved;
+
+            return self.update({ model: params.model });
+
         };
 
         self.update = function update(params) {

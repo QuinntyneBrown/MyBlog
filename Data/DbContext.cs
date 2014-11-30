@@ -20,7 +20,6 @@ namespace MyBlog.Data
         public DbSet<Article> Articles { get; set; }
         public DbSet<ArticleTranslation> ArticleTranslations { get; set; }
         public DbSet<Configuration> Configurations { get; set; }
-        public DbSet<Culture> CultureCodes { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<User> Users { get; set; }
 

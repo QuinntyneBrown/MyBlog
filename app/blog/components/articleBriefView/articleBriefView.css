@@ -1,1 +1,12 @@
-﻿
+﻿.article-brief-view {
+    padding: 24px 0px 5px 0px;
+}
+
+.article-brief-view h1 {
+    
+    font-size: 22px;
+}
+
+.article-brief-view .body {
+    font-size:14px;
+}

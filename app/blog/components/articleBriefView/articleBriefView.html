@@ -1,16 +1,16 @@
-﻿<div data-ng-click="goToFullView(model)">
+﻿<div data-ng-click="goToFullView(model)" class="article-brief-view">
     
     <hgroup>
         
         <h1>
         
-                {{ model.title }}
+            <a class="link">{{ model.title }}</a>
         
         </h1>
 
     </hgroup>
 
-    <div data-ng-bind-html="model.htmlBody">
+    <div data-ng-bind-html="model.htmlBody" class="body">
 
 
     </div>

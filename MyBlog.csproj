@@ -136,6 +136,7 @@
     <Content Include="app\core\components\coreLogo\coreLogo.html" />
     <Content Include="app\core\components\coreLogo\coreLogo.js" />
     <Content Include="app\blog\enums\articleStatuses.js" />
+    <Content Include="app\core\components\coreTitle\coreTitle.js" />
     <Content Include="app\core\intreceptors\authorizationInterceptor.js" />
     <Content Include="app\core\module.js" />
     <Content Include="app\core\storage\storage.js" />
@@ -178,9 +179,11 @@
     <Content Include="app\user\services\userRouteResolver.js" />
     <Content Include="app\user\views\register.html" />
     <Content Include="app\user\views\signin.html" />
+    <Content Include="css\jasmine.css" />
     <Content Include="Global.asax" />
     <Content Include="images\about-hero.jpg" />
     <Content Include="index.html" />
+    <Content Include="jasmine.html" />
     <Content Include="scripts\angular-mocks.js" />
     <Content Include="scripts\angular-route.js" />
     <Content Include="scripts\angular-route.min.js" />
@@ -189,7 +192,10 @@
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />
     <Content Include="README.md" />
+    <Content Include=".gitignore" />
     <None Include="scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="scripts\jasmine-html.js" />
+    <Content Include="scripts\jasmine.js" />
     <Content Include="scripts\jquery-2.1.1.js" />
     <Content Include="scripts\jquery-2.1.1.min.js" />
     <Content Include="scripts\ng-infinite-scroll.min.js" />
@@ -347,6 +353,7 @@
     <Content Include="scripts\tinymce\tinymce.js" />
     <Content Include="scripts\tinymce\tinymce.min.js" />
     <Content Include="scripts\underscore-min.js" />
+    <Content Include="specs.js" />
     <Content Include="uiTinyMCE\uiTinyMCE.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

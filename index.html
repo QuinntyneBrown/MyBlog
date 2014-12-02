@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="app">
 <head>
-    <title>ngBlog</title>
+    <title> ngBlog </title>
     <script src="scripts/prefixfree.js"></script>
     <link href="app.css" rel="stylesheet" />
 </head>
-<body data-ng-app="app" data-ng-class="{admin: isAdmin }">
+<body data-ng-class="{admin: isAdmin }">
 
     <div id="container">
-               
+
         <core-header></core-header>
 
         <div id="view-container">
@@ -32,6 +32,6 @@
     <script src="scripts/ng-infinite-scroll.min.js"></script>
     <script src="uiTinyMCE/uiTinyMCE.js"></script>
     <script src="app.js"></script>
-    
+
 </body>
 </html>

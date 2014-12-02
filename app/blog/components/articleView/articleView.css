@@ -1,1 +1,12 @@
-﻿
+﻿.article-view {
+    padding: 24px 0px 5px 0px;
+}
+
+.article-view h1 {
+    
+    font-size: 22px;
+}
+
+.article-view .body {
+    font-size:14px;
+}

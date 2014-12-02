@@ -2,9 +2,9 @@
 
     <ul class="menu-bar" data-ng-if="!session.isLoggedIn()">
 
-        <li><a href="#/signin">Sign In</a></li>
+        <li><a href="#/signin">SIGN IN</a></li>
 
-        <li><a href="#/register">Register</a></li>
+        <li><a href="#/register">REGISTER</a></li>
 
     </ul>
 
@@ -12,9 +12,9 @@
 
         <li><a>{{ session.getCurrentUser().username }}</a></li>
 
-        <li><a href="#/admin">Admin</a></li>
+        <li><a href="#/admin">ADMIN</a></li>
 
-        <li><a class="link" data-ng-click="session.signOut()">Sign Out</a></li>
+        <li><a class="link" data-ng-click="session.signOut()">SIGN OUT</a></li>
 
     </ul>
 

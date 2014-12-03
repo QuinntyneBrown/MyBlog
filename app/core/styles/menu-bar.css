@@ -4,11 +4,16 @@
     position: relative;
 }
 
-.menu-bar li {
-    margin-right: 20px;
+.menu-bar li {    
     position: relative;
-    display: inline;
+    display: inline-block;
     list-style: outside none none;
+    height:48px;
+}
+
+.menu-bar li a {
+    padding: 15px 15px 14px 15px;
+    line-height:48px;
 }
 
 .menu-bar::after {

@@ -144,6 +144,7 @@
     <Content Include="app\core\styles\app.css" />
     <Content Include="app\core\styles\body.css" />
     <Content Include="app\core\styles\container.css" />
+    <Content Include="app\core\styles\h1.css" />
     <Content Include="app\core\styles\left.css" />
     <Content Include="app\core\styles\link.css" />
     <Content Include="app\core\styles\menu-bar.css" />

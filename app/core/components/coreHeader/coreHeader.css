@@ -1,10 +1,10 @@
 ﻿#core-header {
     height: 48px;
     width: 100%;
-    background: linear-gradient(#3f3f3f, #3C454F);
+    background: linear-gradient(#232323, #232323);
 }
 
 #core-header a {
-    color:#fff;
+    color:#999;
 }
 

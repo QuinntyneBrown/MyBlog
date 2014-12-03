@@ -3,6 +3,7 @@
     "use strict";
 
     var app = angular.module("app", [
+        "ngAnimate",
         "ngRoute",      
         "ui.tinymce",
         "infinite-scroll",

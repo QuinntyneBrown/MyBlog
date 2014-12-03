@@ -6,6 +6,28 @@
     color:#fff;
     height:100%;
 }
+
+.nav-text a {
+    padding: 2px 30px;
+    transition: all 0.3s ease 0s;
+}
+
+.nav-text a:hover {
+    color:#fff;
+}
+
+.divider {
+    padding: 10px 30px 5px 30px;
+}
+
+#admin-menu.ng-enter {
+        transition: all 0.5s linear;
+    opacity: 0;
+}
+
+#admin-menu.ng-enter-active {
+     opacity: 1;
+}
 .admin {
 
 }
@@ -50,8 +72,21 @@
 
 #core-header a {
     color:#999;
+    transition: all 0.3s ease 0s;
 }
 
+#core-header a:hover {
+    color:#fff;
+}
+
+#core-header.ng-enter {
+    transition: all 0.5s linear;
+    opacity: 0;
+}
+
+#core-header.ng-enter-active {
+     opacity: 1;
+}
 #core-identity-menu { 
     position:relative;
     float:left;
@@ -82,6 +117,17 @@ html,body,#container,#page {
     color:#666666
 
 }
+
+header {
+    margin-bottom:54px;
+}
+
+header h1 {
+    font-size:72px;
+    font-weight:100;
+    line-height:108px;
+}
+
 body,html {
     position: relative;
     width: 100%;
@@ -126,6 +172,15 @@ h1 {
     height: 0;
     visibility: hidden;
 }
+div[ng-view].ng-enter {
+    transition: all 0.5s linear;
+    opacity: 0;
+}
+
+div[ng-view].ng-enter-active {
+    opacity: 1;
+}
+
 
 #view-container {
     height:100%;
@@ -163,6 +218,28 @@ body {
     color:#fff;
     height:100%;
 }
+
+.nav-text a {
+    padding: 2px 30px;
+    transition: all 0.3s ease 0s;
+}
+
+.nav-text a:hover {
+    color:#fff;
+}
+
+.divider {
+    padding: 10px 30px 5px 30px;
+}
+
+#admin-menu.ng-enter {
+        transition: all 0.5s linear;
+    opacity: 0;
+}
+
+#admin-menu.ng-enter-active {
+     opacity: 1;
+}
 .admin {
 
 }
@@ -207,8 +284,21 @@ body {
 
 #core-header a {
     color:#999;
+    transition: all 0.3s ease 0s;
 }
 
+#core-header a:hover {
+    color:#fff;
+}
+
+#core-header.ng-enter {
+    transition: all 0.5s linear;
+    opacity: 0;
+}
+
+#core-header.ng-enter-active {
+     opacity: 1;
+}
 #core-identity-menu { 
     position:relative;
     float:left;
@@ -239,6 +329,17 @@ html,body,#container,#page {
     color:#666666
 
 }
+
+header {
+    margin-bottom:54px;
+}
+
+header h1 {
+    font-size:72px;
+    font-weight:100;
+    line-height:108px;
+}
+
 body,html {
     position: relative;
     width: 100%;
@@ -283,6 +384,15 @@ h1 {
     height: 0;
     visibility: hidden;
 }
+div[ng-view].ng-enter {
+    transition: all 0.5s linear;
+    opacity: 0;
+}
+
+div[ng-view].ng-enter-active {
+    opacity: 1;
+}
+
 
 #view-container {
     height:100%;

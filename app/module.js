@@ -54,6 +54,8 @@
 
         $rootScope.$on("$routeChangeStart", function routeChange(event, newUrl, oldUrl) {
 
+            $rootScope.inViewTransition = true;
+
             if (newUrl.originalPath == "/signin") {
                 token.set({ data: null });
             }
@@ -76,6 +78,8 @@
 
         $rootScope.$on("$viewContentLoaded", function routeChange(event, newUrl, oldUrl) {
 
+            $rootScope.inViewTransition = false;
+
             if ($route.current.$$route.authorizationRequired && (currentUser.get() == null || currentUser.get() == "")) {
 
                 $location.path("/signin");
@@ -83,6 +87,8 @@
             };
 
         });
+
+        
 
     }]);
 

@@ -1,7 +1,7 @@
 ﻿#core-header {
     height: 48px;
     width: 100%;
-    background: linear-gradient(#232323, #232323);
+    background-color: #232323;
 }
 
 #core-header a {
@@ -11,6 +11,7 @@
 
 #core-header a:hover {
     color:#fff;
+    background-color:#333;
 }
 
 #core-header.ng-enter {

@@ -13,6 +13,7 @@ namespace MyBlog.Models
         public int? ArticleId { get; set; }
 
         public string Title { get; set; }
+        public string HtmlExcerpt { get; set; }
         public string HtmlBody { get; set; }
         public int? CultureCodeId { get; set; }
         

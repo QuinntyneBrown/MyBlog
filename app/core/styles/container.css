@@ -1,5 +1,19 @@
 ﻿#container {
     position: relative;
-    width: 100%;
-    height:100%;
+    height: 100%;
+    width:100%;
+
+}
+
+#view-container {
+    position:relative;
+    width:1170px;
+    margin: 0 auto;
+}
+
+
+.admin #view-container {
+    position:relative;
+    width:100%;
+    margin: 0;
 }

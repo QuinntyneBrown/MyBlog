@@ -6,3 +6,8 @@
     position:absolute;
     background-color:#666;
 }
+
+#search a:hover {
+    color:#fff;
+    background-color: #232323;
+}

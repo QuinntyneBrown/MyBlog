@@ -5,8 +5,11 @@
     <script src="scripts/prefixfree.js"></script>
     <link href="app.css" rel="stylesheet" />
 </head>
-<body data-ng-class="{admin: isAdmin }">
+<body data-ng-class="{ 'admin': isAdmin, 'inViewTransition':  inViewTransition }">
 
+    <div id="overlay" data-ng-if="inViewTransition">
+
+    </div>
     <div id="container">
 
         <core-header></core-header>
@@ -18,7 +21,7 @@
             <header role="banner" data-ng-if="!isAdmin">
                 <h1>ngBlog</h1>
             </header>
-            
+
             <div id="view" ng-view=""></div>
 
             <div style="clear:both;"></div>

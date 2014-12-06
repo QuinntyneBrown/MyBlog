@@ -148,6 +148,7 @@
     <Content Include="app\core\styles\form-group.css" />
     <Content Include="app\core\styles\h1.css" />
     <Content Include="app\core\styles\hrgroup h1.css" />
+    <Content Include="app\core\styles\hr.css" />
     <Content Include="app\core\styles\label.css" />
     <Content Include="app\core\styles\left.css" />
     <Content Include="app\core\styles\link.css" />
@@ -209,6 +210,10 @@
     <Content Include="scripts\jasmine.js" />
     <Content Include="scripts\jquery-2.1.1.js" />
     <Content Include="scripts\jquery-2.1.1.min.js" />
+    <Content Include="scripts\moment-with-locales.js" />
+    <Content Include="scripts\moment-with-locales.min.js" />
+    <Content Include="scripts\moment.js" />
+    <Content Include="scripts\moment.min.js" />
     <Content Include="scripts\ng-infinite-scroll.min.js" />
     <Content Include="scripts\prefixfree.js" />
     <Content Include="scripts\tinymce\license.txt" />

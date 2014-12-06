@@ -15,6 +15,10 @@
             },
             link: function (scope, elem, attr) {
 
+                scope.displayDate = function (date) {
+                    return moment(scope.model.pubDate).format("MMMM Do YYYY");
+                };
+
                 return articleService.getById({ id: $route.current.params.id }).then(function (results) {
 
                     scope.model = results;
@@ -22,6 +26,8 @@
                     $sce.trustAsHtml(scope.model.htmlBody);
 
                 })
+
+                
 
             }
         };

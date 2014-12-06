@@ -1,5 +1,7 @@
 ﻿<div id="home-list-view" infinite-scroll="viewModel.loadMoreArticles()" infinite-scroll-distance="1">
 
-    <article-brief-view data-ng-repeat="article in viewModel.articles" model="article">
-
+    <div data-ng-repeat="article in viewModel.articles">
+        <article-brief-view model="article"></article-brief-view>
+        <hr data-ng-if="!$last"/>   
+    </div>    
 </div>

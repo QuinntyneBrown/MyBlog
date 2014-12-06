@@ -23,6 +23,12 @@
                     $location.path("/article/" + model.id);
 
                 }
+
+
+                scope.displayDate = function (date) {
+
+                    return moment(scope.model.pubDate).format("MMMM Do YYYY");
+                };
             }
         };
     }

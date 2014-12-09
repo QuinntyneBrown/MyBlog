@@ -15,7 +15,7 @@
             link: function (scope, elem, attrs) {
 
                 scope.model = {
-                    username: "Demo",
+                    username: "Quinntyne",
                     password: "password"
                 };
 

@@ -70,7 +70,9 @@ namespace MyBlog.Services
 
             var userId = (int)session.UserId;
 
-            return new UserDto(FromCacheOrService<User>(() => uow.Users.GetAll().Where(x => x.Id == userId).Include(x => x.Roles).FirstOrDefault(), string.Format("User By Id: {0}", userId)));
+            var result = new UserDto(FromCacheOrService<User>(() => uow.Users.GetAll().Where(x => x.Id == userId).Include(x => x.Roles).FirstOrDefault(), string.Format("User By Id: {0}", userId)));
+
+            return result;
         }
 
         public UserDto GetCurrentUser(string username)

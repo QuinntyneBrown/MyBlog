@@ -377,6 +377,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\UserDto.cs" />
+    <Compile Include="Migrations\RoleConfiguration.cs" />
     <Compile Include="Models\ArticleStatus.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Controllers\SearchController.cs" />

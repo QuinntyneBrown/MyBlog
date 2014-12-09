@@ -13,6 +13,6 @@ namespace MyBlog.Models
         }
 
         public string Name { get; set; }
-        public ICollection<User> Users = new HashSet<User>();
+        public virtual ICollection<User> Users { get; set; }
     }
 }

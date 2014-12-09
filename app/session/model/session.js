@@ -16,6 +16,21 @@
 
         };
 
+        self.isUserInRole = function isUserInRole(roleName) {
+            if (self.isLoggedIn()) {
+
+                var user = self.getCurrentUser();
+
+                for (var i = 0; i < user.roles.length; i++) {
+                    if (roleName == user.roles[i].name) {
+                        return true;
+                    }
+                };
+            }
+
+            return false;
+        };
+
         self.getCurrentUser = function getCurrentUser() {
             return currentUser.get();
         }

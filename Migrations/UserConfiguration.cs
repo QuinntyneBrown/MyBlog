@@ -17,13 +17,10 @@ namespace MyBlog.Migrations
 
                 var password = encryptionService.TransformPassword("password");
 
-                Role role = new Role() { Name = "Admin" };
-
-                var roles = new List<Role>() { role };
-
-                User user = new User() { Firstname = "Demo", Lastname = "User", Username = "Demo", Password = password, IsActive = true, Roles = roles };
-
-                context.Users.Add(user);
+                context.Users.Add(new User() { Firstname = "System", Lastname = "System", Username = "System", Password = password, IsActive = true, Roles = context.Roles.Where(x => x.Name == "System").ToList() });
+                context.Users.Add(new User() { Firstname = "Demo", Lastname = "User", Username = "Demo", Password = password, IsActive = true, Roles = context.Roles.Where(x=>x.Name=="Admin").ToList() });
+                context.Users.Add(new User() { Firstname = "Quinntyne", Lastname = "Brown", Username = "Quinntyne", Password = password, IsActive = true, Roles = context.Roles.Where(x => x.Name == "Author").ToList() });
+                context.Users.Add(new User() { Firstname = "Philippa", Lastname = "Brown", Username = "Philippa", Password = password, IsActive = true, Roles = context.Roles.Where(x => x.Name == "Author" || x.Name == "Publisher").ToList() });
 
                 context.SaveChanges();
             }

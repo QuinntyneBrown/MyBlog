@@ -15,12 +15,9 @@ namespace MyBlog.Controllers
     public class UserController : BaseApiController
     {
 
-        protected readonly IRepository<User> repository;
-
-        public UserController(ISessionService sessionService, IUow uow)
+        public UserController(ISessionService sessionService)
             : base(sessionService)
         {
-            this.repository = uow.Users;
         }
 
         [HttpGet]
@@ -35,7 +32,6 @@ namespace MyBlog.Controllers
 
             return Ok();
         }
-
 
     }
 }

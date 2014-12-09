@@ -22,6 +22,7 @@ namespace MyBlog.Data
         public DbSet<Configuration> Configurations { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         public override int SaveChanges()
         {
@@ -69,7 +70,16 @@ namespace MyBlog.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<User>().
+            HasMany(u => u.Roles).
+            WithMany(r => r.Users).
+            Map(
+                m =>
+                {
+                    m.MapLeftKey("UserId");
+                    m.MapRightKey("RoleId");
+                    m.ToTable("UserRoles");
+                });
 
         }
     }

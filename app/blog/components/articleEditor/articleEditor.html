@@ -6,7 +6,7 @@
     </hgroup>
 
 
-    <form data-ng-submit="viewModel.save()" novalidate>
+    <form novalidate>
         <div>
 
             <label>Title</label>
@@ -22,13 +22,13 @@
         </div>
 
         <div>
-            <input type="button" data-ng-click="viewModel.approve()" value="Approve" />
+            <input type="button" data-ng-click="viewModel.approve()" value="Approve" class="btn btn-lg" />
 
-            <input type="button" data-ng-click="viewModel.publish()" value="Publish" />
+            <input type="button" data-ng-click="viewModel.publish()" value="Publish" class="btn btn-lg" />
 
-            <input type="button" data-ng-click="viewModel.remove()" value="Delete" />
+            <input type="button" data-ng-click="viewModel.remove()" value="Delete" class="btn btn-lg" />
 
-            <input type="submit" value="Save" />
+            <input type="submit" data-ng-click="viewModel.save()" value="Save" class="btn btn-lg" />
         </div>
     </form>
 </div>

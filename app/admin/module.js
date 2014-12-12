@@ -8,18 +8,11 @@
     app.config(["$routeProvider", function ($routeProvider) {
 
         $routeProvider
-
         .when("/admin", {
-            templateUrl: "/app/admin/views/admin.html",
-            resolve: ["blogRouteResolver", function (blogRouteResolver) {
-                return blogRouteResolver.resolveRoute();
-            }],
-            authorizationRequired: true
-        });
-    }
-
-
-    ]);
+            redirectTo: function () { return "/admin/articles"; }
+            }
+        );
+    }]);
 
 
     app.run(["$rootScope", "$location", function ($rootScope, $location) {

@@ -15,6 +15,26 @@
             scope: {},
             link: function (scope, elem, attr) {
 
+                var timeoutId = null;
+
+                scope.$watch(
+                    function (scope) {
+                        return scope.term;
+                    },
+                    function (newValue) {
+                            try {
+                                clearTimeout(timeoutId);
+                            } catch (error) {
+
+                            }
+
+                            timeoutId = setTimeout(function () {
+                                return scope.search();
+
+                            }, 300);
+                    }
+                );
+
                 scope.term = "";
 
                 scope.results = [];

@@ -3,7 +3,7 @@
         <a class="link" data-ng-click="search()">SEARCH</a>
         <div id="suggestion-list" data-ng-if="results.length > 0">
             <ul>
-                <li data-ng-repeat="article in results"><a href="#/article/{{ article.id }}">{{ article.title }}</a></li>
+                <li data-ng-repeat="article in results"><a href="#/article/{{ article.slug }}">{{ article.title }}</a></li>
             </ul>
         </div>
 </div>

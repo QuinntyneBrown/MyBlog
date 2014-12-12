@@ -9,7 +9,7 @@
 
         $routeProvider
 
-        .when("/article/:id", {
+        .when("/article/:slug", {
             templateUrl: "/app/blog/views/article.html",
             resolve: ["blogRouteResolver", function (blogRouteResolver) {
                 return blogRouteResolver.resolveRoute();

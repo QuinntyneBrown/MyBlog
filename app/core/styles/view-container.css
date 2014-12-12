@@ -1,7 +1,10 @@
 ﻿
 #view-container {
-    height:100%;
     position:relative;
+}
+
+.admin #view-container {
+    height:100%;
 }
 
 .admin #view {

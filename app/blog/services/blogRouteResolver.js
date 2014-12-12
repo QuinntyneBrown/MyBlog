@@ -22,6 +22,12 @@
                         });
 
                     }
+                    else if ($route.current.params.slug) {
+
+                        return articleService.getBySlug({ slug: $route.current.params.slug }).then(function () {
+
+                        });
+                    }
                     else {
                         return articleService.getAll().then(function () {
 

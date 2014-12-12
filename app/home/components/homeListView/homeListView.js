@@ -13,12 +13,14 @@
             replace: true,
             restrict: "E",
             controllerAs:"viewModel",
-            controller: ["articleService", function (articleService) {
+            controller: ["articleService", "articleStatuses", function (articleService, articleStatuses) {
 
                 var self = this;
 
+                self.articleStatuses = articleStatuses;
+
                 function initialize() {
-                    return articleService.getAll().then(function (results) {
+                    return articleService.getAll({ status: articleStatuses().published}).then(function (results) {
 
                         return self.articles = results;
 

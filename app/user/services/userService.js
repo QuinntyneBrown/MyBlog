@@ -1,19 +1,18 @@
 ﻿(function () {
     "use strict";
 
-    var dataServiceId = "articleService";
+    var dataServiceId = "userService";
 
-    angular.module("blog").service(dataServiceId, ["$http", "$q", "$rootScope","articleStatuses", dataService]);
+    angular.module("user").service(dataServiceId, ["$http", "$q", "$rootScope", dataService]);
 
-    function dataService($http, $q, $rootScope, articleStatuses) {
+    function dataService($http, $q, $rootScope) {
         var self = {};
-        
-        var baseUri = "api/article/";
+
+        var baseUri = "api/user/";
 
         self.cache = {
             getAll: null,
-            getById: null,
-            getBySlug: null
+            getById: null
         };
 
         $rootScope.$on("$locationChangeStart", function () {
@@ -23,8 +22,7 @@
         self.clearCache = function clearCache() {
             self.cache = {
                 getAll: null,
-                getById: null,
-                getBySlug: null
+                getById: null
             };
         };
 
@@ -72,28 +70,6 @@
             });
         };
 
-        self.getBySlug = function getBySlug(params) {
-
-            if (self.cache.getBySlug && self.cache.getBySlug.slug == params.slug) {
-                var deferred = $q.defer();
-
-                deferred.resolve(self.cache.getBySlug);
-
-                return deferred.promise;
-            };
-
-            return $http({ method: "GET", url: baseUri + "getbyslug?slug=" + params.slug }).then(function (results) {
-
-                self.cache.getBySlug = results.data;
-
-                return results.data;
-
-            }).catch(function (error) {
-
-            });
-        };
-
-
         self.remove = function remove(params) {
 
             return $http({ method: "GET", url: baseUri + "delete?id=" + params.id }).then(function (results) {
@@ -118,24 +94,6 @@
             }).catch(function (error) {
 
             });
-        };
-
-        self.publish = function publish(params) {
-
-            params.model.pubDate = Date.now;
-
-            params.model.status = articleStatuses().published;
-
-            return self.update({ model: params.model });
-
-        };
-
-        self.approve = function approve(params) {
-
-            params.model.status = articleStatuses().approved;
-
-            return self.update({ model: params.model });
-
         };
 
         self.update = function update(params) {

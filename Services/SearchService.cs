@@ -1,5 +1,6 @@
 ﻿using MyBlog.Data.Contracts;
 using MyBlog.Dto;
+using MyBlog.Models;
 using MyBlog.Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,8 @@ namespace MyBlog.Services
             var articles = new HashSet<dynamic>();
                 
                 uow.Articles.GetAll()
-                    .Where(x => x.HtmlBody.Contains(term) || x.Title.Contains(term))
+                    .Where(x => x.Status == ArticleStatus.Published && x.IsDeleted == false)
+                    .Where(x => x.HtmlBody.Contains(term) || x.Title.Contains(term))                    
                     .OrderBy(x => x.LastModifiedDate)
                     .ToList()
                     .ForEach(x=> articles.Add(x));

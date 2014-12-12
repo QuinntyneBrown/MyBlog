@@ -25,19 +25,37 @@ namespace MyBlog.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetAll()
+        public IHttpActionResult GetAll(ArticleStatus? status = null)
         {
-            return Ok(repository.GetAll().Where(x=>x.IsDeleted ==false).ToList());
+
+            if (status != null)
+            {
+                return Ok(repository.GetAll()
+                    .Where(x => x.IsDeleted == false && x.Status == status)
+                    .OrderByDescending(x => x.PubDate)
+                    .ToList());
+            }
+
+            return Ok(repository.GetAll()
+                .Where(x => x.IsDeleted == false)
+                .OrderByDescending(x=>x.PubDate)
+                .ToList());
         }
 
         [HttpGet]
-        public IHttpActionResult GetPage(int offset = 0, int setSize = 5)
+        public IHttpActionResult GetPage(int offset = 0, int setSize = 5, ArticleStatus? status = null)
         {
             return Ok(repository.GetAll()
                 .Where(x => x.IsDeleted == false && x.Status == ArticleStatus.Published)
                 .Skip(offset * setSize)
                 .Take(setSize)
                 .ToList());
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetBySlug(string slug)
+        {
+            return Ok(repository.GetAll().Where(x=>x.Slug==slug).Single());
         }
 
         [HttpGet]
@@ -59,7 +77,7 @@ namespace MyBlog.Controllers
         {
             this.repository.Add(entity);
             this.uow.SaveChanges();
-            return Ok();
+            return Ok(entity);
         }
 
         [HttpPost]

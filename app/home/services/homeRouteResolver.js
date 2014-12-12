@@ -3,9 +3,9 @@
 
     var serviceId = "homeRouteResolver";
 
-    angular.module("app").service(serviceId, ["$q", "$route", "articleService", "configurationService", "identityService", service]);
+    angular.module("app").service(serviceId, ["$q", "$route", "articleService", "articleStatuses", "configurationService", "identityService", service]);
 
-    function service($q, $route, articleService, configurationService, identityService) {
+    function service($q, $route, articleService, articleStatuses, configurationService, identityService) {
 
         var self = this;
 
@@ -13,7 +13,7 @@
 
             return $q.all([
                 configurationService.get(),
-                articleService.getAll(),
+                articleService.getAll({ status: articleStatuses().published }),
                 identityService.getCurrentUser()
             ]).then(function (results) {
 

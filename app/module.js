@@ -48,10 +48,10 @@
 
     }]);
 
-    app.run(["$location", "$rootScope", "$route", "currentUser", "token", function ($location, $rootScope, $route, currentUser, token) {
+    app.run(["$http", "$location", "$rootScope", "$route", "currentUser", "token", function ($http, $location, $rootScope, $route, currentUser, token) {
 
         $rootScope.pageTitle = "ngBlog";
-
+        
         $rootScope.$on("$routeChangeStart", function routeChange(event, newUrl, oldUrl) {
 
             $rootScope.inViewTransition = true;

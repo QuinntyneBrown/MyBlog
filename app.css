@@ -52,6 +52,9 @@
     font-weight: 400;
     line-height: 1.75;
 }
+.article-editor {
+    padding: 15px;
+}
 .article-view {
     padding: 24px 0px 5px 0px;
 }
@@ -137,10 +140,10 @@ header h1 {
     line-height:108px;
 }
 
-body,html {
+body, html {
     position: relative;
-    width: 100%;
     height:100%;
+    width: 100%;
 }
 
 body.inViewTransition {
@@ -186,6 +189,9 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
+}
+.component {
+
 }
 #container {
     position: relative;
@@ -233,6 +239,14 @@ input, .form-control {
 }
 h1 {
     font-size:36px;
+}
+header[role="banner"].ng-enter {
+    transition: all 0.5s linear;
+    opacity: 0;
+}
+
+header[role="banner"].ng-enter-active {
+    opacity: 1;
 }
 hr {
     border-color: #eee -moz-use-text-color -moz-use-text-color;
@@ -305,6 +319,32 @@ label {
     transition: all 0.5s linear;
     opacity: 1;
 }
+.sub-view {
+    padding:15px;
+}
+table th, table td, table td a {
+    line-height:37px;
+    padding: 0px 10px;
+}
+
+table th {
+    padding:10px;
+    font-weight:600;
+    border-bottom: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    text-align: center;
+}
+
+table td {
+    border-bottom: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    text-align: center;
+}
+
+table {
+    border-left:1px solid #cccccc;
+    border-top:1px solid #cccccc;
+}
 div[ng-view].ng-enter {
     transition: all 0.5s linear;
     opacity: 0;
@@ -316,8 +356,11 @@ div[ng-view].ng-enter-active {
 
 
 #view-container {
-    height:100%;
     position:relative;
+}
+
+.admin #view-container {
+    height:100%;
 }
 
 .admin #view {
@@ -331,6 +374,7 @@ div[ng-view].ng-enter-active {
 html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}input,textarea,select{*font-size:100%}legend{color:#000}#yui3-css-stamp.cssreset{display:none}
 #search {
     padding:15px 15px 12px 15px;
+    z-index:99;
 }
 
 #suggestion-list {

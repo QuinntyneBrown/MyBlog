@@ -1,4 +1,4 @@
-﻿<div>
+﻿<div class="component">
 
     <hgroup>
         <h1 data-ng-show="viewModel.entity.id > 0">Edit Article</h1>
@@ -7,15 +7,22 @@
 
 
     <form novalidate>
-        <div>
+        <div class="form-group">
 
             <label>Title</label>
 
-            <input data-ng-model="viewModel.entity.title" />
+            <input data-ng-model="viewModel.entity.title" class="form-control" />
 
         </div>
 
-        <div>
+        <div class="form-group">
+
+            <label>Excerpt</label>
+
+            <textarea ui-tinymce data-ng-model="viewModel.entity.htmlExcerpt" />
+        </div>
+
+        <div class="form-group">
             <label>Body</label>
 
             <textarea ui-tinymce data-ng-model="viewModel.entity.htmlBody" />

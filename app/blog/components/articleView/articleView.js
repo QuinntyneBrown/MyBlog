@@ -19,16 +19,10 @@
                     return moment(scope.model.pubDate).format("MMMM Do YYYY");
                 };
 
-                return articleService.getById({ id: $route.current.params.id }).then(function (results) {
-
+                return articleService.getBySlug({ slug: $route.current.params.slug }).then(function (results) {
                     scope.model = results;
-
                     $sce.trustAsHtml(scope.model.htmlBody);
-
                 })
-
-                
-
             }
         };
     }

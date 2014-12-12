@@ -22,7 +22,13 @@
         };
 
         self.register = function register(params) {
+            return $http({ method: "POST", url: "api/identity/register", data: JSON.stringify(params.model) }).then(function (results) {
 
+                return results.data.token;
+
+            }).catch(function (error) {
+
+            });
         };
 
         self.getCurrentUser = function getCurrentUser() {

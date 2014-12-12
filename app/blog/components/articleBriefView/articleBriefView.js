@@ -20,7 +20,7 @@
 
                 scope.goToFullView = function (model) {
 
-                    $location.path("/article/" + model.id);
+                    $location.path("/article/" + model.slug);
 
                 }
 

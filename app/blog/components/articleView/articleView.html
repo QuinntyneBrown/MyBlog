@@ -4,14 +4,14 @@
 
         <h1>
 
-            {{ model.title }}
+            {{ ::model.title }}
 
         </h1>
 
     </hgroup>
 
     <p class="post-meta">
-        Posted on {{ displayDate(model.pubDate) }}
+        Posted on {{ ::displayDate(model.pubDate) }}
     </p>
 
     <div data-ng-bind-html="model.htmlBody">

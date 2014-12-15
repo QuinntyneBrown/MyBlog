@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MyBlog.Models
 {
-    public class Article : BaseEntity
+    public class Article : Content
     {
         public Article()
         {
@@ -14,13 +14,8 @@ namespace MyBlog.Models
             this.Tags = new HashSet<Tag>();
         }
 
-        public string Title { get; set; }
-        public string Slug { get; set; }
-        public DateTime? PubDate { get; set; }
-        public string HtmlExcerpt { get; set; }
-        public string HtmlBody { get; set; }
         public string Version { get; set; }
-        public ArticleStatus Status { get; set; } 
+        public PublishStatus Status { get; set; } 
         public ICollection<ArticleTranslation> Translations { get; set; }
         public ICollection<Category> Categories { get; set; }
         public ICollection<Tag> Tags { get; set; }

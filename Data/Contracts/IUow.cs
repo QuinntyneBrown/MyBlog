@@ -12,6 +12,8 @@ namespace MyBlog.Data.Contracts
         IRepository<Configuration> Configurations { get; }
         IRepository<Session> Sessions { get; }
         IRepository<User> Users { get; }
+        IRepository<YouTubeVideo> YouTubeVideos { get; }
+        IRepository<Book> Books { get; }
 
         void SaveChanges();
     }

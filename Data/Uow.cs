@@ -32,10 +32,11 @@ namespace MyBlog.Data
         }
 
         public IRepository<Article> Articles { get { return GetStandardRepo<Article>(); } }
+        public IRepository<Book> Books { get { return GetStandardRepo<Book>(); } }
         public IRepository<Configuration> Configurations { get { return GetStandardRepo<Configuration>(); } }
         public IRepository<Session> Sessions { get { return GetStandardRepo<Session>();  } }
-        public IRepository<User> Users { get { return GetStandardRepo<User>(); } }
-
+        public IRepository<User> Users { get { return GetStandardRepo<User>(); } }       
+        public IRepository<YouTubeVideo> YouTubeVideos { get { return GetStandardRepo<YouTubeVideo>(); } }
         public void SaveChanges()
         {
             this.DbContext.SaveChanges();

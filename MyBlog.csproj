@@ -125,6 +125,19 @@
     <Content Include="app\blog\views\list.html" />
     <Content Include="app\blog\views\article.html" />
     <Content Include="app\blog\views\edit.html" />
+    <Content Include="app\book\components\bookBrief\bookBrief.css" />
+    <Content Include="app\book\components\bookBrief\bookBrief.html" />
+    <Content Include="app\book\components\bookBrief\bookBrief.js" />
+    <Content Include="app\book\components\bookEditor\bookEditor.css" />
+    <Content Include="app\book\components\bookEditor\bookEditor.html" />
+    <Content Include="app\book\components\bookEditor\bookEditor.js" />
+    <Content Include="app\book\components\bookFull\bookFull.css" />
+    <Content Include="app\book\components\bookFull\bookFull.html" />
+    <Content Include="app\book\components\bookFull\bookFull.js" />
+    <Content Include="app\book\components\bookList\bookList.css" />
+    <Content Include="app\book\components\bookList\bookList.html" />
+    <Content Include="app\book\components\bookList\bookList.js" />
+    <Content Include="app\book\module.js" />
     <Content Include="app\configuration\services\configurationService.js" />
     <Content Include="app\core\components\coreIdentityMenu\coreIdentityMenu.css" />
     <Content Include="app\core\components\coreIdentityMenu\coreIdentityMenu.html" />
@@ -176,6 +189,7 @@
     <Content Include="app\search\components\search\search.js" />
     <Content Include="app\search\module.js" />
     <Content Include="app\search\service\searchService.js" />
+    <Content Include="app\session\properties\configuration.js" />
     <Content Include="app\session\properties\currentUser.js" />
     <Content Include="app\session\model\session.js" />
     <Content Include="app\session\properties\token.js" />
@@ -200,6 +214,14 @@
     <Content Include="app\user\views\list.html" />
     <Content Include="app\user\views\register.html" />
     <Content Include="app\user\views\signin.html" />
+    <Content Include="app\youTube\components\player\player.js" />
+    <Content Include="app\youTube\components\videoEditor\videoEditor.css" />
+    <Content Include="app\youTube\components\videoEditor\videoEditor.html" />
+    <Content Include="app\youTube\components\videoEditor\videoEditor.js" />
+    <Content Include="app\youTube\module.js" />
+    <Content Include="app\youTube\services\youTubeRouteResolver.js" />
+    <Content Include="app\youTube\services\youTubeService.js" />
+    <Content Include="app\youTube\views\default.html" />
     <Content Include="css\jasmine.css" />
     <Content Include="Global.asax" />
     <Content Include="images\about-hero.jpg" />
@@ -389,9 +411,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\YouTubeVideoController.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Migrations\RoleConfiguration.cs" />
-    <Compile Include="Models\ArticleStatus.cs" />
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Content.cs" />
+    <Compile Include="Models\PublishStatus.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -404,11 +430,14 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryTranslation.cs" />
     <Compile Include="Models\ILoggable.cs" />
+    <Compile Include="Models\IvLoadPolicy.cs" />
+    <Compile Include="Models\Page.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\TagTranslation.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\YouTubeVideo.cs" />
     <Compile Include="Services\CacheProvider.cs" />
     <Compile Include="Services\Contracts\ICache.cs" />
     <Compile Include="Services\Contracts\ICacheProvider.cs" />
@@ -484,7 +513,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="app\book\services\" />
+    <Folder Include="app\book\views\" />
+    <Folder Include="app\youTube\components\videoDisplayList\" />
+    <Folder Include="app\youTube\components\videoPlayer\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

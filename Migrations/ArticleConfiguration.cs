@@ -15,20 +15,22 @@ namespace MyBlog.Migrations
                 var configuration = context.Configurations.First();
 
                 context.Articles.Add(new Article() { 
-                    Title = "Rememberance Day!", 
+                    Title = "Rememberance Day",
+                    Slug = "rememberance-day",
                     HtmlBody = "A Great Day To Remember!",
                     TenantId = configuration.TenantId,
                     PubDate = DateTime.UtcNow,
-                    Status = ArticleStatus.Published
+                    Status = PublishStatus.Published
                 });
 
                 context.Articles.Add(new Models.Article()
                 {
-                    Title = "Chistmas Day!",
+                    Title = "Chistmas Day",
+                    Slug = "christmas-day",
                     HtmlBody = "Holiday after Rememberance Day!",
                     TenantId = configuration.TenantId,
                     PubDate = DateTime.UtcNow,
-                    Status = ArticleStatus.Published
+                    Status = PublishStatus.Published
                 });
 
                 context.SaveChanges();

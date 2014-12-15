@@ -8,6 +8,11 @@ namespace MyBlog.Dto
 {
     public class UserDto
     {
+        public UserDto()
+        {
+
+        }
+
         public UserDto(User user)
         {
             this.Username = user.Username;

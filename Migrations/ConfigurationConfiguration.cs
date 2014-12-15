@@ -13,7 +13,7 @@ namespace MyBlog.Migrations
         {
             if (context.Configurations.Count() < 1)
             {
-                context.Configurations.Add(new MyBlog.Models.Configuration() { Name = "My Blog", TenantId = 1, Theme = "Winter" });
+                context.Configurations.Add(new MyBlog.Models.Configuration() { Name = "ngBlog", TenantId = 1, Theme = "Winter" });
 
                 context.SaveChanges();
             }

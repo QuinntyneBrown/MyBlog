@@ -3,6 +3,7 @@ using MyBlog.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace MyBlog.Services.Contracts
@@ -23,6 +24,6 @@ namespace MyBlog.Services.Contracts
 
         UserDto GetCurrentUser(int sessionId);
 
-        UserDto GetCurrentUser(string username);
+        Task<UserDto> GetCurrentUser(string username);
     }
 }

@@ -24,7 +24,7 @@ namespace MyBlog.Services
             var articles = new HashSet<dynamic>();
                 
                 uow.Articles.GetAll()
-                    .Where(x => x.Status == ArticleStatus.Published && x.IsDeleted == false)
+                    .Where(x => x.Status == PublishStatus.Published && x.IsDeleted == false)
                     .Where(x => x.HtmlBody.Contains(term) || x.Title.Contains(term))                    
                     .OrderBy(x => x.LastModifiedDate)
                     .ToList()

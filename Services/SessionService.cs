@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace MyBlog.Services
@@ -64,22 +65,29 @@ namespace MyBlog.Services
             return uow.Sessions.GetAll().Where(x => x.UserId == user.Id).FirstOrDefault();
         }
 
+
         public UserDto GetCurrentUser(int sessionId)
         {
             var session = GetSession(sessionId);
 
             var userId = (int)session.UserId;
 
-            var result = new UserDto(FromCacheOrService<User>(() => uow.Users.GetAll().Where(x => x.Id == userId).Include(x => x.Roles).FirstOrDefault(), string.Format("User By Id: {0}", userId)));
+            var result =  new UserDto(FromCacheOrService<User>(() => uow.Users.GetAll().Where(x => x.Id == userId).Include(x => x.Roles).FirstOrDefault(), string.Format("User By Id: {0}", userId)));
 
             return result;
         }
 
-        public UserDto GetCurrentUser(string username)
+        public async Task<UserDto> GetCurrentUser(string username)
         {
-            
-            return new UserDto(FromCacheOrService<User>(() => uow.Users.GetAll().Where(x => x.Username == username).Include(x => x.Roles).FirstOrDefault(), string.Format("User: {0}", username)));
+            var result = new UserDto();
 
+            await Task.Factory.StartNew(() =>
+            {
+                result = new UserDto(FromCacheOrService<User>(() => uow.Users.GetAll().Where(x => x.Username == username).Include(x => x.Roles).FirstOrDefault(), string.Format("User: {0}", username)));
+
+            });
+
+            return result;
         }
 
         public void UpdateSession(Session session)

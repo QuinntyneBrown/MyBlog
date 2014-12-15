@@ -9,16 +9,20 @@
         "infinite-scroll",
         "admin",
         "blog",
+        "book",
         "configuration",
         "core",
         "search",
         "session",
-        "user"
+        "user",
+        "youTube"
     ]);
 
     app.config(["$httpProvider","$routeProvider", function ($httpProvider, $routeProvider) {
 
         $httpProvider.interceptors.push("authorizationInterceptor");
+
+        $httpProvider.useApplyAsync(true);
 
         $routeProvider
 

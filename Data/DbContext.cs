@@ -20,9 +20,12 @@ namespace MyBlog.Data
         public DbSet<Article> Articles { get; set; }
         public DbSet<ArticleTranslation> ArticleTranslations { get; set; }
         public DbSet<Configuration> Configurations { get; set; }
+        public DbSet<Culture> Cultures { get; set; }
+        public DbSet<Page> Pages { get; set; }
         public DbSet<Session> Sessions { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<YouTubeVideo> YouTubeVideos { get; set; }
 
         public override int SaveChanges()
         {

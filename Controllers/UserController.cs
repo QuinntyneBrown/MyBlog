@@ -8,10 +8,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace MyBlog.Controllers
 {
+    [Authorize]
     public class UserController : BaseApiController
     {
         protected readonly IRepository<User> repository;
@@ -23,27 +25,17 @@ namespace MyBlog.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetCurrentUser()
+        public async Task<IHttpActionResult> GetCurrentUser()
         {
-            if (!string.IsNullOrEmpty(User.Identity.Name))
-            {
-                var user = sessionService.GetCurrentUser(User.Identity.Name);
+            var user = await sessionService.GetCurrentUser(User.Identity.Name);
 
-                return Ok(user);
-            }
-
-            return Ok();
+            return Ok(user);
         }
 
-        [HttpGet]
+        [HttpGet]        
         public IHttpActionResult GetAll()
         {
-            if (!string.IsNullOrEmpty(User.Identity.Name))
-            {                
-                return Ok(repository.GetAll());
-            }
-
-            return Ok();
+            return Ok(repository.GetAll());
         }
 
     }

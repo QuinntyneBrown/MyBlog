@@ -25,7 +25,7 @@ namespace MyBlog.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetAll(ArticleStatus? status = null)
+        public IHttpActionResult GetAll(PublishStatus? status = null)
         {
 
             if (status != null)
@@ -43,10 +43,10 @@ namespace MyBlog.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetPage(int offset = 0, int setSize = 5, ArticleStatus? status = null)
+        public IHttpActionResult GetPage(int offset = 0, int setSize = 5, PublishStatus? status = null)
         {
             return Ok(repository.GetAll()
-                .Where(x => x.IsDeleted == false && x.Status == ArticleStatus.Published)
+                .Where(x => x.IsDeleted == false && x.Status == PublishStatus.Published)
                 .Skip(offset * setSize)
                 .Take(setSize)
                 .ToList());
@@ -64,7 +64,8 @@ namespace MyBlog.Controllers
             return Ok(repository.GetById(id));
         }
 
-        [HttpGet]
+        [HttpDelete]
+        [Authorize]
         public IHttpActionResult Delete(int id)
         {
             var article = this.repository.GetById(id);
@@ -73,6 +74,7 @@ namespace MyBlog.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IHttpActionResult Add(Article entity)
         {
             this.repository.Add(entity);
@@ -80,7 +82,8 @@ namespace MyBlog.Controllers
             return Ok(entity);
         }
 
-        [HttpPost]
+        [HttpPut]
+        [Authorize]
         public IHttpActionResult Update(Article entity)
         {
             this.repository.Update(entity);

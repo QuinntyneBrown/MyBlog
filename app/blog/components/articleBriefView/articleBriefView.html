@@ -4,7 +4,7 @@
         
         <h1 class="link">
 
-            {{ model.title }}
+            {{ ::model.title }}
 
         </h1>
 
@@ -16,6 +16,6 @@
     </div>
 
     <p class="post-meta">
-        Posted on {{ displayDate(model.pubDate) }}
+        Posted on {{ ::displayDate(model.pubDate) }}
     </p>
 </div>

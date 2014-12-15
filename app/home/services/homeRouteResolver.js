@@ -10,15 +10,14 @@
         var self = this;
 
         self.resolveRoute = function resolveRoute() {
-
-            return $q.all([
-                configurationService.get(),
-                articleService.getAll({ status: articleStatuses().published }),
-                identityService.getCurrentUser()
-            ]).then(function (results) {
-
+            return configurationService.get().then(function () {
+                return $q.all([
+                    articleService.getAll({ status: articleStatuses().published }),
+                    identityService.getCurrentUser()
+                ]).then(function (results) {
+                    console.log("");
+                });
             });
-
         };
 
         return self;

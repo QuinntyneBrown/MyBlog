@@ -1,0 +1,24 @@
+﻿(function () {
+
+    "use strict";
+
+    var app = angular.module("youTube", ["configuration", "core", "session", "ngRoute"]);
+
+
+    app.config(["$routeProvider", function ($routeProvider) {
+
+        $routeProvider
+
+        .when("/videoplayer/:videoid", {
+            templateUrl: "/app/youTube/views/default.html",
+            resolve: ["youTubeRouteResolver", function (youTubeRouteResolver) {
+                return youTubeRouteResolver.resolveRoute();
+            }],
+            authorizationRequired: false
+        })
+    }
+
+
+    ]);
+
+})();

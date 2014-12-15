@@ -5,10 +5,9 @@ using System.Web;
 
 namespace MyBlog.Models
 {
-    public enum ArticleStatus
+    public enum IvLoadPolicy
     {
-        Draft = 0,
-        Approved = 1, 
-        Published = 2
+        ShowAnnotations = 1,
+        DoNotShowAnnotations = 3
     }
 }

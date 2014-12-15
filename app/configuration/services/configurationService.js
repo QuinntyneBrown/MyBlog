@@ -4,9 +4,9 @@
 
     var serviceId = "configurationService";
 
-    angular.module("configuration").service(serviceId, ["$http",service]);
+    angular.module("configuration").service(serviceId, ["$http","$rootScope",service]);
 
-    function service($http) {
+    function service($http, $rootScope) {
 
         var self = this;
 
@@ -16,6 +16,7 @@
 
             return $http({ method: "GET", url: baseUri + "get" }).then(function (results) {
 
+                $rootScope.configuration = results.data;
 
             }).catch(function (error) {
 

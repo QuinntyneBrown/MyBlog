@@ -62,7 +62,6 @@
 
             return $http({ method: "GET", url: baseUri + "getbyid?id=" + params.id }).then(function (results) {
 
-
                 self.cache.getById = results.data;
 
                 return results.data;
@@ -92,7 +91,6 @@
 
             });
         };
-
 
         self.remove = function remove(params) {
 

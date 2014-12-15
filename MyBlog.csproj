@@ -55,6 +55,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Tokens.Jwt">
       <HintPath>packages\System.IdentityModel.Tokens.Jwt.4.0.1\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
@@ -64,6 +65,7 @@
       <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Cors">
       <HintPath>packages\Microsoft.AspNet.Cors.5.2.2\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -180,6 +182,7 @@
     <Content Include="app\home\components\homeListView\homeListView.js" />
     <Content Include="app\home\services\homeRouteResolver.js" />
     <Content Include="app\home\services\homeService.js" />
+    <Content Include="app\home\views\404.html" />
     <Content Include="app\home\views\about.html" />
     <Content Include="app\home\views\default.html" />
     <Content Include="app\home\views\settings.html" />
@@ -225,6 +228,7 @@
     <Content Include="css\jasmine.css" />
     <Content Include="Global.asax" />
     <Content Include="images\about-hero.jpg" />
+    <Content Include="images\not-found.jpg" />
     <Content Include="index.html" />
     <Content Include="jasmine.html" />
     <Content Include="scripts\angular-animate.js" />

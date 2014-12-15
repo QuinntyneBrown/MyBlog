@@ -94,7 +94,7 @@
 
         self.remove = function remove(params) {
 
-            return $http({ method: "GET", url: baseUri + "delete?id=" + params.id }).then(function (results) {
+            return $http({ method: "DELETE", url: baseUri + "delete?id=" + params.id }).then(function (results) {
 
                 self.clearCache();
 
@@ -138,7 +138,7 @@
 
         self.update = function update(params) {
 
-            return $http({ method: "POST", url: baseUri + "update", data: JSON.stringify(params.model) }).then(function (results) {
+            return $http({ method: "PUT", url: baseUri + "update", data: JSON.stringify(params.model) }).then(function (results) {
 
                 self.clearCache();
 

@@ -4,9 +4,9 @@
 
     var serviceId = "session";
 
-    angular.module("session").service(serviceId, ["$location", "$http", "$q", "configuration", "configurationService", "currentUser", service]);
+    angular.module("session").service(serviceId, ["$location", "$http", "$q", "configuration", "configurationService", "currentUser", "token", service]);
 
-    function service($location, $http, $q, configuration, configurationService, currentUser) {
+    function service($location, $http, $q, configuration, configurationService, currentUser, token) {
 
         var self = this;
 
@@ -41,7 +41,11 @@
 
             });
 
-            $location.path("/signin");
+            token.set({ data: null });
+
+            currentUser.set({ data: null });
+
+            $location.path("/");
         };
 
         self.setConfigurationAsync = function setConfigurationAsync() {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,8 @@ namespace MyBlog.Models
 {
     public class BaseEntity: ILoggable
     {
+        [Key]
+        [Required]
         public int Id { get; set; }
         
         public int? TenantId { get; set; }

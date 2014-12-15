@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace MyBlog.Controllers
@@ -25,31 +26,57 @@ namespace MyBlog.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetAll(PublishStatus? status = null)
+        public async Task<IHttpActionResult> GetAll(PublishStatus? status = null)
         {
+            var articles = new List<Article>();
 
-            if (status != null)
+            await Task.Factory.StartNew(() =>
             {
-                return Ok(repository.GetAll()
-                    .Where(x => x.IsDeleted == false && x.Status == status)
-                    .OrderByDescending(x => x.PubDate)
-                    .ToList());
-            }
+                if (status != null)
+                {
+                    articles = repository.GetAll()
+                        .Where(x => x.IsDeleted == false && x.Status == status)
+                        .OrderByDescending(x => x.PubDate)
+                        .ToList();
+                }
+                else
+                {
+                    articles = repository.GetAll()
+                        .Where(x => x.IsDeleted == false)
+                        .OrderByDescending(x => x.PubDate)
+                        .ToList();
+                }
+            });
 
-            return Ok(repository.GetAll()
-                .Where(x => x.IsDeleted == false)
-                .OrderByDescending(x=>x.PubDate)
-                .ToList());
+            return Ok(articles);
         }
 
         [HttpGet]
-        public IHttpActionResult GetPage(int offset = 0, int setSize = 5, PublishStatus? status = null)
+        public async Task<IHttpActionResult> GetPage(int offset = 0, int setSize = 5, PublishStatus? status = null)
         {
-            return Ok(repository.GetAll()
-                .Where(x => x.IsDeleted == false && x.Status == PublishStatus.Published)
-                .Skip(offset * setSize)
-                .Take(setSize)
-                .ToList());
+            var articles = new List<Article>();
+
+            await Task.Factory.StartNew(() =>
+            {
+                if (status != null)
+                {
+                    articles = this.repository.GetAll()
+                        .Where(x => x.IsDeleted == false && x.Status == status)
+                        .Skip(offset * setSize)
+                        .Take(setSize)
+                        .ToList();
+                }
+                else
+                {
+                    articles = this.repository.GetAll()
+                        .Where(x => x.IsDeleted == false)
+                        .Skip(offset * setSize)
+                        .Take(setSize)
+                        .ToList();
+                }
+            });
+
+            return Ok(articles);
         }
 
         [HttpGet]

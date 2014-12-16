@@ -1,6 +1,7 @@
 ﻿using MyBlog.Services.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,6 +15,8 @@ namespace MyBlog.Controllers
 
         public BaseApiController(ISessionService sessionService)
         {
+            Contract.Requires<ArgumentNullException>(sessionService != null);
+
             this.sessionService = sessionService;
         }
     }

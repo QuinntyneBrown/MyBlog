@@ -2,6 +2,7 @@
 using MyBlog.Services.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -16,6 +17,8 @@ namespace MyBlog.Controllers
         public SearchController(ISearchService searchService, ISessionService sessionService)
             :base(sessionService)
         {
+            Contract.Requires<ArgumentNullException>(searchService != null);
+
             this.searchService = searchService;
         }
 

@@ -3,6 +3,7 @@ using MyBlog.Models;
 using MyBlog.Services.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,14 +15,14 @@ namespace MyBlog.Controllers
     public class ArticleController : BaseApiController
     {
         protected readonly IRepository<Article> repository;
-
         protected readonly IUow uow;
 
         public ArticleController(ISessionService sessionService, IUow uow):
             base(sessionService)
         {
-            this.uow = uow;
+            Contract.Requires<ArgumentNullException>(uow != null);
 
+            this.uow = uow;
             this.repository = uow.Articles;
         }
 

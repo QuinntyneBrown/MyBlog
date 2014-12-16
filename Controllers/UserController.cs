@@ -1,10 +1,11 @@
-﻿   using MyBlog.Data.Contracts;
+﻿using MyBlog.Data.Contracts;
 using MyBlog.Dto;
 using MyBlog.Models;
 using MyBlog.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,6 +22,9 @@ namespace MyBlog.Controllers
         public UserController(ISessionService sessionService, IUow uow)
             : base(sessionService)
         {
+
+            Contract.Requires<ArgumentNullException>(uow != null);
+
             this.repository = uow.Users;
         }
 

@@ -3,6 +3,7 @@ using MyBlog.Models;
 using MyBlog.Services.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,8 +20,9 @@ namespace MyBlog.Controllers
         public BookController(ISessionService sessionService, IUow uow) :
             base(sessionService)
         {
-            this.uow = uow;
+            Contract.Requires<ArgumentNullException>(uow != null);
 
+            this.uow = uow;
             this.repository = uow.Books;
         }
 

@@ -3,6 +3,7 @@ using MyBlog.Dto;
 using MyBlog.Services.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -17,6 +18,9 @@ namespace MyBlog.Controllers
         public IdentityController(ISessionService sessionService, IUow uow, IIdentityService identityService)
             :base(sessionService) 
         {
+            Contract.Requires<ArgumentNullException>(uow != null);
+            Contract.Requires<ArgumentNullException>(identityService != null);
+
             this.identityService = identityService;
         }
 

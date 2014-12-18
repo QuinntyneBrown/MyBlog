@@ -17,7 +17,7 @@ namespace MyBlog.Controllers
         public SearchController(ISearchService searchService, ISessionService sessionService)
             :base(sessionService)
         {
-            Contract.Requires<ArgumentNullException>(searchService != null);
+            //Contract.Requires<ArgumentNullException>(searchService != null);
 
             this.searchService = searchService;
         }

@@ -19,7 +19,7 @@ namespace MyBlog.Controllers
         public ConfigurationController(ISessionService sessionService, IUow uow) 
             :base(sessionService)
         {
-            Contract.Requires<ArgumentNullException>(uow != null);
+            //Contract.Requires<ArgumentNullException>(uow != null);
 
             this._uow = uow;
             this._repository = uow.Configurations;

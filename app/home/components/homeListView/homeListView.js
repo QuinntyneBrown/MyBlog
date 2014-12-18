@@ -1,5 +1,4 @@
 ﻿(function () {
-
     "use strict";
 
     var componentId = "homeListView";
@@ -7,40 +6,33 @@
     angular.module("app").directive(componentId, [component]);
 
     function component() {
-
         return {
             templateUrl: "/app/home/components/homeListView/homeListView.html",
             replace: true,
             restrict: "E",
-            controllerAs:"viewModel",
-            controller: ["articleService", "articleStatuses", function (articleService, articleStatuses) {
+            controllerAs: "viewModel",
+            controller: [
+                "articleService", "articleStatuses", function (articleService, articleStatuses) {
+                    var self = this;
 
-                var self = this;
+                    self.articleStatuses = articleStatuses;
 
-                self.articleStatuses = articleStatuses;
+                    function initialize() {
+                        return articleService.getAll({ status: articleStatuses().published }).then(function (results) {
+                            return self.articles = results;
+                        });
+                    }
 
-                function initialize() {
-                    return articleService.getAll({ status: articleStatuses().published}).then(function (results) {
+                    self.loadMoreArticles = function () {
+                    };
 
-                        return self.articles = results;
+                    initialize();
 
-                    });
-                }
-
-                self.loadMoreArticles = function () {
-
-                };
-
-                initialize();
-
-                return self;
-
-            }],
-            link: function ( scope, elem, attr ) {
-
-                
+                    return self;
+                }],
+            link: function (scope, elem, attr) {
             }
-        }
+        };
     }
-
 })();
+//# sourceMappingURL=homeListView.js.map

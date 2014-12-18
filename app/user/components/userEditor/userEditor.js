@@ -1,5 +1,4 @@
 ﻿(function () {
-
     "use strict";
 
     var componentId = "userEditor";
@@ -12,52 +11,40 @@
             restrict: "E",
             replace: true,
             controllerAs: "viewModel",
-            controller: ["$location", "$routeParams", "$scope", "userService", function ($location, $routeParams, $scope, userService) {
+            controller: [
+                "$location", "$routeParams", "$scope", "userService", function ($location, $routeParams, $scope, userService) {
+                    var self = this;
 
-                var self = this;
+                    self.entity = {};
 
-                self.entity = {};
-
-                self.save = function save() {
-
-                    if (self.entity.id) {
-
-                        return userService.update({ model: self.entity }).then(function (results) {
-
-                            $location.path("/admin/users");
-
-                        });
-                    }
-                    else {
-
-                        return userService.add({ model: self.entity }).then(function (results) {
-
-                            $location.path("/admin/users");
-
-                        });
-                    }
-
-                };
-
-                function initialize() {
-                    return userService.getById({ id: $routeParams.id }).then(function (results) {
-
-                        if (results) {
-                            return self.entity = results;
+                    self.save = function save() {
+                        if (self.entity.id) {
+                            return userService.update({ model: self.entity }).then(function (results) {
+                                $location.path("/admin/users");
+                            });
+                        } else {
+                            return userService.add({ model: self.entity }).then(function (results) {
+                                $location.path("/admin/users");
+                            });
                         }
+                    };
 
-                    });
-                };
+                    function initialize() {
+                        return userService.getById({ id: $routeParams.id }).then(function (results) {
+                            if (results) {
+                                return self.entity = results;
+                            }
+                        });
+                    }
+                    ;
 
-                initialize();
+                    initialize();
 
-                return self;
-
-            }],
+                    return self;
+                }],
             link: function (scope, elem, attr) {
-
             }
         };
     }
-
 })();
+//# sourceMappingURL=userEditor.js.map

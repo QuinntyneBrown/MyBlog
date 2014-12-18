@@ -1,5 +1,4 @@
 ﻿(function () {
-
     "use strict";
 
     var serviceId = "searchService";
@@ -10,15 +9,12 @@
         var self = this;
 
         self.simpleSearch = function simpleSearch(params) {
-
             return $http({ method: "GET", url: "api/search/simple", params: params }).then(function (results) {
-
                 return results.data;
-
             });
-        }
+        };
 
         return self;
     }
-
 })();
+//# sourceMappingURL=searchService.js.map

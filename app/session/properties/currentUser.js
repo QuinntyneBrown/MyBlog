@@ -13,15 +13,12 @@
         self.get = function get() {
             if (data) {
                 return data;
-            };
+            }
+            ;
 
-            try {
-
+            try  {
                 data = storage.getByName({ name: name }).value;
-
             } catch (error) {
-
-
             }
 
             return data;
@@ -33,17 +30,15 @@
         };
 
         $rootScope.$on("$routeChangeStart", function routeChange(event, newUrl, oldUrl) {
-
             if (newUrl.originalPath == "/signin") {
-
                 data = null;
 
                 self.set({ data: null });
             }
-
         });
 
         return self;
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=currentUser.js.map

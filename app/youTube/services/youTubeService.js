@@ -6,7 +6,6 @@
     angular.module("youTube").service(serviceId, ["$route", service]);
 
     function service($route) {
-
         var self = this;
 
         self.getPlayerConfiguration = function getPlayerConfiguration() {
@@ -22,12 +21,13 @@
                     color: "white",
                     iv_load_policy: 3,
                     showinfo: 0,
-                    controls: 0,
+                    controls: 0
                 }
             };
         };
 
         return self;
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=youTubeService.js.map

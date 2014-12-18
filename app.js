@@ -98,37 +98,28 @@
 
 
 (function () {
-
     "use strict";
 
     var app = angular.module("admin", ["blog", "configuration", "core", "session", "ngRoute", "ngSanitize"]);
 
+    app.config([
+        "$routeProvider", function ($routeProvider) {
+            $routeProvider.when("/admin", {
+                redirectTo: function () {
+                    return "/admin/articles";
+                }
+            });
+        }]);
 
-    app.config(["$routeProvider", function ($routeProvider) {
-
-        $routeProvider
-        .when("/admin", {
-            redirectTo: function () { return "/admin/articles"; }
-            }
-        );
-    }]);
-
-
-    app.run(["$rootScope", "$location", function ($rootScope, $location) {
-
-        
-        $rootScope.$on("$viewContentLoaded", function routeChange(event, newUrl, oldUrl) {
-
-            $rootScope.isAdmin = $location.path().substring(0, 6) == '/admin';
-
-        });
-
-    }]);
-
-
+    app.run([
+        "$rootScope", "$location", function ($rootScope, $location) {
+            $rootScope.$on("$viewContentLoaded", function routeChange(event, newUrl, oldUrl) {
+                $rootScope.isAdmin = $location.path().substring(0, 6) == '/admin';
+            });
+        }]);
 })();
+//# sourceMappingURL=module.js.map
 (function () {
-
     "use strict";
 
     var componentId = "adminMenu";
@@ -140,70 +131,61 @@
             templateUrl: "/app/admin/components/adminMenu/adminMenu.html",
             restrict: "EA",
             replace: true,
-            scope: {
-
-            },
+            scope: {},
             link: function (scope, elem, attr) {
-
                 scope.isUserInRole = session.isUserInRole;
 
                 scope.currentUser = session.getCurrentUser();
-
             }
         };
     }
-
 })();
+//# sourceMappingURL=adminMenu.js.map
 (function () {
-
     "use strict";
 
     var app = angular.module("blog", ["configuration", "core", "session", "ngRoute", "ngSanitize"]);
 
-
-    app.config(["$routeProvider", function ($routeProvider) {
-
-        $routeProvider
-
-        .when("/article/:slug", {
-            templateUrl: "/app/blog/views/article.html",
-            resolve: ["blogRouteResolver", function (blogRouteResolver) {
-                return blogRouteResolver.resolveRoute();
-            }],
-            authorizationRequired: false
-        })
-        .when("/admin/article/create", {
-            templateUrl: "/app/blog/views/edit.html",
-            resolve: ["blogRouteResolver", function (blogRouteResolver) {
-                return blogRouteResolver.resolveRoute();
-            }],
-            authorizationRequired: true,
-            adminRoute: true
-        })
-        .when("/admin/article/edit/:id", {
-            templateUrl: "/app/blog/views/edit.html",
-            resolve: ["blogRouteResolver", function (blogRouteResolver) {
-                return blogRouteResolver.resolveRoute();
-            }],
-            authorizationRequired: true,
-            adminRoute: true
-        })
-        .when("/admin/articles", {
-            templateUrl: "/app/blog/views/list.html",
-            resolve: ["blogRouteResolver", function (blogRouteResolver) {
-                return blogRouteResolver.resolveRoute();
-            }],
-            authorizationRequired: true,
-            adminRoute: true
-        });
-    }
-
-
+    app.config([
+        "$routeProvider", function ($routeProvider) {
+            $routeProvider.when("/article/:slug", {
+                templateUrl: "/app/blog/views/article.html",
+                resolve: [
+                    "blogRouteResolver", function (blogRouteResolver) {
+                        return blogRouteResolver.resolveRoute();
+                    }],
+                authorizationRequired: false
+            }).when("/admin/article/create", {
+                templateUrl: "/app/blog/views/edit.html",
+                resolve: [
+                    "blogRouteResolver", function (blogRouteResolver) {
+                        return blogRouteResolver.resolveRoute();
+                    }],
+                authorizationRequired: true,
+                adminRoute: true
+            }).when("/admin/article/edit/:id", {
+                templateUrl: "/app/blog/views/edit.html",
+                resolve: [
+                    "blogRouteResolver", function (blogRouteResolver) {
+                        return blogRouteResolver.resolveRoute();
+                    }],
+                authorizationRequired: true,
+                adminRoute: true
+            }).when("/admin/articles", {
+                templateUrl: "/app/blog/views/list.html",
+                resolve: [
+                    "blogRouteResolver", function (blogRouteResolver) {
+                        return blogRouteResolver.resolveRoute();
+                    }],
+                authorizationRequired: true,
+                adminRoute: true
+            });
+        }
     ]);
-
 })();
+//# sourceMappingURL=module.js.map
+/// <reference path="../../../../scripts/typings/moment/moment.d.ts" />
 (function () {
-
     "use strict";
 
     var componentId = "articleBriefView";
@@ -216,30 +198,24 @@
             restrict: "EA",
             replace: true,
             scope: {
-                model:"="
+                model: "="
             },
             link: function (scope, elem, attr) {
-
                 $sce.trustAsHtml(scope.model.htmlBody);
 
                 scope.goToFullView = function (model) {
-
                     $location.path("/article/" + model.slug);
-
-                }
-
+                };
 
                 scope.displayDate = function (date) {
-
                     return moment(scope.model.pubDate).format("MMMM Do YYYY");
                 };
             }
         };
     }
-
 })();
+//# sourceMappingURL=articleBriefView.js.map
 (function () {
-
     "use strict";
 
     var componentId = "articleEditor";
@@ -251,115 +227,87 @@
             templateUrl: "/app/blog/components/articleEditor/articleEditor.html",
             restrict: "E",
             replace: true,
-            controllerAs:"viewModel",
-            controller: ["$location", "$routeParams", "$scope", "articleService", "articleStatuses", function ($location, $routeParams, $scope, articleService, articleStatuses) {
+            controllerAs: "viewModel",
+            controller: [
+                "$location", "$routeParams", "$scope", "articleService", "articleStatuses", function ($location, $routeParams, $scope, articleService, articleStatuses) {
+                    var timeoutId = null;
 
-                var timeoutId = null;
-
-                $scope.$watch(
-                    function ($scope) {
+                    $scope.$watch(function ($scope) {
                         return self.entity.title;
-                    },
-                    function (newValue) {
+                    }, function (newValue) {
                         if (!self.entity.id && newValue != null) {
-
-
-                            try {
+                            try  {
                                 clearTimeout(timeoutId);
                             } catch (error) {
-
                             }
 
                             timeoutId = setTimeout(function () {
                                 return articleService.add({ model: self.entity }).then(function (results) {
-                                    
                                     $location.path("/admin/article/edit/" + results.data.id);
                                 });
-
-                            },1000);
-
+                            }, 1000);
                         }
 
                         self.entity.slug = self.entity.title.replace(" ", "-").toLowerCase();
-                    }
-                );
-
-                var self = this;
-
-                self.entity = {};
-
-                self.remove = function () {
-
-                    return articleService.remove({ id: self.entity.id }).then(function () {
-
-                        $location.path("/admin/articles");
-
-                    }).catch(function (error) {
-
                     });
-                };
 
-                self.save = function save() {
+                    var self = this;
 
-                    if (self.entity.id) {
+                    self.entity = {};
 
-                        return articleService.update({ model: self.entity }).then(function (results) {
-
+                    self.remove = function () {
+                        return articleService.remove({ id: self.entity.id }).then(function () {
                             $location.path("/admin/articles");
-
+                        }).catch(function (error) {
                         });
-                    }
-                    else {
+                    };
 
-                        self.entity.pubDate = new Date().toISOString();
+                    self.save = function save() {
+                        if (self.entity.id) {
+                            return articleService.update({ model: self.entity }).then(function (results) {
+                                $location.path("/admin/articles");
+                            });
+                        } else {
+                            self.entity.pubDate = new Date().toISOString();
 
-                        return articleService.add({ model: self.entity }).then(function (results) {
-
-                            $location.path("/admin/articles");
-
-                        });
-                    }
-
-                };
-
-                self.approve = function approve() {
-
-                    self.entity.status = articleStatuses().approved;
-
-                    self.save();
-                };
-
-                self.publish = function publish() {
-
-                    self.entity.status = articleStatuses().published;
-
-                    self.save();
-                };
-
-                function initialize() {
-                    return articleService.getById({ id: $routeParams.id }).then(function (results) {
-
-                        if (results) {
-                            return self.entity = results;
+                            return articleService.add({ model: self.entity }).then(function (results) {
+                                $location.path("/admin/articles");
+                            });
                         }
+                    };
 
-                    });
-                };
+                    self.approve = function approve() {
+                        self.entity.status = articleStatuses().approved;
 
-                initialize();
+                        self.save();
+                    };
 
-                return self;
+                    self.publish = function publish() {
+                        self.entity.status = articleStatuses().published;
 
-            }],
+                        self.save();
+                    };
+
+                    function initialize() {
+                        return articleService.getById({ id: $routeParams.id }).then(function (results) {
+                            if (results) {
+                                return self.entity = results;
+                            }
+                        });
+                    }
+                    ;
+
+                    initialize();
+
+                    return self;
+                }],
             link: function (scope, elem, attr) {
-                
             }
         };
     }
-
 })();
+//# sourceMappingURL=articleEditor.js.map
 (function () {
-
     "use strict";
 
     var componentId = "articleListView";
@@ -372,67 +320,57 @@
             restrict: "E",
             replace: true,
             controllerAs: "viewModel",
-            controller: ["articleService", function (articleService) {
+            controller: [
+                "articleService", function (articleService) {
+                    var self = this;
 
-                var self = this;
+                    self.displayStatus = function (status) {
+                        switch (status) {
+                            case 0:
+                                return "Draft";
+                                break;
 
-                self.displayStatus = function (status) {
+                            case 1:
+                                return "Ready To Be Published";
+                                break;
 
-                    switch (status) {
-                        case 0:
-                            return "Draft";
-                            break;
+                            case 2:
+                                return "Published";
+                                break;
+                        }
+                    };
 
-                        case 1:
-                            return "Ready To Be Published";
-                            break;
+                    self.remove = function (params) {
+                        return articleService.remove({ id: params.id }).then(function () {
+                            for (var i = 0; i < self.entities.length; i++) {
+                                if (self.entities[i].id == params.id) {
+                                    self.entities.splice(i, 1);
+                                }
+                                ;
+                            }
+                            ;
+                        }).catch(function (error) {
+                        });
+                    };
 
-                        case 2:
-                            return "Published";
-                            break;
-
+                    function initialize() {
+                        return articleService.getAll().then(function (results) {
+                            return self.entities = results;
+                        });
                     }
-                    
-                };
+                    ;
 
-                self.remove = function (params) {
+                    initialize();
 
-                    return articleService.remove({ id: params.id }).then(function () {
-
-                        for (var i = 0; i < self.entities.length; i++) {
-                            if (self.entities[i].id == params.id) {
-                                self.entities.splice(i, 1);
-                            };
-                        };
-
-                    }).catch(function (error) {
-
-                    });
-                };
-
-                function initialize() {
-                    return articleService.getAll().then(function (results) {
-                        return self.entities = results;
-                    });
-                };
-
-
-                initialize();
-                
-
-                return self;
-
-
-            }],
+                    return self;
+                }],
             link: function (scope, elem, attr) {
- 
-            }         
+            }
         };
     }
-
 })();
+//# sourceMappingURL=articleListView.js.map
 (function () {
-
     "use strict";
 
     var componentId = "articleView";
@@ -444,10 +382,8 @@
             templateUrl: "/app/blog/components/articleView/articleView.html",
             restrict: "EA",
             replace: true,
-            scope: {
-            },
+            scope: {},
             link: function (scope, elem, attr) {
-
                 scope.displayDate = function (date) {
                     return moment(scope.model.pubDate).format("MMMM Do YYYY");
                 };
@@ -455,12 +391,12 @@
                 return articleService.getBySlug({ slug: $route.current.params.slug }).then(function (results) {
                     scope.model = results;
                     $sce.trustAsHtml(scope.model.htmlBody);
-                })
+                });
             }
         };
     }
-
 })();
+//# sourceMappingURL=articleView.js.map
 (function () {
     'use strict';
 
@@ -474,19 +410,20 @@
             approved: 1,
             published: 2
         };
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=articleStatuses.js.map
 (function () {
     "use strict";
 
     var dataServiceId = "articleService";
 
-    angular.module("blog").service(dataServiceId, ["$http", "$q", "$rootScope","articleStatuses", dataService]);
+    angular.module("blog").service(dataServiceId, ["$http", "$q", "$rootScope", "articleStatuses", dataService]);
 
     function dataService($http, $q, $rootScope, articleStatuses) {
-        var self = {};
-        
+        var self = this;
+
         var baseUri = "api/article/";
 
         self.cache = {
@@ -508,213 +445,165 @@
         };
 
         self.getAll = function getAll(params) {
-
             if (self.cache.getAll) {
-
                 var deferred = $q.defer();
 
                 deferred.resolve(self.cache.getAll);
 
                 return deferred.promise;
-            };
+            }
+            ;
 
             return $http({ method: "GET", url: baseUri + "getAll", params: params }).then(function (results) {
-
                 self.cache.getAll = results.data;
 
                 return results.data;
-
             }).catch(function (error) {
-
             });
         };
 
         self.getById = function getById(params) {
-
             if (self.cache.getById && self.cache.getById.id == params.id) {
                 var deferred = $q.defer();
 
                 deferred.resolve(self.cache.getById);
 
                 return deferred.promise;
-            };
+            }
+            ;
 
             return $http({ method: "GET", url: baseUri + "getbyid?id=" + params.id }).then(function (results) {
-
                 self.cache.getById = results.data;
 
                 return results.data;
-
             }).catch(function (error) {
-
             });
         };
 
         self.getBySlug = function getBySlug(params) {
-
             if (self.cache.getBySlug && self.cache.getBySlug.slug == params.slug) {
                 var deferred = $q.defer();
 
                 deferred.resolve(self.cache.getBySlug);
 
                 return deferred.promise;
-            };
+            }
+            ;
 
             return $http({ method: "GET", url: baseUri + "getbyslug?slug=" + params.slug }).then(function (results) {
-
                 self.cache.getBySlug = results.data;
 
                 return results.data;
-
             }).catch(function (error) {
-
             });
         };
 
         self.remove = function remove(params) {
-
             return $http({ method: "DELETE", url: baseUri + "delete?id=" + params.id }).then(function (results) {
-
                 self.clearCache();
 
                 return results;
-
             }).catch(function (error) {
-
             });
         };
 
         self.add = function add(params) {
-
             return $http({ method: "POST", url: baseUri + "add", data: JSON.stringify(params.model) }).then(function (results) {
-
                 self.clearCache();
 
                 return results;
-
             }).catch(function (error) {
-
             });
         };
 
         self.publish = function publish(params) {
-
             params.model.pubDate = Date.now;
 
             params.model.status = articleStatuses().published;
 
             return self.update({ model: params.model });
-
         };
 
         self.approve = function approve(params) {
-
             params.model.status = articleStatuses().approved;
 
             return self.update({ model: params.model });
-
         };
 
         self.update = function update(params) {
-
             return $http({ method: "PUT", url: baseUri + "update", data: JSON.stringify(params.model) }).then(function (results) {
-
                 self.clearCache();
 
                 return results;
-
             }).catch(function (error) {
-
             });
         };
 
         return self;
     }
-
 })();
-
-
-
-
+//# sourceMappingURL=articleService.js.map
 (function () {
     "use strict";
 
     var serviceId = "blogRouteResolver";
 
-    angular.module("blog").service(serviceId, ["$location", "$q", "$route", "articleService", "configurationService", "identityService",  service]);
+    angular.module("blog").service(serviceId, ["$location", "$q", "$route", "articleService", "configurationService", "identityService", service]);
 
     function service($location, $q, $route, articleService, configurationService, identityService) {
-
         var self = this;
 
         self.resolveRoute = function resolveRoute() {
-
             return configurationService.get().then(function () {
-
                 return identityService.getCurrentUser().then(function () {
-
                     if ($route.current.params.id) {
-
                         return articleService.getById({ id: $route.current.params.id }).then(function () {
-
                         });
-
-                    }
-                    else if ($route.current.params.slug) {
-
+                    } else if ($route.current.params.slug) {
                         return articleService.getBySlug({ slug: $route.current.params.slug }).then(function () {
-
                         });
-                    }
-                    else {
+                    } else {
                         return articleService.getAll().then(function () {
-
                         });
                     }
-
                 });
-
-
             });
-
         };
 
         return self;
-
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=blogRouteResolver.js.map
 (function () {
-
     "use strict";
 
     var app = angular.module("book", ["configuration", "core", "session", "ngRoute"]);
 
-
-    app.config(["$routeProvider", function ($routeProvider) {
-
-        $routeProvider
-
-        .when("/book/:slug", {
-            templateUrl: "/app/book/views/default.html",
-            resolve: ["bookRouteResolver", function (bookRouteResolver) {
-                return bookRouteResolver.resolveRoute();
-            }],
-            authorizationRequired: false
-        })
-    }
-
-
+    app.config([
+        "$routeProvider", function ($routeProvider) {
+            $routeProvider.when("/book/:slug", {
+                templateUrl: "/app/book/views/default.html",
+                resolve: [
+                    "bookRouteResolver", function (bookRouteResolver) {
+                        return bookRouteResolver.resolveRoute();
+                    }],
+                authorizationRequired: false
+            });
+        }
     ]);
-
 })();
+//# sourceMappingURL=module.js.map
+//# sourceMappingURL=bookBrief.js.map
+//# sourceMappingURL=bookEditor.js.map
+//# sourceMappingURL=bookFull.js.map
+//# sourceMappingURL=bookList.js.map
 (function () {
-
     "use strict";
 
     var app = angular.module("configuration", []);
-
 })();
+//# sourceMappingURL=module.js.map
 (function () {
 
     "use strict";
@@ -746,12 +635,11 @@
 
 })();
 (function () {
-
     "use strict";
 
-    var app = angular.module("core", ["configuration","session"]);
-
+    var app = angular.module("core", ["configuration", "session"]);
 })();
+//# sourceMappingURL=module.js.map
 (function () {
     "use strict";
 
@@ -893,7 +781,6 @@
 })();
 
 (function () {
-
     "use strict";
 
     var componentId = "homeListView";
@@ -901,43 +788,36 @@
     angular.module("app").directive(componentId, [component]);
 
     function component() {
-
         return {
             templateUrl: "/app/home/components/homeListView/homeListView.html",
             replace: true,
             restrict: "E",
-            controllerAs:"viewModel",
-            controller: ["articleService", "articleStatuses", function (articleService, articleStatuses) {
+            controllerAs: "viewModel",
+            controller: [
+                "articleService", "articleStatuses", function (articleService, articleStatuses) {
+                    var self = this;
 
-                var self = this;
+                    self.articleStatuses = articleStatuses;
 
-                self.articleStatuses = articleStatuses;
+                    function initialize() {
+                        return articleService.getAll({ status: articleStatuses().published }).then(function (results) {
+                            return self.articles = results;
+                        });
+                    }
 
-                function initialize() {
-                    return articleService.getAll({ status: articleStatuses().published}).then(function (results) {
+                    self.loadMoreArticles = function () {
+                    };
 
-                        return self.articles = results;
+                    initialize();
 
-                    });
-                }
-
-                self.loadMoreArticles = function () {
-
-                };
-
-                initialize();
-
-                return self;
-
-            }],
-            link: function ( scope, elem, attr ) {
-
-                
+                    return self;
+                }],
+            link: function (scope, elem, attr) {
             }
-        }
+        };
     }
-
 })();
+//# sourceMappingURL=homeListView.js.map
 (function () {
     "use strict";
 
@@ -946,7 +826,6 @@
     angular.module("app").service(serviceId, ["$q", "$route", "articleService", "articleStatuses", "configurationService", "identityService", service]);
 
     function service($q, $route, articleService, articleStatuses, configurationService, identityService) {
-
         var self = this;
 
         self.resolveRoute = function resolveRoute() {
@@ -961,87 +840,70 @@
         };
 
         return self;
-
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=homeRouteResolver.js.map
 (function () {
-    
     "use strict";
 
     var serviceId = "homeService";
-    
+
     angular.module("app").service(serviceId, ["articleService", service]);
 
     function service(articleService) {
-
         var self = this;
 
         self.getAllArticles = function getAllArticles() {
-
             return articleService.getAll();
-
         };
 
         return self;
     }
-
-
 })();
+//# sourceMappingURL=homeService.js.map
 (function () {
-
     "use strict";
 
     var app = angular.module("search", ["configuration", "core"]);
-
 })();
+//# sourceMappingURL=module.js.map
 (function () {
-
     "use strict";
 
     var componentId = "search";
 
-    angular.module("search").directive(componentId, ["$rootScope","searchService", component]);
+    angular.module("search").directive(componentId, ["$rootScope", "searchService", component]);
 
     function component($rootScope, searchService) {
-
         return {
             templateUrl: "/app/search/components/search/search.html",
             replace: true,
             restrict: "EA",
             scope: {},
             link: function (scope, elem, attr) {
-
                 var timeoutId = null;
 
-                scope.$watch(
-                    function (scope) {
-                        return scope.term;
-                    },
-                    function (newValue) {
-                            try {
-                                clearTimeout(timeoutId);
-                            } catch (error) {
-
-                            }
-
-                            timeoutId = setTimeout(function () {
-                                return scope.search();
-
-                            }, 300);
+                scope.$watch(function (scope) {
+                    return scope.term;
+                }, function (newValue) {
+                    try  {
+                        clearTimeout(timeoutId);
+                    } catch (error) {
                     }
-                );
+
+                    timeoutId = setTimeout(function () {
+                        return scope.search();
+                    }, 300);
+                });
 
                 scope.term = "";
 
                 scope.results = [];
 
                 scope.search = function search() {
-
                     return searchService.simpleSearch({ term: scope.term }).then(function (results) {
-
                         scope.results = results.data;
-
                     });
                 };
 
@@ -1050,12 +912,11 @@
                     scope.term = "";
                 });
             }
-        }
+        };
     }
-
 })();
+//# sourceMappingURL=search.js.map
 (function () {
-
     "use strict";
 
     var serviceId = "searchService";
@@ -1066,27 +927,22 @@
         var self = this;
 
         self.simpleSearch = function simpleSearch(params) {
-
             return $http({ method: "GET", url: "api/search/simple", params: params }).then(function (results) {
-
                 return results.data;
-
             });
-        }
+        };
 
         return self;
     }
-
 })();
+//# sourceMappingURL=searchService.js.map
 (function () {
-
     "use strict";
 
     var app = angular.module("session", ["configuration", "core"]);
-
 })();
+//# sourceMappingURL=module.js.map
 (function () {
-    
     "use strict";
 
     var serviceId = "session";
@@ -1094,25 +950,22 @@
     angular.module("session").service(serviceId, ["$location", "$http", "$q", "configuration", "configurationService", "currentUser", "token", service]);
 
     function service($location, $http, $q, configuration, configurationService, currentUser, token) {
-
         var self = this;
 
         self.isLoggedIn = function isLoggedIn() {
-
             return self.getCurrentUser() != null && self.getCurrentUser() != "";
-
         };
 
         self.isUserInRole = function isUserInRole(roleName) {
             if (self.isLoggedIn()) {
-
                 var user = self.getCurrentUser();
 
                 for (var i = 0; i < user.roles.length; i++) {
                     if (roleName == user.roles[i].name) {
                         return true;
                     }
-                };
+                }
+                ;
             }
 
             return false;
@@ -1123,9 +976,7 @@
         };
 
         self.signOut = function () {
-
             $http({ method: "GET", url: "api/identity/signout" }).then(function () {
-
             });
 
             token.set({ data: null });
@@ -1136,7 +987,6 @@
         };
 
         self.setConfigurationAsync = function setConfigurationAsync() {
-
             var _configuration = configuration.get();
 
             if (_configuration) {
@@ -1144,22 +994,21 @@
             }
 
             return configurationService.get().then(function (results) {
-
                 configuration.set({ data: results });
 
                 return configuration.get();
             });
-        }
+        };
 
         self.getConfiguration = function getConfiguration() {
             return configuration.get();
         };
 
         return self;
-
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=session.js.map
 (function () {
     "use strict";
 
@@ -1175,15 +1024,12 @@
         self.get = function get() {
             if (data) {
                 return data;
-            };
+            }
+            ;
 
-            try {
-
+            try  {
                 data = storage.getByName({ name: name }).value;
-
             } catch (error) {
-
-
             }
 
             return data;
@@ -1195,20 +1041,18 @@
         };
 
         $rootScope.$on("$routeChangeStart", function routeChange(event, newUrl, oldUrl) {
-
             if (newUrl.originalPath == "/signin") {
-
                 data = null;
 
                 self.set({ data: null });
             }
-
         });
 
         return self;
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=configuration.js.map
 (function () {
     "use strict";
 
@@ -1224,15 +1068,12 @@
         self.get = function get() {
             if (data) {
                 return data;
-            };
+            }
+            ;
 
-            try {
-
+            try  {
                 data = storage.getByName({ name: name }).value;
-
             } catch (error) {
-
-
             }
 
             return data;
@@ -1244,20 +1085,18 @@
         };
 
         $rootScope.$on("$routeChangeStart", function routeChange(event, newUrl, oldUrl) {
-
             if (newUrl.originalPath == "/signin") {
-
                 data = null;
 
                 self.set({ data: null });
             }
-
         });
 
         return self;
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=currentUser.js.map
 (function () {
     "use strict";
 
@@ -1273,15 +1112,12 @@
         self.get = function get() {
             if (data) {
                 return data;
-            };
+            }
+            ;
 
-            try {
-
+            try  {
                 data = storage.getByName({ name: name }).value;
-
             } catch (error) {
-
-
             }
 
             return data;
@@ -1293,71 +1129,66 @@
         };
 
         $rootScope.$on("$routeChangeStart", function routeChange(event, newUrl, oldUrl) {
-
             if (newUrl.originalPath == "/signin") {
-
                 data = null;
 
                 self.set({ data: null });
             }
-
         });
 
         return self;
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=token.js.map
 (function () {
-
     "use strict";
 
     var app = angular.module("user", ["configuration", "core", "session"]);
 
-    app.config(["$routeProvider", function ($routeProvider) {
-
-        $routeProvider
-
-        .when("/signin", {
-            templateUrl: "/app/user/views/signin.html",
-            resolve: ["userRouteResolver", function (userRouteResolver) {
-                return userRouteResolver.resolveRoute();
-            }],
-            authorizationRequired: false
-        })
-        .when("/admin/user/create", {
-            templateUrl: "/app/user/views/edit.html",
-            resolve: ["userRouteResolver", function (userRouteResolver) {
-                return userRouteResolver.resolveRoute();
-            }],
-            authorizationRequired: true,
-            adminRoute: true
-        })
-        .when("/admin/user/edit/:id", {
-            templateUrl: "/app/user/views/edit.html",
-            resolve: ["userRouteResolver", function (userRouteResolver) {
-                return userRouteResolver.resolveRoute({ route: "/admin/user/edit/:id" });
-            }],
-            authorizationRequired: true
-        })
-        .when("/admin/users", {
-            templateUrl: "/app/user/views/list.html",
-            resolve: ["userRouteResolver", function (userRouteResolver) {
-                return userRouteResolver.resolveRoute({ route: "/admin/users" });
-            }],
-            authorizationRequired: true,
-            adminRoute: true
-        })
-        .when("/register", {
-            templateUrl: "/app/user/views/register.html",
-            resolve: ["userRouteResolver", function (userRouteResolver) {
-                return userRouteResolver.resolveRoute();
-            }],
-            authorizationRequired: false
-        });
-
-    }]);
-
+    app.config([
+        "$routeProvider", function ($routeProvider) {
+            $routeProvider.when("/signin", {
+                templateUrl: "/app/user/views/signin.html",
+                resolve: [
+                    "userRouteResolver", function (userRouteResolver) {
+                        return userRouteResolver.resolveRoute();
+                    }],
+                authorizationRequired: false
+            }).when("/admin/user/create", {
+                templateUrl: "/app/user/views/edit.html",
+                resolve: [
+                    "userRouteResolver", function (userRouteResolver) {
+                        return userRouteResolver.resolveRoute();
+                    }],
+                authorizationRequired: true,
+                adminRoute: true
+            }).when("/admin/user/edit/:id", {
+                templateUrl: "/app/user/views/edit.html",
+                resolve: [
+                    "userRouteResolver", function (userRouteResolver) {
+                        return userRouteResolver.resolveRoute({ route: "/admin/user/edit/:id" });
+                    }],
+                authorizationRequired: true
+            }).when("/admin/users", {
+                templateUrl: "/app/user/views/list.html",
+                resolve: [
+                    "userRouteResolver", function (userRouteResolver) {
+                        return userRouteResolver.resolveRoute({ route: "/admin/users" });
+                    }],
+                authorizationRequired: true,
+                adminRoute: true
+            }).when("/register", {
+                templateUrl: "/app/user/views/register.html",
+                resolve: [
+                    "userRouteResolver", function (userRouteResolver) {
+                        return userRouteResolver.resolveRoute();
+                    }],
+                authorizationRequired: false
+            });
+        }]);
 })();
+//# sourceMappingURL=module.js.map
 (function () {
     "use strict";
 
@@ -1366,67 +1197,55 @@
     angular.module("user").directive(componentId, ["$location", "identityService", component]);
 
     function component($location, identityService) {
-
         return {
             templateUrl: "/app/user/components/registrationForm/registrationForm.html",
             restrict: "EA",
             replace: true,
             scope: {},
             link: function (scope, elem, attrs) {
-
                 scope.submit = function () {
-
                     identityService.register({ model: scope.model }).then(function () {
-
                         $location.path("/signin");
-
                     });
-                }
+                };
             }
         };
     }
 })();
+//# sourceMappingURL=registrationForm.js.map
 (function () {
     "use strict";
 
     var componentId = "signInForm";
 
     angular.module("user").directive(componentId, ["$location", "identityService", "token", component]);
-     
-    function component($location, identityService, token) {
 
+    function component($location, identityService, token) {
         return {
             templateUrl: "/app/user/components/signInForm/signInForm.html",
             restrict: "EA",
             replace: true,
             scope: {},
             link: function (scope, elem, attrs) {
-
                 scope.model = {
                     username: "Quinntyne",
                     password: "password"
                 };
 
                 scope.tryToSignIn = function tryToSignIn() {
-
                     return identityService.signIn({ model: scope.model }).then(function (results) {
-
                         token.set({ data: results });
 
                         $location.path("/");
-
                     }).catch(function (error) {
-
-
                     });
-
                 };
             }
         };
     }
 })();
+//# sourceMappingURL=signInForm.js.map
 (function () {
-
     "use strict";
 
     var componentId = "userEditor";
@@ -1439,57 +1258,44 @@
             restrict: "E",
             replace: true,
             controllerAs: "viewModel",
-            controller: ["$location", "$routeParams", "$scope", "userService", function ($location, $routeParams, $scope, userService) {
+            controller: [
+                "$location", "$routeParams", "$scope", "userService", function ($location, $routeParams, $scope, userService) {
+                    var self = this;
 
-                var self = this;
+                    self.entity = {};
 
-                self.entity = {};
-
-                self.save = function save() {
-
-                    if (self.entity.id) {
-
-                        return userService.update({ model: self.entity }).then(function (results) {
-
-                            $location.path("/admin/users");
-
-                        });
-                    }
-                    else {
-
-                        return userService.add({ model: self.entity }).then(function (results) {
-
-                            $location.path("/admin/users");
-
-                        });
-                    }
-
-                };
-
-                function initialize() {
-                    return userService.getById({ id: $routeParams.id }).then(function (results) {
-
-                        if (results) {
-                            return self.entity = results;
+                    self.save = function save() {
+                        if (self.entity.id) {
+                            return userService.update({ model: self.entity }).then(function (results) {
+                                $location.path("/admin/users");
+                            });
+                        } else {
+                            return userService.add({ model: self.entity }).then(function (results) {
+                                $location.path("/admin/users");
+                            });
                         }
+                    };
 
-                    });
-                };
+                    function initialize() {
+                        return userService.getById({ id: $routeParams.id }).then(function (results) {
+                            if (results) {
+                                return self.entity = results;
+                            }
+                        });
+                    }
+                    ;
 
-                initialize();
+                    initialize();
 
-                return self;
-
-            }],
+                    return self;
+                }],
             link: function (scope, elem, attr) {
-
             }
         };
     }
-
 })();
+//# sourceMappingURL=userEditor.js.map
 (function () {
-
     "use strict";
 
     var componentId = "userListView";
@@ -1502,98 +1308,77 @@
             restrict: "E",
             replace: true,
             controllerAs: "viewModel",
-            controller: ["userService", function (userService) {
+            controller: [
+                "userService", function (userService) {
+                    var self = this;
 
-                var self = this;
+                    self.remove = function (params) {
+                        return userService.remove({ id: params.id }).then(function () {
+                            for (var i = 0; i < self.entities.length; i++) {
+                                if (self.entities[i].id == params.id) {
+                                    self.entities.splice(i, 1);
+                                }
+                                ;
+                            }
+                            ;
+                        }).catch(function (error) {
+                        });
+                    };
 
-                self.remove = function (params) {
+                    function initialize() {
+                        return userService.getAll().then(function (results) {
+                            return self.entities = results;
+                        });
+                    }
+                    ;
 
-                    return userService.remove({ id: params.id }).then(function () {
+                    initialize();
 
-                        for (var i = 0; i < self.entities.length; i++) {
-                            if (self.entities[i].id == params.id) {
-                                self.entities.splice(i, 1);
-                            };
-                        };
-
-                    }).catch(function (error) {
-
-                    });
-                };
-
-                function initialize() {
-                    return userService.getAll().then(function (results) {
-                        return self.entities = results;
-                    });
-                };
-
-
-                initialize();
-
-
-                return self;
-
-
-            }],
+                    return self;
+                }],
             link: function (scope, elem, attr) {
-
             }
         };
     }
-
 })();
+//# sourceMappingURL=userListView.js.map
 (function () {
-
     "use strict";
 
     var serviceId = "identityService";
 
-    angular.module("user").service(serviceId, ["$http","currentUser",service]);
+    angular.module("user").service(serviceId, ["$http", "currentUser", service]);
 
     function service($http, currentUser) {
-
         var self = this;
 
         self.signIn = function signIn(params) {
-
             return $http({ method: "POST", url: "api/identity/signin", data: JSON.stringify(params.model) }).then(function (results) {
-
                 return results.data.token;
-
             }).catch(function (error) {
-
             });
         };
 
         self.register = function register(params) {
             return $http({ method: "POST", url: "api/identity/register", data: JSON.stringify(params.model) }).then(function (results) {
-
                 return results.data.token;
-
             }).catch(function (error) {
-
             });
         };
 
         self.getCurrentUser = function getCurrentUser() {
-
             return $http({ method: "GET", url: "api/user/getCurrentUser" }).then(function (results) {
-
                 currentUser.set({ data: results.data });
 
                 return currentUser.get();
-
             }).catch(function (error) {
-
-
             });
         };
 
         return self;
-
     }
-
 })();
+//# sourceMappingURL=identityService.js.map
 (function () {
     "use strict";
 
@@ -1602,37 +1387,31 @@
     angular.module("user").service(serviceId, ["$q", "$route", "configurationService", "userService", service]);
 
     function service($q, $route, configurationService, userService) {
-
         var self = this;
 
         self.resolveRoute = function resolveRoute(params) {
-
             return configurationService.get().then(function () {
                 if (params) {
                     switch (params.route) {
-
                         case "/admin/users":
                             return userService.getAll().then(function () {
-
                             });
                             break;
 
                         case "/admin/user/edit/:id":
-                            return userService.getById({id: $route.params.id}).then(function () {
-
+                            return userService.getById({ id: $route.params.id }).then(function () {
                             });
                             break;
                     }
                 }
             });
-
         };
 
         return self;
-
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=userRouteResolver.js.map
 (function () {
     "use strict";
 
@@ -1641,7 +1420,7 @@
     angular.module("user").service(dataServiceId, ["$http", "$q", "$rootScope", dataService]);
 
     function dataService($http, $q, $rootScope) {
-        var self = {};
+        var self = this;
 
         var baseUri = "api/user/";
 
@@ -1662,120 +1441,91 @@
         };
 
         self.getAll = function getAll(params) {
-
             if (self.cache.getAll) {
-
                 var deferred = $q.defer();
 
                 deferred.resolve(self.cache.getAll);
 
                 return deferred.promise;
-            };
+            }
+            ;
 
             return $http({ method: "GET", url: baseUri + "getAll", params: params }).then(function (results) {
-
                 self.cache.getAll = results.data;
 
                 return results.data;
-
             }).catch(function (error) {
-
             });
         };
 
         self.getById = function getById(params) {
-
             if (self.cache.getById && self.cache.getById.id == params.id) {
                 var deferred = $q.defer();
 
                 deferred.resolve(self.cache.getById);
 
                 return deferred.promise;
-            };
+            }
+            ;
 
             return $http({ method: "GET", url: baseUri + "getbyid?id=" + params.id }).then(function (results) {
-
-
                 self.cache.getById = results.data;
 
                 return results.data;
-
             }).catch(function (error) {
-
             });
         };
 
         self.remove = function remove(params) {
-
             return $http({ method: "DELETE", url: baseUri + "delete?id=" + params.id }).then(function (results) {
-
                 self.clearCache();
 
                 return results;
-
             }).catch(function (error) {
-
             });
         };
 
         self.add = function add(params) {
-
             return $http({ method: "POST", url: baseUri + "add", data: JSON.stringify(params.model) }).then(function (results) {
-
                 self.clearCache();
 
                 return results;
-
             }).catch(function (error) {
-
             });
         };
 
         self.update = function update(params) {
-
             return $http({ method: "PUT", url: baseUri + "update", data: JSON.stringify(params.model) }).then(function (results) {
-
                 self.clearCache();
 
                 return results;
-
             }).catch(function (error) {
-
             });
         };
 
         return self;
     }
-
 })();
-
-
-
-
+//# sourceMappingURL=userService.js.map
 (function () {
-
     "use strict";
 
     var app = angular.module("youTube", ["configuration", "core", "session", "ngRoute"]);
 
-
-    app.config(["$routeProvider", function ($routeProvider) {
-
-        $routeProvider
-
-        .when("/videoplayer/:videoid", {
-            templateUrl: "/app/youTube/views/default.html",
-            resolve: ["youTubeRouteResolver", function (youTubeRouteResolver) {
-                return youTubeRouteResolver.resolveRoute();
-            }],
-            authorizationRequired: false
-        })
-    }
-
-
+    app.config([
+        "$routeProvider", function ($routeProvider) {
+            $routeProvider.when("/videoplayer/:videoid", {
+                templateUrl: "/app/youTube/views/default.html",
+                resolve: [
+                    "youTubeRouteResolver", function (youTubeRouteResolver) {
+                        return youTubeRouteResolver.resolveRoute();
+                    }],
+                authorizationRequired: false
+            });
+        }
     ]);
-
 })();
+//# sourceMappingURL=module.js.map
 (function () {
     'use strict';
 
@@ -1784,14 +1534,11 @@
     angular.module("youTube").directive(directiveId, ["$window", "youTubeService", control]);
 
     function control($window, youTubeService) {
-
         return {
             restrict: "E",
             template: "<div></div>",
-            scope: {
-            },
+            scope: {},
             link: function (scope, elem, attrs) {
-
                 scope.model = youTubeService.getPlayerConfiguration();
 
                 var tag = document.getElementById("youtube-player");
@@ -1803,10 +1550,7 @@
                         width: scope.model.width,
                         videoId: scope.model.videoid
                     });
-                }
-                else {
-
-
+                } else {
                     tag = document.createElement("script");
                     tag.src = "https://www.youtube.com/iframe_api";
                     tag.id = "youtube-player";
@@ -1820,7 +1564,6 @@
                         }
 
                         player.cueVideoById(scope.model.videoid);
-
                     });
 
                     $window.onYouTubeIframeAPIReady = function () {
@@ -1836,8 +1579,8 @@
         };
     }
 })();
-(function () {
 
+(function () {
     "use strict";
 
     var componentId = "videoEditor";
@@ -1850,112 +1593,85 @@
             restrict: "E",
             replace: true,
             controllerAs: "viewModel",
-            controller: ["$location", "$routeParams", "$scope", "youTubeService", function ($location, $routeParams, $scope, youTubeService) {
+            controller: [
+                "$location", "$routeParams", "$scope", "videoStatuses", "youTubeService", function ($location, $routeParams, $scope, videoStatuses, youTubeService) {
+                    var timeoutId = null;
 
-                var timeoutId = null;
-
-                $scope.$watch(
-                    function ($scope) {
+                    $scope.$watch(function ($scope) {
                         return self.entity.title;
-                    },
-                    function (newValue) {
+                    }, function (newValue) {
                         if (!self.entity.id && newValue != null) {
-
-
-                            try {
+                            try  {
                                 clearTimeout(timeoutId);
                             } catch (error) {
-
                             }
 
                             timeoutId = setTimeout(function () {
                                 return youTubeService.add({ model: self.entity }).then(function (results) {
-
                                     $location.path("/admin/video/edit/" + results.data.id);
                                 });
-
                             }, 1000);
-
                         }
 
                         self.entity.slug = self.entity.title.replace(" ", "-").toLowerCase();
-                    }
-                );
-
-                var self = this;
-
-                self.entity = {};
-
-                self.remove = function () {
-
-                    return youTubeService.remove({ id: self.entity.id }).then(function () {
-
-                        $location.path("/admin/videos");
-
-                    }).catch(function (error) {
-
                     });
-                };
 
-                self.save = function save() {
+                    var self = this;
 
-                    if (self.entity.id) {
+                    self.entity = {};
 
-                        return youTubeService.update({ model: self.entity }).then(function (results) {
-
+                    self.remove = function () {
+                        return youTubeService.remove({ id: self.entity.id }).then(function () {
                             $location.path("/admin/videos");
-
+                        }).catch(function (error) {
                         });
-                    }
-                    else {
+                    };
 
-                        self.entity.pubDate = new Date().toISOString();
+                    self.save = function save() {
+                        if (self.entity.id) {
+                            return youTubeService.update({ model: self.entity }).then(function (results) {
+                                $location.path("/admin/videos");
+                            });
+                        } else {
+                            self.entity.pubDate = new Date().toISOString();
 
-                        return youTubeService.add({ model: self.entity }).then(function (results) {
-
-                            $location.path("/admin/videos");
-
-                        });
-                    }
-
-                };
-
-                self.approve = function approve() {
-
-                    self.entity.status = videoStatuses().approved;
-
-                    self.save();
-                };
-
-                self.publish = function publish() {
-
-                    self.entity.status = videoStatuses().published;
-
-                    self.save();
-                };
-
-                function initialize() {
-                    return youTubeService.getById({ id: $routeParams.id }).then(function (results) {
-
-                        if (results) {
-                            return self.entity = results;
+                            return youTubeService.add({ model: self.entity }).then(function (results) {
+                                $location.path("/admin/videos");
+                            });
                         }
+                    };
 
-                    });
-                };
+                    self.approve = function approve() {
+                        self.entity.status = videoStatuses().approved;
 
-                initialize();
+                        self.save();
+                    };
 
-                return self;
+                    self.publish = function publish() {
+                        self.entity.status = videoStatuses().published;
 
-            }],
+                        self.save();
+                    };
+
+                    function initialize() {
+                        return youTubeService.getById({ id: $routeParams.id }).then(function (results) {
+                            if (results) {
+                                return self.entity = results;
+                            }
+                        });
+                    }
+                    ;
+
+                    initialize();
+
+                    return self;
+                }],
             link: function (scope, elem, attr) {
-
             }
         };
     }
-
 })();
+//# sourceMappingURL=videoEditor.js.map
 (function () {
     "use strict";
 
@@ -1964,26 +1680,20 @@
     angular.module("youTube").service(serviceId, ["$location", "$q", "$route", "youTubeService", "configurationService", "identityService", service]);
 
     function service($location, $q, $route, youTubeService, configurationService, identityService) {
-
         var self = this;
 
         self.resolveRoute = function resolveRoute() {
-
             return configurationService.get().then(function () {
-
                 return identityService.getCurrentUser().then(function () {
-
                 });
-
             });
-
         };
 
         return self;
-
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=youTubeRouteResolver.js.map
 (function () {
     "use strict";
 
@@ -1992,7 +1702,6 @@
     angular.module("youTube").service(serviceId, ["$route", service]);
 
     function service($route) {
-
         var self = this;
 
         self.getPlayerConfiguration = function getPlayerConfiguration() {
@@ -2008,12 +1717,13 @@
                     color: "white",
                     iv_load_policy: 3,
                     showinfo: 0,
-                    controls: 0,
+                    controls: 0
                 }
             };
         };
 
         return self;
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=youTubeService.js.map

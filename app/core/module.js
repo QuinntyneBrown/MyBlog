@@ -1,7 +1,6 @@
 ﻿(function () {
-
     "use strict";
 
-    var app = angular.module("core", ["configuration","session"]);
-
+    var app = angular.module("core", ["configuration", "session"]);
 })();
+//# sourceMappingURL=module.js.map

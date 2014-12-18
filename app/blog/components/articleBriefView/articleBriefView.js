@@ -1,5 +1,5 @@
-﻿(function () {
-
+﻿/// <reference path="../../../../scripts/typings/moment/moment.d.ts" />
+(function () {
     "use strict";
 
     var componentId = "articleBriefView";
@@ -12,25 +12,20 @@
             restrict: "EA",
             replace: true,
             scope: {
-                model:"="
+                model: "="
             },
             link: function (scope, elem, attr) {
-
                 $sce.trustAsHtml(scope.model.htmlBody);
 
                 scope.goToFullView = function (model) {
-
                     $location.path("/article/" + model.slug);
-
-                }
-
+                };
 
                 scope.displayDate = function (date) {
-
                     return moment(scope.model.pubDate).format("MMMM Do YYYY");
                 };
             }
         };
     }
-
 })();
+//# sourceMappingURL=articleBriefView.js.map

@@ -15,7 +15,7 @@ namespace MyBlog.Controllers
 
         public BaseApiController(ISessionService sessionService)
         {
-            Contract.Requires<ArgumentNullException>(sessionService != null);
+            //Contract.Requires<ArgumentNullException>(sessionService != null);
 
             this.sessionService = sessionService;
         }

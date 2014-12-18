@@ -1,5 +1,4 @@
 ﻿(function () {
-
     "use strict";
 
     var componentId = "adminMenu";
@@ -11,17 +10,13 @@
             templateUrl: "/app/admin/components/adminMenu/adminMenu.html",
             restrict: "EA",
             replace: true,
-            scope: {
-
-            },
+            scope: {},
             link: function (scope, elem, attr) {
-
                 scope.isUserInRole = session.isUserInRole;
 
                 scope.currentUser = session.getCurrentUser();
-
             }
         };
     }
-
 })();
+//# sourceMappingURL=adminMenu.js.map

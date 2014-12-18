@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -19,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -105,41 +107,41 @@
     <Content Include="app.js" />
     <Content Include="app\admin\components\adminMenu\adminMenu.css" />
     <Content Include="app\admin\components\adminMenu\adminMenu.html" />
-    <Content Include="app\admin\components\adminMenu\adminMenu.js" />
-    <Content Include="app\admin\module.js" />
+    <TypeScriptCompile Include="app\admin\components\adminMenu\adminMenu.ts" />
+    <TypeScriptCompile Include="app\admin\module.ts" />
     <Content Include="app\admin\styles\admin.css" />
     <Content Include="app\admin\views\admin.html" />
     <Content Include="app\blog\components\articleBriefView\articleBriefView.css" />
     <Content Include="app\blog\components\articleBriefView\articleBriefView.html" />
-    <Content Include="app\blog\components\articleBriefView\articleBriefView.js" />
+    <TypeScriptCompile Include="app\blog\components\articleBriefView\articleBriefView.ts" />
     <Content Include="app\blog\components\articleEditor\articleEditor.css" />
     <Content Include="app\blog\components\articleEditor\articleEditor.html" />
-    <Content Include="app\blog\components\articleEditor\articleEditor.js" />
+    <TypeScriptCompile Include="app\blog\components\articleEditor\articleEditor.ts" />
     <Content Include="app\blog\components\articleListView\articleListView.css" />
     <Content Include="app\blog\components\articleListView\articleListView.html" />
-    <Content Include="app\blog\components\articleListView\articleListView.js" />
+    <TypeScriptCompile Include="app\blog\components\articleListView\articleListView.ts" />
     <Content Include="app\blog\components\articleView\articleView.css" />
     <Content Include="app\blog\components\articleView\articleView.html" />
-    <Content Include="app\blog\components\articleView\articleView.js" />
-    <Content Include="app\blog\module.js" />
-    <Content Include="app\blog\services\articleService.js" />
-    <Content Include="app\blog\services\blogRouteResolver.js" />
+    <TypeScriptCompile Include="app\blog\components\articleView\articleView.ts" />
+    <TypeScriptCompile Include="app\blog\module.ts" />
+    <TypeScriptCompile Include="app\blog\services\articleService.ts" />
+    <TypeScriptCompile Include="app\blog\services\blogRouteResolver.ts" />
     <Content Include="app\blog\views\list.html" />
     <Content Include="app\blog\views\article.html" />
     <Content Include="app\blog\views\edit.html" />
     <Content Include="app\book\components\bookBrief\bookBrief.css" />
     <Content Include="app\book\components\bookBrief\bookBrief.html" />
-    <Content Include="app\book\components\bookBrief\bookBrief.js" />
+    <TypeScriptCompile Include="app\book\components\bookBrief\bookBrief.ts" />
     <Content Include="app\book\components\bookEditor\bookEditor.css" />
     <Content Include="app\book\components\bookEditor\bookEditor.html" />
-    <Content Include="app\book\components\bookEditor\bookEditor.js" />
+    <TypeScriptCompile Include="app\book\components\bookEditor\bookEditor.ts" />
     <Content Include="app\book\components\bookFull\bookFull.css" />
     <Content Include="app\book\components\bookFull\bookFull.html" />
-    <Content Include="app\book\components\bookFull\bookFull.js" />
+    <TypeScriptCompile Include="app\book\components\bookFull\bookFull.ts" />
     <Content Include="app\book\components\bookList\bookList.css" />
     <Content Include="app\book\components\bookList\bookList.html" />
-    <Content Include="app\book\components\bookList\bookList.js" />
-    <Content Include="app\book\module.js" />
+    <TypeScriptCompile Include="app\book\components\bookList\bookList.ts" />
+    <TypeScriptCompile Include="app\book\module.ts" />
     <Content Include="app\configuration\services\configurationService.js" />
     <Content Include="app\core\components\coreIdentityMenu\coreIdentityMenu.css" />
     <Content Include="app\core\components\coreIdentityMenu\coreIdentityMenu.html" />
@@ -150,9 +152,9 @@
     <Content Include="app\core\components\coreLogo\coreLogo.css" />
     <Content Include="app\core\components\coreLogo\coreLogo.html" />
     <Content Include="app\core\components\coreLogo\coreLogo.js" />
-    <Content Include="app\blog\enums\articleStatuses.js" />
+    <TypeScriptCompile Include="app\blog\enums\articleStatuses.ts" />
     <Content Include="app\core\intreceptors\authorizationInterceptor.js" />
-    <Content Include="app\core\module.js" />
+    <TypeScriptCompile Include="app\core\module.ts" />
     <Content Include="app\core\storage\storage.js" />
     <Content Include="app\core\styles\a.css" />
     <Content Include="app\core\styles\app.css" />
@@ -179,9 +181,9 @@
     <Content Include="app\core\styles\_reset.css" />
     <Content Include="app\home\components\homeListView\homeListView.css" />
     <Content Include="app\home\components\homeListView\homeListView.html" />
-    <Content Include="app\home\components\homeListView\homeListView.js" />
-    <Content Include="app\home\services\homeRouteResolver.js" />
-    <Content Include="app\home\services\homeService.js" />
+    <TypeScriptCompile Include="app\home\components\homeListView\homeListView.ts" />
+    <TypeScriptCompile Include="app\home\services\homeRouteResolver.ts" />
+    <TypeScriptCompile Include="app\home\services\homeService.ts" />
     <Content Include="app\home\views\404.html" />
     <Content Include="app\home\views\about.html" />
     <Content Include="app\home\views\default.html" />
@@ -189,30 +191,30 @@
     <Content Include="app\module.js" />
     <Content Include="app\search\components\search\search.css" />
     <Content Include="app\search\components\search\search.html" />
-    <Content Include="app\search\components\search\search.js" />
-    <Content Include="app\search\module.js" />
-    <Content Include="app\search\service\searchService.js" />
-    <Content Include="app\session\properties\configuration.js" />
-    <Content Include="app\session\properties\currentUser.js" />
-    <Content Include="app\session\model\session.js" />
-    <Content Include="app\session\properties\token.js" />
-    <Content Include="app\session\module.js" />
+    <TypeScriptCompile Include="app\search\components\search\search.ts" />
+    <TypeScriptCompile Include="app\search\module.ts" />
+    <TypeScriptCompile Include="app\search\service\searchService.ts" />
+    <TypeScriptCompile Include="app\session\properties\configuration.ts" />
+    <TypeScriptCompile Include="app\session\properties\currentUser.ts" />
+    <TypeScriptCompile Include="app\session\model\session.ts" />
+    <TypeScriptCompile Include="app\session\properties\token.ts" />
+    <TypeScriptCompile Include="app\session\module.ts" />
     <Content Include="app\user\components\registrationForm\registrationForm.css" />
     <Content Include="app\user\components\registrationForm\registrationForm.html" />
-    <Content Include="app\user\components\registrationForm\registrationForm.js" />
+    <TypeScriptCompile Include="app\user\components\registrationForm\registrationForm.ts" />
     <Content Include="app\user\components\signInForm\signInForm.css" />
     <Content Include="app\user\components\signInForm\signInForm.html" />
-    <Content Include="app\user\components\signInForm\signInForm.js" />
+    <TypeScriptCompile Include="app\user\components\signInForm\signInForm.ts" />
     <Content Include="app\user\components\userEditor\userEditor.css" />
     <Content Include="app\user\components\userEditor\userEditor.html" />
-    <Content Include="app\user\components\userEditor\userEditor.js" />
+    <TypeScriptCompile Include="app\user\components\userEditor\userEditor.ts" />
     <Content Include="app\user\components\userListView\userListView.css" />
     <Content Include="app\user\components\userListView\userListView.html" />
-    <Content Include="app\user\components\userListView\userListView.js" />
-    <Content Include="app\user\module.js" />
-    <Content Include="app\user\services\identityService.js" />
-    <Content Include="app\user\services\userRouteResolver.js" />
-    <Content Include="app\user\services\userService.js" />
+    <TypeScriptCompile Include="app\user\components\userListView\userListView.ts" />
+    <TypeScriptCompile Include="app\user\module.ts" />
+    <TypeScriptCompile Include="app\user\services\identityService.ts" />
+    <TypeScriptCompile Include="app\user\services\userRouteResolver.ts" />
+    <TypeScriptCompile Include="app\user\services\userService.ts" />
     <Content Include="app\user\views\edit.html" />
     <Content Include="app\user\views\list.html" />
     <Content Include="app\user\views\register.html" />
@@ -220,10 +222,10 @@
     <Content Include="app\youTube\components\player\player.js" />
     <Content Include="app\youTube\components\videoEditor\videoEditor.css" />
     <Content Include="app\youTube\components\videoEditor\videoEditor.html" />
-    <Content Include="app\youTube\components\videoEditor\videoEditor.js" />
-    <Content Include="app\youTube\module.js" />
-    <Content Include="app\youTube\services\youTubeRouteResolver.js" />
-    <Content Include="app\youTube\services\youTubeService.js" />
+    <TypeScriptCompile Include="app\youTube\components\videoEditor\videoEditor.ts" />
+    <TypeScriptCompile Include="app\youTube\module.ts" />
+    <TypeScriptCompile Include="app\youTube\services\youTubeRouteResolver.ts" />
+    <TypeScriptCompile Include="app\youTube\services\youTubeService.ts" />
     <Content Include="app\youTube\views\default.html" />
     <Content Include="css\jasmine.css" />
     <Content Include="Global.asax" />
@@ -413,6 +415,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <TypeScriptCompile Include="scripts\typings\moment\moment.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BookController.cs" />
@@ -458,7 +461,7 @@
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="Services\TokenService.cs" />
     <Compile Include="Models\Tag.cs" />
-    <Content Include="app\configuration\module.js" />
+    <TypeScriptCompile Include="app\configuration\module.ts" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
@@ -522,12 +525,24 @@
     <Folder Include="app\book\views\" />
     <Folder Include="app\youTube\components\videoDisplayList\" />
     <Folder Include="app\youTube\components\videoPlayer\" />
+    <Folder Include="scripts\typings\YT\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="scripts\typings\angularjs\angular-animate.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\angularjs\angular-cookies.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\angularjs\angular-mocks.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\angularjs\angular-resource.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\angularjs\angular-route.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\angularjs\angular-sanitize.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

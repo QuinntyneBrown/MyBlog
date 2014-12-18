@@ -11,6 +11,7 @@
             approved: 1,
             published: 2
         };
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=articleStatuses.js.map

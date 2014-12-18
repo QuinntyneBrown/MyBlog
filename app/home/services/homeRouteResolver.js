@@ -6,7 +6,6 @@
     angular.module("app").service(serviceId, ["$q", "$route", "articleService", "articleStatuses", "configurationService", "identityService", service]);
 
     function service($q, $route, articleService, articleStatuses, configurationService, identityService) {
-
         var self = this;
 
         self.resolveRoute = function resolveRoute() {
@@ -21,7 +20,7 @@
         };
 
         return self;
-
-    };
-
+    }
+    ;
 })();
+//# sourceMappingURL=homeRouteResolver.js.map

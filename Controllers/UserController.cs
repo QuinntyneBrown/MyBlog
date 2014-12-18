@@ -23,7 +23,7 @@ namespace MyBlog.Controllers
             : base(sessionService)
         {
 
-            Contract.Requires<ArgumentNullException>(uow != null);
+            //Contract.Requires<ArgumentNullException>(uow != null);
 
             this.repository = uow.Users;
         }

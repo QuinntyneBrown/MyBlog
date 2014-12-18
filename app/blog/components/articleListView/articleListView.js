@@ -1,5 +1,4 @@
 ﻿(function () {
-
     "use strict";
 
     var componentId = "articleListView";
@@ -12,62 +11,53 @@
             restrict: "E",
             replace: true,
             controllerAs: "viewModel",
-            controller: ["articleService", function (articleService) {
+            controller: [
+                "articleService", function (articleService) {
+                    var self = this;
 
-                var self = this;
+                    self.displayStatus = function (status) {
+                        switch (status) {
+                            case 0:
+                                return "Draft";
+                                break;
 
-                self.displayStatus = function (status) {
+                            case 1:
+                                return "Ready To Be Published";
+                                break;
 
-                    switch (status) {
-                        case 0:
-                            return "Draft";
-                            break;
+                            case 2:
+                                return "Published";
+                                break;
+                        }
+                    };
 
-                        case 1:
-                            return "Ready To Be Published";
-                            break;
+                    self.remove = function (params) {
+                        return articleService.remove({ id: params.id }).then(function () {
+                            for (var i = 0; i < self.entities.length; i++) {
+                                if (self.entities[i].id == params.id) {
+                                    self.entities.splice(i, 1);
+                                }
+                                ;
+                            }
+                            ;
+                        }).catch(function (error) {
+                        });
+                    };
 
-                        case 2:
-                            return "Published";
-                            break;
-
+                    function initialize() {
+                        return articleService.getAll().then(function (results) {
+                            return self.entities = results;
+                        });
                     }
-                    
-                };
+                    ;
 
-                self.remove = function (params) {
+                    initialize();
 
-                    return articleService.remove({ id: params.id }).then(function () {
-
-                        for (var i = 0; i < self.entities.length; i++) {
-                            if (self.entities[i].id == params.id) {
-                                self.entities.splice(i, 1);
-                            };
-                        };
-
-                    }).catch(function (error) {
-
-                    });
-                };
-
-                function initialize() {
-                    return articleService.getAll().then(function (results) {
-                        return self.entities = results;
-                    });
-                };
-
-
-                initialize();
-                
-
-                return self;
-
-
-            }],
+                    return self;
+                }],
             link: function (scope, elem, attr) {
- 
-            }         
+            }
         };
     }
-
 })();
+//# sourceMappingURL=articleListView.js.map

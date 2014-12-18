@@ -20,7 +20,7 @@ namespace MyBlog.Controllers
         public BookController(ISessionService sessionService, IUow uow) :
             base(sessionService)
         {
-            Contract.Requires<ArgumentNullException>(uow != null);
+            //Contract.Requires<ArgumentNullException>(uow != null);
 
             this.uow = uow;
             this.repository = uow.Books;

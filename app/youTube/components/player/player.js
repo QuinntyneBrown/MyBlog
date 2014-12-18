@@ -6,14 +6,11 @@
     angular.module("youTube").directive(directiveId, ["$window", "youTubeService", control]);
 
     function control($window, youTubeService) {
-
         return {
             restrict: "E",
             template: "<div></div>",
-            scope: {
-            },
+            scope: {},
             link: function (scope, elem, attrs) {
-
                 scope.model = youTubeService.getPlayerConfiguration();
 
                 var tag = document.getElementById("youtube-player");
@@ -25,10 +22,7 @@
                         width: scope.model.width,
                         videoId: scope.model.videoid
                     });
-                }
-                else {
-
-
+                } else {
                     tag = document.createElement("script");
                     tag.src = "https://www.youtube.com/iframe_api";
                     tag.id = "youtube-player";
@@ -42,7 +36,6 @@
                         }
 
                         player.cueVideoById(scope.model.videoid);
-
                     });
 
                     $window.onYouTubeIframeAPIReady = function () {
@@ -58,3 +51,4 @@
         };
     }
 })();
+

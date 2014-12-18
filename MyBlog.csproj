@@ -188,7 +188,7 @@
     <Content Include="app\home\views\about.html" />
     <Content Include="app\home\views\default.html" />
     <Content Include="app\home\views\settings.html" />
-    <Content Include="app\module.js" />
+    <TypeScriptCompile Include="app\module.ts" />
     <Content Include="app\search\components\search\search.css" />
     <Content Include="app\search\components\search\search.html" />
     <TypeScriptCompile Include="app\search\components\search\search.ts" />

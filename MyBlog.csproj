@@ -457,7 +457,7 @@
     <Content Include="scripts\tinymce\tinymce.min.js" />
     <Content Include="scripts\underscore-min.js" />
     <Content Include="specs.js" />
-    <Content Include="uiTinyMCE\uiTinyMCE.js" />
+    <Content Include="app\common\components\uiTinyMCE\uiTinyMCE.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -471,7 +471,7 @@
     <Compile Include="Server\Controllers\TrainingPlanController.cs" />
     <Compile Include="Server\Controllers\YouTubeVideoController.cs" />
     <Compile Include="Server\Dto\UserDto.cs" />
-    <Compile Include="Migrations\RoleConfiguration.cs" />
+    <Compile Include="Server\Migrations\RoleConfiguration.cs" />
     <Compile Include="Server\Models\Book.cs" />
     <Compile Include="Server\Models\Content.cs" />
     <Compile Include="Server\Models\Course.cs" />
@@ -484,7 +484,7 @@
     <Compile Include="Server\Dto\SearchResultsDto.cs" />
     <Compile Include="Server\Dto\SignInDto.cs" />
     <Compile Include="Server\Dto\TokenDto.cs" />
-    <Compile Include="Migrations\UserConfiguration.cs" />
+    <Compile Include="Server\Migrations\UserConfiguration.cs" />
     <Compile Include="Server\Models\BaseEntity.cs" />
     <Compile Include="Server\Models\Category.cs" />
     <Compile Include="Server\Models\CategoryTranslation.cs" />
@@ -515,8 +515,8 @@
     <Compile Include="Server\Services\TokenService.cs" />
     <Compile Include="Server\Models\Tag.cs" />
     <TypeScriptCompile Include="app\configuration\module.ts" />
-    <Compile Include="App_Start\UnityConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Server\StartUp\UnityConfig.cs" />
+    <Compile Include="Server\StartUp\WebApiConfig.cs" />
     <Compile Include="Server\Controllers\ArticleController.cs" />
     <Compile Include="Server\Controllers\BaseApiController.cs" />
     <Compile Include="Server\Controllers\ConfigurationController.cs" />
@@ -537,9 +537,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\ArticleConfiguration.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Migrations\ConfigurationConfiguration.cs" />
+    <Compile Include="Server\Migrations\ArticleConfiguration.cs" />
+    <Compile Include="Server\Migrations\Configuration.cs" />
+    <Compile Include="Server\Migrations\ConfigurationConfiguration.cs" />
     <Compile Include="Server\Models\Article.cs" />
     <Compile Include="Server\Models\ArticleTranslation.cs" />
     <Compile Include="Server\Models\Configuration.cs" />

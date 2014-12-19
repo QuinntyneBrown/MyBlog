@@ -1,6 +1,5 @@
 (function () {
     "use strict";
-
     var app = angular.module("app", [
         "ngAnimate",
         "ngRoute",
@@ -18,69 +17,55 @@
         "user",
         "youTube"
     ]);
-
-    app.config([
-        "$httpProvider", "$locationProvider", "$routeProvider", "$rootScopeProvider", function ($httpProvider, $locationProvider, $routeProvider, $rootScopeProvider) {
-            $rootScopeProvider.digestTtl(8);
-
-            $httpProvider.interceptors.push("authorizationInterceptor");
-
-            $httpProvider.useApplyAsync(true);
-
-            $locationProvider.html5Mode(false);
-
-            $routeProvider.when("/", {
-                templateUrl: 'app/home/views/default.html',
-                resolve: [
-                    "homeRouteResolver", function (homeRouteResolver) {
-                        return homeRouteResolver.resolveRoute();
-                    }]
-            }).when("/about", {
-                templateUrl: 'app/home/views/about.html',
-                resolve: [
-                    "homeRouteResolver", function (homeRouteResolver) {
-                        return homeRouteResolver.resolveRoute();
-                    }]
-            }).when("/settings", {
-                templateUrl: 'app/home/views/settings.html',
-                resolve: [
-                    "homeRouteResolver", function (homeRouteResolver) {
-                        return homeRouteResolver.resolveRoute();
-                    }]
-            }).when("/404", {
-                templateUrl: 'app/home/views/404.html'
-            }).otherwise("/404");
-        }]);
-
-    app.run([
-        "$http", "$location", "$rootScope", "$route", "currentUser", "token", function ($http, $location, $rootScope, $route, currentUser, token) {
-            $rootScope.$on("$routeChangeStart", function routeChange(event, newUrl, oldUrl) {
-                $rootScope.inViewTransition = true;
-
-                if (newUrl.originalPath == "/signin") {
-                    token.set({ data: null });
+    app.config(["$httpProvider", "$locationProvider", "$routeProvider", "$rootScopeProvider", function ($httpProvider, $locationProvider, $routeProvider, $rootScopeProvider) {
+        $rootScopeProvider.digestTtl(8);
+        $httpProvider.interceptors.push("authorizationInterceptor");
+        $httpProvider.useApplyAsync(true);
+        $locationProvider.html5Mode(false);
+        $routeProvider.when("/", {
+            templateUrl: 'app/home/views/default.html',
+            resolve: ["homeRouteResolver", function (homeRouteResolver) {
+                return homeRouteResolver.resolveRoute();
+            }]
+        }).when("/about", {
+            templateUrl: 'app/home/views/about.html',
+            resolve: ["homeRouteResolver", function (homeRouteResolver) {
+                return homeRouteResolver.resolveRoute();
+            }]
+        }).when("/settings", {
+            templateUrl: 'app/home/views/settings.html',
+            resolve: ["homeRouteResolver", function (homeRouteResolver) {
+                return homeRouteResolver.resolveRoute();
+            }]
+        }).when("/404", {
+            templateUrl: 'app/home/views/404.html',
+        }).otherwise("/404");
+    }]);
+    app.run(["$http", "$location", "$rootScope", "$route", "currentUser", "token", function ($http, $location, $rootScope, $route, currentUser, token) {
+        $rootScope.$on("$routeChangeStart", function routeChange(event, newUrl, oldUrl) {
+            $rootScope.inViewTransition = true;
+            if (newUrl.originalPath == "/signin") {
+                token.set({ data: null });
+            }
+            ;
+            if (newUrl.$$route && newUrl.$$route.authorizationRequired) {
+                if (token.get() == null) {
+                    $rootScope.$evalAsync(function () {
+                        $location.path("/signin");
+                    });
                 }
                 ;
-
-                if (newUrl.$$route && newUrl.$$route.authorizationRequired) {
-                    if (token.get() == null) {
-                        $rootScope.$evalAsync(function () {
-                            $location.path("/signin");
-                        });
-                    }
-                    ;
-                }
-                ;
-            });
-
-            $rootScope.$on("$viewContentLoaded", function routeChange(event, newUrl, oldUrl) {
-                $rootScope.inViewTransition = false;
-                if ($route.current.$$route.authorizationRequired && (currentUser.get() == null || currentUser.get() == "")) {
-                    $location.path("/signin");
-                }
-                ;
-            });
-        }]);
+            }
+            ;
+        });
+        $rootScope.$on("$viewContentLoaded", function routeChange(event, newUrl, oldUrl) {
+            $rootScope.inViewTransition = false;
+            if ($route.current.$$route.authorizationRequired && (currentUser.get() == null || currentUser.get() == "")) {
+                $location.path("/signin");
+            }
+            ;
+        });
+    }]);
 })();
 //# sourceMappingURL=module.js.map
 var app;
@@ -556,8 +541,128 @@ var admin;
     }
 })();
 (function () {
+
     "use strict";
 
+    angular.module('ui.tinymce', [])
+     .value('uiTinymceConfig', {})
+     .directive('uiTinymce', ['uiTinymceConfig', function (uiTinymceConfig) {
+         uiTinymceConfig = uiTinymceConfig || {};
+         var generatedIds = 0;
+         return {
+             priority: 10,
+             require: 'ngModel',
+             link: function (scope, elm, attrs, ngModel) {
+                 var expression, options, tinyInstance,
+                   updateView = function () {
+                       ngModel.$setViewValue(elm.val());
+                       if (!scope.$root.$$phase) {
+                           scope.$apply();
+                       }
+                   };
+
+
+                 // generate an ID if not present 
+                 if (!attrs.id) {
+                     attrs.$set('id', 'uiTinymce' + generatedIds++);
+                 }
+
+
+                 if (attrs.uiTinymce) {
+                     expression = scope.$eval(attrs.uiTinymce);
+                 } else {
+                     expression = {};
+                 }
+
+
+                 // make config'ed setup method available 
+                 if (expression.setup) {
+                     var configSetup = expression.setup;
+                     delete expression.setup;
+                 }
+
+
+                 options = {
+                     plugins: [
+                         "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                         "searchreplace wordcount visualblocks visualchars code fullscreen",
+                         "insertdatetime media nonbreaking save table contextmenu directionality",
+                         "emoticons template paste textcolor colorpicker textpattern"
+                     ],
+                     toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                     toolbar2: "print preview media | forecolor backcolor emoticons",
+                     // Update model when calling setContent (such as from the source editor popup) 
+                     setup: function (ed) {
+                         var args;
+                         ed.on('init', function (args) {
+                             ngModel.$render();
+                             ngModel.$setPristine();
+                         });
+                         // Update model on button click 
+                         ed.on('ExecCommand', function (e) {
+                             ed.save();
+                             updateView();
+                         });
+                         // Update model on keypress 
+                         ed.on('KeyUp', function (e) {
+                             ed.save();
+                             updateView();
+                         });
+                         // Update model on change, i.e. copy/pasted text, plugins altering content 
+                         ed.on('SetContent', function (e) {
+                             if (!e.initial && ngModel.$viewValue !== e.content) {
+                                 ed.save();
+                                 updateView();
+                             }
+                         });
+                         ed.on('blur', function (e) {
+                             //elm.blur();
+                         });
+                         // Update model when an object has been resized (table, image) 
+                         ed.on('ObjectResized', function (e) {
+                             ed.save();
+                             updateView();
+                         });
+                         if (configSetup) {
+                             configSetup(ed);
+                         }
+                     },
+                     mode: 'exact',
+                     elements: attrs.id
+                 };
+                 // extend options with initial uiTinymceConfig and options from directive attribute value 
+                 angular.extend(options, uiTinymceConfig, expression);
+                 setTimeout(function () {
+                     tinymce.init(options);
+                 });
+
+
+                 ngModel.$render = function () {
+                     if (!tinyInstance) {
+                         tinyInstance = tinymce.get(attrs.id);
+                     }
+                     if (tinyInstance) {
+                         tinyInstance.setContent(ngModel.$viewValue || '');
+                     }
+                 };
+
+
+                 scope.$on('$destroy', function () {
+                     if (!tinyInstance) { tinyInstance = tinymce.get(attrs.id); }
+                     if (tinyInstance) {
+                         tinyInstance.remove();
+                         tinyInstance = null;
+                     }
+                 });
+             }
+         };
+     }]);
+
+})();
+
+
+(function () {
+    "use strict";
     var app = angular.module("configuration", []);
 })();
 //# sourceMappingURL=module.js.map
@@ -673,10 +778,13 @@ var admin;
 
 })();
 
+//# sourceMappingURL=module.js.map
 //# sourceMappingURL=courseBrief.js.map
 //# sourceMappingURL=courseEditor.js.map
 //# sourceMappingURL=courseFull.js.map
 //# sourceMappingURL=courseList.js.map
+//# sourceMappingURL=courseRouteResolver.js.map
+//# sourceMappingURL=courseService.js.map
 //# sourceMappingURL=module.js.map
 //# sourceMappingURL=feedbackService.js.map
 //# sourceMappingURL=module.js.map

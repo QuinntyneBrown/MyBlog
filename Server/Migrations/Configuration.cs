@@ -1,4 +1,4 @@
-namespace MyBlog.Migrations
+namespace MyBlog.Server.Migrations
 {
     using System;
     using System.Data.Entity;

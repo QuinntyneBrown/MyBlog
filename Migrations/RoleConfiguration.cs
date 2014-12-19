@@ -1,5 +1,5 @@
-﻿using MyBlog.Models;
-using MyBlog.Services;
+﻿using MyBlog.Server.Models;
+using MyBlog.Server.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace MyBlog.Migrations
 {
     public class RoleConfiguration
     {
-        public static void Seed(MyBlog.Data.DbContext context)
+        public static void Seed(MyBlog.Server.Data.DbContext context)
         {
             if (context.Roles.Count() < 1)
             {

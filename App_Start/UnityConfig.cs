@@ -1,8 +1,8 @@
 using Microsoft.Practices.Unity;
-using MyBlog.Data;
-using MyBlog.Data.Contracts;
-using MyBlog.Services;
-using MyBlog.Services.Contracts;
+using MyBlog.Server.Data;
+using MyBlog.Server.Data.Contracts;
+using MyBlog.Server.Services;
+using MyBlog.Server.Services.Contracts;
 using System.Web.Http;
 using Unity.WebApi;
 

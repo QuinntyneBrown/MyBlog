@@ -1,4 +1,4 @@
-﻿using MyBlog.Services;
+﻿using MyBlog.Server.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
 using Microsoft.Practices.Unity;
-using MyBlog.Services.Contracts;
+using MyBlog.Server.Services.Contracts;
 using System.Security.Principal;
 using System.Threading;
 using Newtonsoft.Json.Serialization;

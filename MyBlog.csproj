@@ -20,7 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.1</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -183,6 +183,18 @@
     <Content Include="app\core\styles\view-container.css" />
     <Content Include="app\core\styles\view.css" />
     <Content Include="app\core\styles\_reset.css" />
+    <Content Include="app\course\components\courseBrief\courseBrief.css" />
+    <Content Include="app\course\components\courseBrief\courseBrief.html" />
+    <TypeScriptCompile Include="app\course\components\courseBrief\courseBrief.ts" />
+    <Content Include="app\course\components\courseEditor\courseEditor.css" />
+    <Content Include="app\course\components\courseEditor\courseEditor.html" />
+    <TypeScriptCompile Include="app\course\components\courseEditor\courseEditor.ts" />
+    <Content Include="app\course\components\courseFull\courseFull.css" />
+    <Content Include="app\course\components\courseFull\courseFull.html" />
+    <TypeScriptCompile Include="app\course\components\courseFull\courseFull.ts" />
+    <Content Include="app\course\components\courseList\courseList.css" />
+    <Content Include="app\course\components\courseList\courseList.html" />
+    <TypeScriptCompile Include="app\course\components\courseList\courseList.ts" />
     <Content Include="app\diagnostics\components\feedbackEditor\feedbackEditor.css" />
     <Content Include="app\diagnostics\components\feedbackEditor\feedbackEditor.html" />
     <Content Include="app\diagnostics\components\feedbackEditor\feedbackEditor.js" />
@@ -193,6 +205,9 @@
     <Content Include="app\feedback\views\default.html" />
     <Content Include="app\home\components\homeListView\homeListView.css" />
     <Content Include="app\home\components\homeListView\homeListView.html" />
+    <TypeScriptCompile Include="app\course\module.ts" />
+    <TypeScriptCompile Include="app\course\services\courseRouteResolver.ts" />
+    <TypeScriptCompile Include="app\course\services\courseService.ts" />
     <TypeScriptCompile Include="app\diagnostics\module.ts" />
     <TypeScriptCompile Include="app\diagnostics\services\feedbackService.ts" />
     <TypeScriptCompile Include="app\feedback\module.ts" />
@@ -227,7 +242,6 @@
     <Content Include="app\trainingPlan\components\trainingPlanEditor\trainingPlanEditor.css" />
     <Content Include="app\trainingPlan\components\trainingPlanEditor\trainingPlanEditor.html" />
     <Content Include="app\trainingPlan\components\trainingPlanEditor\trainingPlanEditor.js" />
-    <Content Include="app\trainingPlan\views\default.html" />
     <Content Include="app\user\components\registrationForm\registrationForm.css" />
     <Content Include="app\user\components\registrationForm\registrationForm.html" />
     <TypeScriptCompile Include="app\trainingPlan\module.ts" />
@@ -452,84 +466,84 @@
     <TypeScriptCompile Include="scripts\typings\YT\YT.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\BookController.cs" />
-    <Compile Include="Controllers\CourseController.cs" />
-    <Compile Include="Controllers\TrainingPlanController.cs" />
-    <Compile Include="Controllers\YouTubeVideoController.cs" />
-    <Compile Include="Dto\UserDto.cs" />
+    <Compile Include="Server\Controllers\BookController.cs" />
+    <Compile Include="Server\Controllers\CourseController.cs" />
+    <Compile Include="Server\Controllers\TrainingPlanController.cs" />
+    <Compile Include="Server\Controllers\YouTubeVideoController.cs" />
+    <Compile Include="Server\Dto\UserDto.cs" />
     <Compile Include="Migrations\RoleConfiguration.cs" />
-    <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\Content.cs" />
-    <Compile Include="Models\Course.cs" />
-    <Compile Include="Models\FeedBack.cs" />
-    <Compile Include="Models\PublishStatus.cs" />
-    <Compile Include="Controllers\IdentityController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Dto\RegistrationRequestDto.cs" />
-    <Compile Include="Dto\SearchResultsDto.cs" />
-    <Compile Include="Dto\SignInDto.cs" />
-    <Compile Include="Dto\TokenDto.cs" />
+    <Compile Include="Server\Models\Book.cs" />
+    <Compile Include="Server\Models\Content.cs" />
+    <Compile Include="Server\Models\Course.cs" />
+    <Compile Include="Server\Models\FeedBack.cs" />
+    <Compile Include="Server\Models\PublishStatus.cs" />
+    <Compile Include="Server\Controllers\IdentityController.cs" />
+    <Compile Include="Server\Controllers\SearchController.cs" />
+    <Compile Include="Server\Controllers\UserController.cs" />
+    <Compile Include="Server\Dto\RegistrationRequestDto.cs" />
+    <Compile Include="Server\Dto\SearchResultsDto.cs" />
+    <Compile Include="Server\Dto\SignInDto.cs" />
+    <Compile Include="Server\Dto\TokenDto.cs" />
     <Compile Include="Migrations\UserConfiguration.cs" />
-    <Compile Include="Models\BaseEntity.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\CategoryTranslation.cs" />
-    <Compile Include="Models\ILoggable.cs" />
-    <Compile Include="Models\IvLoadPolicy.cs" />
-    <Compile Include="Models\Page.cs" />
-    <Compile Include="Models\Role.cs" />
-    <Compile Include="Dto\RoleDto.cs" />
-    <Compile Include="Models\Session.cs" />
-    <Compile Include="Models\TagTranslation.cs" />
-    <Compile Include="Models\TrainingPlan.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\YouTubeVideo.cs" />
-    <Compile Include="Services\CacheProvider.cs" />
-    <Compile Include="Services\Contracts\ICache.cs" />
-    <Compile Include="Services\Contracts\ICacheProvider.cs" />
-    <Compile Include="Services\Contracts\IIdentityService.cs" />
-    <Compile Include="Services\Contracts\ISearchService.cs" />
-    <Compile Include="Services\Contracts\ISessionService.cs" />
-    <Compile Include="Services\Contracts\ITokenService.cs" />
-    <Compile Include="Services\MemoryCache.cs" />
-    <Compile Include="Services\SearchService.cs" />
-    <Compile Include="Services\EncryptionService.cs" />
-    <Compile Include="Services\IdentityService.cs" />
-    <Compile Include="Services\Contracts\IEncryptionService.cs" />
-    <Compile Include="Services\ServiceCache.cs" />
-    <Compile Include="Services\SessionService.cs" />
-    <Compile Include="Services\TokenService.cs" />
-    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Server\Models\BaseEntity.cs" />
+    <Compile Include="Server\Models\Category.cs" />
+    <Compile Include="Server\Models\CategoryTranslation.cs" />
+    <Compile Include="Server\Models\ILoggable.cs" />
+    <Compile Include="Server\Models\IvLoadPolicy.cs" />
+    <Compile Include="Server\Models\Page.cs" />
+    <Compile Include="Server\Models\Role.cs" />
+    <Compile Include="Server\Dto\RoleDto.cs" />
+    <Compile Include="Server\Models\Session.cs" />
+    <Compile Include="Server\Models\TagTranslation.cs" />
+    <Compile Include="Server\Models\TrainingPlan.cs" />
+    <Compile Include="Server\Models\User.cs" />
+    <Compile Include="Server\Models\YouTubeVideo.cs" />
+    <Compile Include="Server\Services\CacheProvider.cs" />
+    <Compile Include="Server\Services\Contracts\ICache.cs" />
+    <Compile Include="Server\Services\Contracts\ICacheProvider.cs" />
+    <Compile Include="Server\Services\Contracts\IIdentityService.cs" />
+    <Compile Include="Server\Services\Contracts\ISearchService.cs" />
+    <Compile Include="Server\Services\Contracts\ISessionService.cs" />
+    <Compile Include="Server\Services\Contracts\ITokenService.cs" />
+    <Compile Include="Server\Services\MemoryCache.cs" />
+    <Compile Include="Server\Services\SearchService.cs" />
+    <Compile Include="Server\Services\EncryptionService.cs" />
+    <Compile Include="Server\Services\IdentityService.cs" />
+    <Compile Include="Server\Services\Contracts\IEncryptionService.cs" />
+    <Compile Include="Server\Services\ServiceCache.cs" />
+    <Compile Include="Server\Services\SessionService.cs" />
+    <Compile Include="Server\Services\TokenService.cs" />
+    <Compile Include="Server\Models\Tag.cs" />
     <TypeScriptCompile Include="app\configuration\module.ts" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\ArticleController.cs" />
-    <Compile Include="Controllers\BaseApiController.cs" />
-    <Compile Include="Controllers\ConfigurationController.cs" />
-    <Compile Include="Data\Contracts\IRepository.cs">
+    <Compile Include="Server\Controllers\ArticleController.cs" />
+    <Compile Include="Server\Controllers\BaseApiController.cs" />
+    <Compile Include="Server\Controllers\ConfigurationController.cs" />
+    <Compile Include="Server\Data\Contracts\IRepository.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Contracts\IRepositoryProvider.cs" />
-    <Compile Include="Data\Contracts\IUow.cs">
+    <Compile Include="Server\Data\Contracts\IRepositoryProvider.cs" />
+    <Compile Include="Server\Data\Contracts\IUow.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\DbContext.cs">
+    <Compile Include="Server\Data\DbContext.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\EFRepository.cs" />
-    <Compile Include="Data\RepositoryFactories.cs" />
-    <Compile Include="Data\RepositoryProvider.cs" />
-    <Compile Include="Data\Uow.cs" />
+    <Compile Include="Server\Data\EFRepository.cs" />
+    <Compile Include="Server\Data\RepositoryFactories.cs" />
+    <Compile Include="Server\Data\RepositoryProvider.cs" />
+    <Compile Include="Server\Data\Uow.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ArticleConfiguration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\ConfigurationConfiguration.cs" />
-    <Compile Include="Models\Article.cs" />
-    <Compile Include="Models\ArticleTranslation.cs" />
-    <Compile Include="Models\Configuration.cs" />
-    <Compile Include="Models\Culture.cs" />
+    <Compile Include="Server\Models\Article.cs" />
+    <Compile Include="Server\Models\ArticleTranslation.cs" />
+    <Compile Include="Server\Models\Configuration.cs" />
+    <Compile Include="Server\Models\Culture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -562,8 +576,10 @@
   <ItemGroup>
     <Folder Include="app\book\services\" />
     <Folder Include="app\book\views\" />
+    <Folder Include="app\course\views\" />
     <Folder Include="app\notification\components\" />
     <Folder Include="app\notification\views\" />
+    <Folder Include="app\trainingPlan\views\" />
     <Folder Include="app\youTube\components\videoDisplayList\" />
     <Folder Include="app\youTube\components\videoPlayer\" />
   </ItemGroup>

@@ -9,11 +9,11 @@ namespace MyBlog.Migrations
     // A little confusing but consistent
     public class ConfigurationConfiguration
     {
-        public static void Seed(MyBlog.Data.DbContext context)
+        public static void Seed(MyBlog.Server.Data.DbContext context)
         {
             if (context.Configurations.Count() < 1)
             {
-                context.Configurations.Add(new MyBlog.Models.Configuration() { Name = "ngBlog", TenantId = 1, Theme = "Winter" });
+                context.Configurations.Add(new MyBlog.Server.Models.Configuration() { Name = "ngBlog", TenantId = 1, Theme = "Winter" });
 
                 context.SaveChanges();
             }

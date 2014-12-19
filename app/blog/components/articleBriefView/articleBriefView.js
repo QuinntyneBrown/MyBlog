@@ -1,11 +1,8 @@
-﻿/// <reference path="../../../../scripts/typings/moment/moment.d.ts" />
+/// <reference path="../../../../scripts/typings/moment/moment.d.ts" />
 (function () {
     "use strict";
-
     var componentId = "articleBriefView";
-
     angular.module("blog").directive(componentId, ["$location", "$sce", component]);
-
     function component($location, $sce) {
         return {
             templateUrl: "/app/blog/components/articleBriefView/articleBriefView.html",
@@ -16,11 +13,9 @@
             },
             link: function (scope, elem, attr) {
                 $sce.trustAsHtml(scope.model.htmlBody);
-
                 scope.goToFullView = function (model) {
                     $location.path("/article/" + model.slug);
                 };
-
                 scope.displayDate = function (date) {
                     return moment(scope.model.pubDate).format("MMMM Do YYYY");
                 };

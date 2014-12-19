@@ -1,4 +1,4 @@
-﻿using MyBlog.Models;
+﻿using MyBlog.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ namespace MyBlog.Migrations
 {
     public class ArticleConfiguration
     {
-        public static void Seed(MyBlog.Data.DbContext context)
+        public static void Seed(MyBlog.Server.Data.DbContext context)
         {
             if (context.Articles.Count() < 1)
             {
@@ -23,7 +23,7 @@ namespace MyBlog.Migrations
                     Status = PublishStatus.Published
                 });
 
-                context.Articles.Add(new Models.Article()
+                context.Articles.Add(new Server.Models.Article()
                 {
                     Title = "Chistmas Day",
                     Slug = "christmas-day",

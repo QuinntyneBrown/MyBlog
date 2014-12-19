@@ -142,18 +142,22 @@
     <Content Include="app\book\components\bookList\bookList.html" />
     <TypeScriptCompile Include="app\book\components\bookList\bookList.ts" />
     <TypeScriptCompile Include="app\book\module.ts" />
+    <Content Include="app\common\components\peek\peek.css" />
+    <Content Include="app\common\components\peek\peek.html" />
+    <Content Include="app\common\components\peek\peek.js" />
     <Content Include="app\configuration\services\configurationService.js" />
-    <Content Include="app\core\components\coreIdentityMenu\coreIdentityMenu.css" />
-    <Content Include="app\core\components\coreIdentityMenu\coreIdentityMenu.html" />
-    <Content Include="app\core\components\coreIdentityMenu\coreIdentityMenu.js" />
-    <Content Include="app\core\components\coreHeader\coreHeader.css" />
-    <Content Include="app\core\components\coreHeader\coreHeader.html" />
-    <Content Include="app\core\components\coreHeader\coreHeader.js" />
-    <Content Include="app\core\components\coreLogo\coreLogo.css" />
-    <Content Include="app\core\components\coreLogo\coreLogo.html" />
-    <Content Include="app\core\components\coreLogo\coreLogo.js" />
+    <Content Include="app\common\components\identityMenu\identityMenu.css" />
+    <Content Include="app\common\components\identityMenu\identityMenu.html" />
+    <Content Include="app\common\components\identityMenu\identityMenu.js" />
+    <Content Include="app\common\components\commonHeader\commonHeader.css" />
+    <Content Include="app\common\components\commonHeader\commonHeader.html" />
+    <Content Include="app\common\components\commonHeader\commonHeader.js" />
+    <Content Include="app\common\components\logo\commonLogo.css" />
+    <Content Include="app\common\components\logo\commonLogo.html" />
+    <Content Include="app\common\components\logo\commonLogo.js" />
     <TypeScriptCompile Include="app\blog\enums\articleStatuses.ts" />
     <Content Include="app\core\intreceptors\authorizationInterceptor.js" />
+    <TypeScriptCompile Include="app\common\module.ts" />
     <TypeScriptCompile Include="app\core\module.ts" />
     <Content Include="app\core\storage\storage.js" />
     <Content Include="app\core\styles\a.css" />
@@ -179,8 +183,20 @@
     <Content Include="app\core\styles\view-container.css" />
     <Content Include="app\core\styles\view.css" />
     <Content Include="app\core\styles\_reset.css" />
+    <Content Include="app\diagnostics\components\feedbackEditor\feedbackEditor.css" />
+    <Content Include="app\diagnostics\components\feedbackEditor\feedbackEditor.html" />
+    <Content Include="app\diagnostics\components\feedbackEditor\feedbackEditor.js" />
+    <Content Include="app\diagnostics\views\default.html" />
+    <Content Include="app\feedback\components\feedbackEditor\feedbackEditor.css" />
+    <Content Include="app\feedback\components\feedbackEditor\feedbackEditor.html" />
+    <Content Include="app\feedback\components\feedbackEditor\feedbackEditor.js" />
+    <Content Include="app\feedback\views\default.html" />
     <Content Include="app\home\components\homeListView\homeListView.css" />
     <Content Include="app\home\components\homeListView\homeListView.html" />
+    <TypeScriptCompile Include="app\diagnostics\module.ts" />
+    <TypeScriptCompile Include="app\diagnostics\services\feedbackService.ts" />
+    <TypeScriptCompile Include="app\feedback\module.ts" />
+    <TypeScriptCompile Include="app\feedback\services\feedbackService.ts" />
     <TypeScriptCompile Include="app\home\components\homeListView\homeListView.ts" />
     <TypeScriptCompile Include="app\home\services\homeRouteResolver.ts" />
     <TypeScriptCompile Include="app\home\services\homeService.ts" />
@@ -188,9 +204,18 @@
     <Content Include="app\home\views\about.html" />
     <Content Include="app\home\views\default.html" />
     <Content Include="app\home\views\settings.html" />
+    <TypeScriptCompile Include="app\liveTile\module.ts" />
     <TypeScriptCompile Include="app\module.ts" />
+    <Content Include="app\reporting\components\feedbackEditor\feedbackEditor.css" />
+    <Content Include="app\reporting\components\feedbackEditor\feedbackEditor.html" />
+    <Content Include="app\reporting\components\feedbackEditor\feedbackEditor.js" />
+    <Content Include="app\reporting\views\default.html" />
     <Content Include="app\search\components\search\search.css" />
     <Content Include="app\search\components\search\search.html" />
+    <TypeScriptCompile Include="app\notification\module.ts" />
+    <TypeScriptCompile Include="app\notification\services\notificationService.ts" />
+    <TypeScriptCompile Include="app\reporting\module.ts" />
+    <TypeScriptCompile Include="app\reporting\services\feedbackService.ts" />
     <TypeScriptCompile Include="app\search\components\search\search.ts" />
     <TypeScriptCompile Include="app\search\module.ts" />
     <TypeScriptCompile Include="app\search\service\searchService.ts" />
@@ -199,8 +224,15 @@
     <TypeScriptCompile Include="app\session\model\session.ts" />
     <TypeScriptCompile Include="app\session\properties\token.ts" />
     <TypeScriptCompile Include="app\session\module.ts" />
+    <Content Include="app\trainingPlan\components\trainingPlanEditor\trainingPlanEditor.css" />
+    <Content Include="app\trainingPlan\components\trainingPlanEditor\trainingPlanEditor.html" />
+    <Content Include="app\trainingPlan\components\trainingPlanEditor\trainingPlanEditor.js" />
+    <Content Include="app\trainingPlan\views\default.html" />
     <Content Include="app\user\components\registrationForm\registrationForm.css" />
     <Content Include="app\user\components\registrationForm\registrationForm.html" />
+    <TypeScriptCompile Include="app\trainingPlan\module.ts" />
+    <TypeScriptCompile Include="app\trainingPlan\services\trainingPlanRouteResolver.ts" />
+    <TypeScriptCompile Include="app\trainingPlan\services\trainingPlanService.ts" />
     <TypeScriptCompile Include="app\user\components\registrationForm\registrationForm.ts" />
     <Content Include="app\user\components\signInForm\signInForm.css" />
     <Content Include="app\user\components\signInForm\signInForm.html" />
@@ -415,15 +447,21 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <TypeScriptCompile Include="scripts\typings\html2canvas\html2canvas.d.ts" />
     <TypeScriptCompile Include="scripts\typings\moment\moment.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\YT\YT.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\TrainingPlanController.cs" />
     <Compile Include="Controllers\YouTubeVideoController.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Migrations\RoleConfiguration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Content.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\FeedBack.cs" />
     <Compile Include="Models\PublishStatus.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -443,6 +481,7 @@
     <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\TagTranslation.cs" />
+    <Compile Include="Models\TrainingPlan.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\YouTubeVideo.cs" />
     <Compile Include="Services\CacheProvider.cs" />
@@ -523,9 +562,10 @@
   <ItemGroup>
     <Folder Include="app\book\services\" />
     <Folder Include="app\book\views\" />
+    <Folder Include="app\notification\components\" />
+    <Folder Include="app\notification\views\" />
     <Folder Include="app\youTube\components\videoDisplayList\" />
     <Folder Include="app\youTube\components\videoPlayer\" />
-    <Folder Include="scripts\typings\YT\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-animate.d.ts" />

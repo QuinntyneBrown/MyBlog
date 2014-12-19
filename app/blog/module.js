@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    var app = angular.module("blog", ["configuration", "core", "session", "ngRoute", "ngSanitize"]);
+    var app = angular.module("blog", ["configuration", "common", "core", "session", "ngRoute", "ngSanitize"]);
 
     app.config([
         "$routeProvider", function ($routeProvider) {

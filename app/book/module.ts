@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var app = angular.module("book", ["configuration", "core", "session", "ngRoute"]);
+    var app = angular.module("book", ["configuration", "common", "core", "session", "ngRoute"]);
 
 
     app.config(["$routeProvider", function ($routeProvider) {

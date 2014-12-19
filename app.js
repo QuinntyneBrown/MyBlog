@@ -1,108 +1,95 @@
 (function () {
-
     "use strict";
 
     var app = angular.module("app", [
         "ngAnimate",
-        "ngRoute",      
+        "ngRoute",
         "ui.tinymce",
         "infinite-scroll",
         "admin",
         "blog",
         "book",
+        "common",
         "configuration",
         "core",
         "search",
         "session",
+        "trainingPlan",
         "user",
         "youTube"
     ]);
 
-    app.config(["$httpProvider", "$locationProvider", "$routeProvider", "$rootScopeProvider", function ($httpProvider, $locationProvider, $routeProvider, $rootScopeProvider) {
+    app.config([
+        "$httpProvider", "$locationProvider", "$routeProvider", "$rootScopeProvider", function ($httpProvider, $locationProvider, $routeProvider, $rootScopeProvider) {
+            $rootScopeProvider.digestTtl(8);
 
-        $rootScopeProvider.digestTtl(8);
+            $httpProvider.interceptors.push("authorizationInterceptor");
 
-        $httpProvider.interceptors.push("authorizationInterceptor");
+            $httpProvider.useApplyAsync(true);
 
-        $httpProvider.useApplyAsync(true);
+            $locationProvider.html5Mode(false);
 
-        $locationProvider.html5Mode(false);
+            $routeProvider.when("/", {
+                templateUrl: 'app/home/views/default.html',
+                resolve: [
+                    "homeRouteResolver", function (homeRouteResolver) {
+                        return homeRouteResolver.resolveRoute();
+                    }]
+            }).when("/about", {
+                templateUrl: 'app/home/views/about.html',
+                resolve: [
+                    "homeRouteResolver", function (homeRouteResolver) {
+                        return homeRouteResolver.resolveRoute();
+                    }]
+            }).when("/settings", {
+                templateUrl: 'app/home/views/settings.html',
+                resolve: [
+                    "homeRouteResolver", function (homeRouteResolver) {
+                        return homeRouteResolver.resolveRoute();
+                    }]
+            }).when("/404", {
+                templateUrl: 'app/home/views/404.html'
+            }).otherwise("/404");
+        }]);
 
-        $routeProvider
+    app.run([
+        "$http", "$location", "$rootScope", "$route", "currentUser", "token", function ($http, $location, $rootScope, $route, currentUser, token) {
+            $rootScope.$on("$routeChangeStart", function routeChange(event, newUrl, oldUrl) {
+                $rootScope.inViewTransition = true;
 
-        .when("/",
-        {
-            templateUrl: 'app/home/views/default.html',
-            resolve: ["homeRouteResolver", function (homeRouteResolver) {
-                return homeRouteResolver.resolveRoute();
-            }]
-        })
-        .when("/about",
-        {
-            templateUrl: 'app/home/views/about.html',
-            resolve: ["homeRouteResolver", function (homeRouteResolver) {
-                return homeRouteResolver.resolveRoute();
-            }]
-        })
-        .when("/settings",
-        {
-            templateUrl: 'app/home/views/settings.html',
-            resolve: ["homeRouteResolver", function (homeRouteResolver) {
-                return homeRouteResolver.resolveRoute();
-            }]
-        })
-        .when("/404",
-        {
-            templateUrl: 'app/home/views/404.html',
-        })
-        .otherwise("/404");
+                if (newUrl.originalPath == "/signin") {
+                    token.set({ data: null });
+                }
+                ;
 
-    }]);
+                if (newUrl.$$route && newUrl.$$route.authorizationRequired) {
+                    if (token.get() == null) {
+                        $rootScope.$evalAsync(function () {
+                            $location.path("/signin");
+                        });
+                    }
+                    ;
+                }
+                ;
+            });
 
-    app.run(["$http", "$location", "$rootScope", "$route", "currentUser", "token", function ($http, $location, $rootScope, $route, currentUser, token) {
-
-        $rootScope.$on("$routeChangeStart", function routeChange(event, newUrl, oldUrl) {
-
-            $rootScope.inViewTransition = true;
-
-            if (newUrl.originalPath == "/signin") {
-                token.set({ data: null });
-            };
-
-            if (newUrl.$$route && newUrl.$$route.authorizationRequired) {
-                if (token.get() == null) {
-                    $rootScope.$evalAsync(function () {
-                        $location.path("/signin");
-                    });
-                };
-            };
-
-        });
-
-        $rootScope.$on("$viewContentLoaded", function routeChange(event, newUrl, oldUrl) {
-            $rootScope.inViewTransition = false;
-            if ($route.current.$$route.authorizationRequired && (currentUser.get() == null || currentUser.get() == "")) {
-                $location.path("/signin");
-            };
-        });
-
-    }]);
-
+            $rootScope.$on("$viewContentLoaded", function routeChange(event, newUrl, oldUrl) {
+                $rootScope.inViewTransition = false;
+                if ($route.current.$$route.authorizationRequired && (currentUser.get() == null || currentUser.get() == "")) {
+                    $location.path("/signin");
+                }
+                ;
+            });
+        }]);
 })();
-
-
-
-
-
-
-
-
-(function () {
+//# sourceMappingURL=module.js.map
+var app;
+(function (app) {
     "use strict";
 
-    var app = angular.module("admin", ["blog", "configuration", "core", "session", "ngRoute", "ngSanitize"]);
+    app.admin = angular.module("admin", ["blog", "configuration", "common", "core", "session", "ngRoute", "ngSanitize"]);
 
-    app.config([
+    app.admin.config([
         "$routeProvider", function ($routeProvider) {
             $routeProvider.when("/admin", {
                 redirectTo: function () {
@@ -111,15 +98,16 @@
             });
         }]);
 
-    app.run([
+    app.admin.run([
         "$rootScope", "$location", function ($rootScope, $location) {
             $rootScope.$on("$viewContentLoaded", function routeChange(event, newUrl, oldUrl) {
                 $rootScope.isAdmin = $location.path().substring(0, 6) == '/admin';
             });
         }]);
-})();
+})(app || (app = {}));
 //# sourceMappingURL=module.js.map
-(function () {
+var admin;
+(function (admin) {
     "use strict";
 
     var componentId = "adminMenu";
@@ -139,12 +127,12 @@
             }
         };
     }
-})();
+})(admin || (admin = {}));
 //# sourceMappingURL=adminMenu.js.map
 (function () {
     "use strict";
 
-    var app = angular.module("blog", ["configuration", "core", "session", "ngRoute", "ngSanitize"]);
+    var app = angular.module("blog", ["configuration", "common", "core", "session", "ngRoute", "ngSanitize"]);
 
     app.config([
         "$routeProvider", function ($routeProvider) {
@@ -578,7 +566,7 @@
 (function () {
     "use strict";
 
-    var app = angular.module("book", ["configuration", "core", "session", "ngRoute"]);
+    var app = angular.module("book", ["configuration", "common", "core", "session", "ngRoute"]);
 
     app.config([
         "$routeProvider", function ($routeProvider) {
@@ -598,6 +586,75 @@
 //# sourceMappingURL=bookEditor.js.map
 //# sourceMappingURL=bookFull.js.map
 //# sourceMappingURL=bookList.js.map
+(function () {
+    "use strict";
+
+    var app = angular.module("common", ["configuration", "session"]);
+})();
+//# sourceMappingURL=module.js.map
+(function () {
+    "use strict";
+
+    var componentId = "commonHeader";
+
+    angular.module("common").directive(componentId, [component]);
+
+    function component() {
+
+        return {
+            templateUrl: "/app/common/components/commonHeader/commonHeader.html",
+            restrict: "EA",
+            replace: true,
+            scope: {},
+            link: function (scope, elem, attrs) {
+
+
+            }
+        };
+    }
+})();
+(function () {
+    "use strict";
+
+    var componentId = "identityMenu";
+
+    angular.module("common").directive(componentId, ["session", component]);
+
+    function component(session) {
+
+        return {
+            templateUrl: "/app/common/components/identityMenu/identityMenu.html",
+            restrict: "EA",
+            replace: true,
+            scope: {},
+            link: function (scope, elem, attrs) {
+
+                scope.session = session;
+            }
+        };
+    }
+})();
+(function () {
+    "use strict";
+
+    var componentId = "commonLogo";
+
+    angular.module("common").directive(componentId, [component]);
+
+    function component() {
+
+        return {
+            templateUrl: "/app/common/components/commonLogo/commonLogo.html",
+            restrict: "EA",
+            replace: true,
+            scope: {},
+            link: function (scope, elem, attrs) {
+
+
+            }
+        };
+    }
+})();
 (function () {
     "use strict";
 
@@ -640,69 +697,6 @@
     var app = angular.module("core", ["configuration", "session"]);
 })();
 //# sourceMappingURL=module.js.map
-(function () {
-    "use strict";
-
-    var componentId = "coreHeader";
-
-    angular.module("core").directive(componentId, [component]);
-
-    function component() {
-
-        return {
-            templateUrl: "/app/core/components/coreHeader/coreHeader.html",
-            restrict: "EA",
-            replace: true,
-            scope: {},
-            link: function (scope, elem, attrs) {
-
-
-            }
-        };
-    }
-})();
-(function () {
-    "use strict";
-
-    var componentId = "coreIdentityMenu";
-
-    angular.module("core").directive(componentId, ["session", component]);
-
-    function component(session) {
-
-        return {
-            templateUrl: "/app/core/components/coreIdentityMenu/coreIdentityMenu.html",
-            restrict: "EA",
-            replace: true,
-            scope: {},
-            link: function (scope, elem, attrs) {
-
-                scope.session = session;
-            }
-        };
-    }
-})();
-(function () {
-    "use strict";
-
-    var componentId = "coreLogo";
-
-    angular.module("core").directive(componentId, [component]);
-
-    function component() {
-
-        return {
-            templateUrl: "/app/core/components/coreLogo/coreLogo.html",
-            restrict: "EA",
-            replace: true,
-            scope: {},
-            link: function (scope, elem, attrs) {
-
-
-            }
-        };
-    }
-})();
 (function () {
 
     "use strict";
@@ -780,6 +774,10 @@
 
 })();
 
+//# sourceMappingURL=module.js.map
+//# sourceMappingURL=feedbackService.js.map
+//# sourceMappingURL=module.js.map
+//# sourceMappingURL=feedbackService.js.map
 (function () {
     "use strict";
 
@@ -862,10 +860,16 @@
     }
 })();
 //# sourceMappingURL=homeService.js.map
+//# sourceMappingURL=liveTile.js.map
+//# sourceMappingURL=module.js.map
+//# sourceMappingURL=module.js.map
+//# sourceMappingURL=notificationService.js.map
+//# sourceMappingURL=module.js.map
+//# sourceMappingURL=feedbackService.js.map
 (function () {
     "use strict";
 
-    var app = angular.module("search", ["configuration", "core"]);
+    var app = angular.module("search", ["configuration", "common", "core"]);
 })();
 //# sourceMappingURL=module.js.map
 (function () {
@@ -939,7 +943,7 @@
 (function () {
     "use strict";
 
-    var app = angular.module("session", ["configuration", "core"]);
+    var app = angular.module("session", ["configuration", "common", "core"]);
 })();
 //# sourceMappingURL=module.js.map
 (function () {
@@ -1144,7 +1148,187 @@
 (function () {
     "use strict";
 
-    var app = angular.module("user", ["configuration", "core", "session"]);
+    var app = angular.module("trainingPlan", ["configuration", "common", "core", "session", "ngRoute"]);
+
+    app.config([
+        "$routeProvider", function ($routeProvider) {
+            $routeProvider.when("/trainingPlan/:slug", {
+                templateUrl: "/app/trainingPlan/views/default.html",
+                resolve: [
+                    "trainingPlanRouteResolver", function (trainingPlanRouteResolver) {
+                        return trainingPlanRouteResolver.resolveRoute();
+                    }],
+                authorizationRequired: false
+            });
+        }
+    ]);
+})();
+//# sourceMappingURL=module.js.map
+(function () {
+    "use strict";
+
+    var serviceId = "trainingPlanRouteResolver";
+
+    angular.module("trainingPlan").service(serviceId, ["$location", "$q", "$route", "trainingPlanService", "configurationService", "identityService", service]);
+
+    function service($location, $q, $route, trainingPlanService, configurationService, identityService) {
+        var self = this;
+
+        self.resolveRoute = function resolveRoute() {
+            return configurationService.get().then(function () {
+                return identityService.getCurrentUser().then(function () {
+                    if ($route.current.params.id) {
+                        return trainingPlanService.getById({ id: $route.current.params.id }).then(function () {
+                        });
+                    } else if ($route.current.params.slug) {
+                        return trainingPlanService.getBySlug({ slug: $route.current.params.slug }).then(function () {
+                        });
+                    } else {
+                        return trainingPlanService.getAll().then(function () {
+                        });
+                    }
+                });
+            });
+        };
+
+        return self;
+    }
+    ;
+})();
+//# sourceMappingURL=trainingPlanRouteResolver.js.map
+(function () {
+    "use strict";
+
+    var dataServiceId = "trainingPlanService";
+
+    angular.module("blog").service(dataServiceId, ["$http", "$q", "$rootScope", "trainingPlanStatuses", dataService]);
+
+    function dataService($http, $q, $rootScope, trainingPlanStatuses) {
+        var self = this;
+
+        var baseUri = "api/trainingPlan/";
+
+        self.cache = {
+            getAll: null,
+            getById: null,
+            getBySlug: null
+        };
+
+        $rootScope.$on("$locationChangeStart", function () {
+            self.clearCache();
+        });
+
+        self.clearCache = function clearCache() {
+            self.cache = {
+                getAll: null,
+                getById: null,
+                getBySlug: null
+            };
+        };
+
+        self.getAll = function getAll(params) {
+            if (self.cache.getAll) {
+                var deferred = $q.defer();
+
+                deferred.resolve(self.cache.getAll);
+
+                return deferred.promise;
+            }
+            ;
+
+            return $http({ method: "GET", url: baseUri + "getAll", params: params }).then(function (results) {
+                self.cache.getAll = results.data;
+
+                return results.data;
+            }).catch(function (error) {
+            });
+        };
+
+        self.getById = function getById(params) {
+            if (self.cache.getById && self.cache.getById.id == params.id) {
+                var deferred = $q.defer();
+
+                deferred.resolve(self.cache.getById);
+
+                return deferred.promise;
+            }
+            ;
+
+            return $http({ method: "GET", url: baseUri + "getbyid?id=" + params.id }).then(function (results) {
+                self.cache.getById = results.data;
+
+                return results.data;
+            }).catch(function (error) {
+            });
+        };
+
+        self.getBySlug = function getBySlug(params) {
+            if (self.cache.getBySlug && self.cache.getBySlug.slug == params.slug) {
+                var deferred = $q.defer();
+
+                deferred.resolve(self.cache.getBySlug);
+
+                return deferred.promise;
+            }
+            ;
+
+            return $http({ method: "GET", url: baseUri + "getbyslug?slug=" + params.slug }).then(function (results) {
+                self.cache.getBySlug = results.data;
+
+                return results.data;
+            }).catch(function (error) {
+            });
+        };
+
+        self.remove = function remove(params) {
+            return $http({ method: "DELETE", url: baseUri + "delete?id=" + params.id }).then(function (results) {
+                self.clearCache();
+
+                return results;
+            }).catch(function (error) {
+            });
+        };
+
+        self.add = function add(params) {
+            return $http({ method: "POST", url: baseUri + "add", data: JSON.stringify(params.model) }).then(function (results) {
+                self.clearCache();
+
+                return results;
+            }).catch(function (error) {
+            });
+        };
+
+        self.publish = function publish(params) {
+            params.model.pubDate = Date.now;
+
+            params.model.status = trainingPlanStatuses().published;
+
+            return self.update({ model: params.model });
+        };
+
+        self.approve = function approve(params) {
+            params.model.status = trainingPlanStatuses().approved;
+
+            return self.update({ model: params.model });
+        };
+
+        self.update = function update(params) {
+            return $http({ method: "PUT", url: baseUri + "update", data: JSON.stringify(params.model) }).then(function (results) {
+                self.clearCache();
+
+                return results;
+            }).catch(function (error) {
+            });
+        };
+
+        return self;
+    }
+})();
+//# sourceMappingURL=trainingPlanService.js.map
+(function () {
+    "use strict";
+
+    var app = angular.module("user", ["configuration", "common", "core", "session"]);
 
     app.config([
         "$routeProvider", function ($routeProvider) {
@@ -1510,7 +1694,7 @@
 (function () {
     "use strict";
 
-    var app = angular.module("youTube", ["configuration", "core", "session", "ngRoute"]);
+    var app = angular.module("youTube", ["configuration", "common", "core", "session", "ngRoute"]);
 
     app.config([
         "$routeProvider", function ($routeProvider) {

@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    var app = angular.module("youTube", ["configuration", "core", "session", "ngRoute"]);
+    var app = angular.module("youTube", ["configuration", "common", "core", "session", "ngRoute"]);
 
     app.config([
         "$routeProvider", function ($routeProvider) {

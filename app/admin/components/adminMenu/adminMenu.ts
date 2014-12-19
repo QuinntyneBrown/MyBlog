@@ -1,4 +1,6 @@
-﻿(function () {
+﻿declare var angular: ng.IAngularStatic;
+
+module admin {
 
     "use strict";
 
@@ -23,5 +25,4 @@
             }
         };
     }
-
-})();
+}

@@ -26,6 +26,9 @@ namespace MyBlog.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<YouTubeVideo> YouTubeVideos { get; set; }
+        public DbSet<FeedBack> FeedBacks { get; set; }
+        public DbSet<TrainingPlan> TrainingPlans { get; set; }
+        public DbSet<Course> Courses { get; set; }
 
         public override int SaveChanges()
         {

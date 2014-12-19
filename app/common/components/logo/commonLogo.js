@@ -1,14 +1,14 @@
 ﻿(function () {
     "use strict";
 
-    var componentId = "coreHeader";
+    var componentId = "commonLogo";
 
-    angular.module("core").directive(componentId, [component]);
+    angular.module("common").directive(componentId, [component]);
 
     function component() {
 
         return {
-            templateUrl: "/app/core/components/coreHeader/coreHeader.html",
+            templateUrl: "/app/common/components/commonLogo/commonLogo.html",
             restrict: "EA",
             replace: true,
             scope: {},

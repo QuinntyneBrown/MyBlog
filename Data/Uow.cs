@@ -34,9 +34,13 @@ namespace MyBlog.Data
         public IRepository<Article> Articles { get { return GetStandardRepo<Article>(); } }
         public IRepository<Book> Books { get { return GetStandardRepo<Book>(); } }
         public IRepository<Configuration> Configurations { get { return GetStandardRepo<Configuration>(); } }
+        public IRepository<Course> Courses { get { return GetStandardRepo<Course>(); } }
         public IRepository<Session> Sessions { get { return GetStandardRepo<Session>();  } }
         public IRepository<User> Users { get { return GetStandardRepo<User>(); } }       
         public IRepository<YouTubeVideo> YouTubeVideos { get { return GetStandardRepo<YouTubeVideo>(); } }
+        public IRepository<FeedBack> FeedBacks { get { return GetStandardRepo<FeedBack>(); } }
+        public IRepository<TrainingPlan> TrainingPlans { get { return GetStandardRepo<TrainingPlan>(); } }
+
         public void SaveChanges()
         {
             this.DbContext.SaveChanges();

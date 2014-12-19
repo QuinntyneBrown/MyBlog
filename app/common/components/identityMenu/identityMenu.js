@@ -1,14 +1,14 @@
 ﻿(function () {
     "use strict";
 
-    var componentId = "coreIdentityMenu";
+    var componentId = "identityMenu";
 
-    angular.module("core").directive(componentId, ["session", component]);
+    angular.module("common").directive(componentId, ["session", component]);
 
     function component(session) {
 
         return {
-            templateUrl: "/app/core/components/coreIdentityMenu/coreIdentityMenu.html",
+            templateUrl: "/app/common/components/identityMenu/identityMenu.html",
             restrict: "EA",
             replace: true,
             scope: {},

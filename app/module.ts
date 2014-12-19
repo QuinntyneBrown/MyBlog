@@ -10,12 +10,14 @@
         "admin",
         "blog",
         "book",
+        "common", 
         "configuration",
         "core",
         "search",
         "session",
+        "trainingPlan",
         "user",
-        "youtube"
+        "youTube"
     ]);
 
     app.config(["$httpProvider", "$locationProvider", "$routeProvider", "$rootScopeProvider", function ($httpProvider, $locationProvider, $routeProvider, $rootScopeProvider) {

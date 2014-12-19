@@ -9,12 +9,14 @@
         "admin",
         "blog",
         "book",
+        "common",
         "configuration",
         "core",
         "search",
         "session",
+        "trainingPlan",
         "user",
-        "youtube"
+        "youTube"
     ]);
 
     app.config([

@@ -1,4 +1,5 @@
-﻿(function () {
+﻿var admin;
+(function (admin) {
     "use strict";
 
     var componentId = "adminMenu";
@@ -18,5 +19,5 @@
             }
         };
     }
-})();
+})(admin || (admin = {}));
 //# sourceMappingURL=adminMenu.js.map
